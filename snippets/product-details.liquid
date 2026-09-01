@@ -1,0 +1,132 @@
+<style>
+  #cg-product-details {
+    --cg-details-text-size: var(--cg-liquid-text-size, 14px);
+    --cg-details-icon-size: var(--cg-liquid-icon-size, 18px);
+    --cg-details-column-gap: 10px;
+    --cg-details-row-gap: 0px;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--cg-details-row-gap);
+    margin: 0;
+    padding: 0;
+  }
+
+  #cg-product-details .cg-detail-row {
+    display: grid;
+    grid-template-columns: var(--cg-details-icon-size) minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--cg-details-column-gap);
+    min-height: var(--cg-details-icon-size);
+    margin: 0;
+    padding: 0;
+    font-size: var(--cg-details-text-size) !important;
+    line-height: 1.05;
+    color: #1c1c1c;
+  }
+
+  #cg-product-details .cg-detail-row + .cg-detail-row {
+    margin-top: 1px;
+  }
+
+  #cg-product-details .cg-detail-icon,
+  #cg-product-details .cg-stock-dot-holder {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--cg-details-icon-size);
+    height: var(--cg-details-icon-size);
+    margin: 0;
+    padding: 0;
+  }
+
+  #cg-product-details .cg-detail-icon img {
+    display: block;
+    width: var(--cg-details-icon-size) !important;
+    height: var(--cg-details-icon-size) !important;
+    min-width: var(--cg-details-icon-size) !important;
+    max-width: var(--cg-details-icon-size) !important;
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+  }
+
+  #cg-product-details .cg-detail-icon--truck img {
+    transform: scale(1.15);
+  }
+
+  #cg-product-details .cg-stock-row {
+    color: {{ settings.blinktext_TextColor }} !important;
+  }
+
+  #cg-product-details .cg-stock-dot-holder {
+    left: 1px;
+  }
+
+  #cg-product-details .cg-stock-dot {
+    position: relative;
+    display: block;
+    width: calc(var(--cg-details-icon-size) * 0.48);
+    height: calc(var(--cg-details-icon-size) * 0.48);
+    border-radius: 50%;
+    background-color: {{ settings.blinktext_IconColor }};
+  }
+
+  #cg-product-details .cg-stock-dot::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    border-radius: 50%;
+    background-color: {{ settings.blinktext_IconColor }};
+    animation: cg-stock-pulse 2s infinite;
+  }
+
+  #cg-product-details strong {
+    font-weight: 600;
+  }
+
+  @keyframes cg-stock-pulse {
+    0% {
+      transform: scale(0.35);
+      box-shadow: 0 0 {{ settings.blinktext_IconColor }};
+      opacity: 0.4;
+    }
+    70% {
+      transform: scale(0.35);
+      box-shadow: 0 0 0 10px {{ settings.blinktext_IconColor }};
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(0.35);
+      box-shadow: 0 0 {{ settings.blinktext_IconColor }};
+      opacity: 0.4;
+    }
+  }
+</style>
+
+{% if settings.show_productdetails %}
+  <div id="cg-product-details">
+    <div class="cg-detail-row cg-stock-row">
+      <span class="cg-stock-dot-holder" aria-hidden="true">
+        <span class="cg-stock-dot"></span>
+      </span>
+      <span>{{ settings.blinktext_Text }}</span>
+    </div>
+
+    <div class="cg-detail-row">
+      <span class="cg-detail-icon" aria-hidden="true">
+        <img src="{{ 'Carter_Gray_-_30Days.png' | file_url }}" alt="" width="24" height="24">
+      </span>
+      <span><strong>30-Day</strong> Hassle-Free Returns</span>
+    </div>
+
+    <div class="cg-detail-row">
+      <span class="cg-detail-icon cg-detail-icon--truck" aria-hidden="true">
+        <img src="{{ 'Carter_Gray_-_Delivery.png' | file_url }}" alt="" width="24" height="24">
+      </span>
+      <span><strong>Free U.S. Shipping</strong> on all orders</span>
+    </div>
+  </div>
+{% endif %}
+

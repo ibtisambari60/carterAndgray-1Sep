@@ -1,0 +1,62 @@
+{% if settings.show_trustpilot_top %}
+  <div class="truststarsdiv" style="margin:10px 0px 0px 0px">	
+    <a href="#reviews" style="text-decoration:none; color:#000000;">
+      {% case settings.rating %}
+  
+  {% when '4' %}
+  <img 
+    src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/stars-4.svg?v=1773232465"
+    alt="4 stars"
+    class="rating-image"
+  >
+
+  {% when '4.5' %}
+  <img 
+    src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/images_5.png?v=1773232432"
+    alt="4.5 stars"
+    class="rating-image"
+  >
+
+  {% when '4.7' %}
+  <img 
+    src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/images_5.png?v=1773232432"
+    alt="4.7 stars"
+    class="rating-image"
+  >
+{%comment %}
+  {% when '5' %}
+  <img 
+    src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/trustpilot-logo.png?v=1773232434"
+    alt="5 stars"
+    class="rating-image"
+  > {% endcomment %}
+
+{% endcase %}
+      <p style="display:inline-block; margin:0px; font-size: 12px !important; font-weight: 500 !important;">{{ settings.trustpilot_top_text | default: "4,7 | 1230+ beoordelingen " }}</p>
+    </a>
+  </div>
+{% endif %} 
+ 
+ 
+<style>
+    .truststarsdiv {
+      margin: -15px 0px !important;
+    }
+  .truststarsdiv a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    margin-left: -6px !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s ease !important;
+  }
+  .truststarsdiv a:hover {
+    opacity: 0.75 !important;
+  }
+  .truststarsdiv img {
+    max-width: 90px !important;
+    width: 100% !important;
+    position: relative !important;
+    bottom: 2px !important;
+  }
+</style>

@@ -1,0 +1,1351 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "liquid_JkGCXr": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<nav class=\"custom-breadcrumbs\">\n  <a href=\"{{ routes.root_url }}\">Home</a>\n  <span> / </span>\n  <a id=\"breadcrumb-collection\" style=\"display:none;\"></a>\n  <span id=\"breadcrumb-divider\" style=\"display:none;\"> / </span>\n  <span class=\"breadcrumb-current\">{{ product.title }}</span>\n</nav>\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  function decodeHtmlEntities(text) {\n    var textarea = document.createElement('textarea');\n    textarea.innerHTML = text;\n    return textarea.value;\n  }\n\n  var link = document.getElementById('breadcrumb-collection');\n  var divider = document.getElementById('breadcrumb-divider');\n  var url = null;\n  var title = null;\n\n  {% if collection %}\n    url = {{ collection.url | json }};\n    title = {{ collection.title | json }};\n  {% else %}\n    var cameFromCollectionPage = document.referrer.indexOf('/collections/') !== -1;\n    if (cameFromCollectionPage) {\n      url = sessionStorage.getItem('breadcrumbCollectionUrl');\n      title = sessionStorage.getItem('breadcrumbCollectionTitle');\n    } else {\n      sessionStorage.removeItem('breadcrumbCollectionUrl');\n      sessionStorage.removeItem('breadcrumbCollectionTitle');\n    }\n  {% endif %}\n\n  if (url && title) {\n    link.href = url;\n    link.textContent = decodeHtmlEntities(title);\n    link.style.display = 'inline';\n    divider.style.display = 'inline';\n  }\n});\n</script>",
+            "cg_enable_liquid_styling": false,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "liquid_idtLQy": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<nav class=\"custom-breadcrumbs\">\n  <a href=\"{{ routes.root_url }}\">Home</a>\n  <span>/</span>\n\n  <a href=\"/collections/all\">All Products</a>\n  <span>/</span>\n\n  <span class=\"breadcrumb-current\">{{ product.title }}</span>\n</nav>",
+            "cg_enable_liquid_styling": false,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "liquid_JkFaM7": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{% render 'product-title' %}",
+            "cg_enable_liquid_styling": false,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "selluxe_sale_announcement_DFmrz8": {
+          "type": "selluxe-sale-announcement",
+          "disabled": true,
+          "settings": {
+            "header": "",
+            "sale_text": "Model is 170cm en draagt S.",
+            "show_icon": true,
+            "icon_height": 20,
+            "sale_background_color": "#e1d4c3",
+            "sale_text_color": "#1c1c1c",
+            "align_text": "left",
+            "margin_top": 8,
+            "margin_bottom": 8,
+            "padding_top": 10,
+            "padding_bottom": 10,
+            "padding_left": 12,
+            "padding_right": 12,
+            "sale_font_size": 14
+          }
+        },
+        "kiwi_size_chart_recommender_kiwi_sizing_rJWYVA": {
+          "type": "shopify://apps/kiwi-size-chart-recommender/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
+          "settings": {
+            "fallbackToBlockPosition": false,
+            "waitForElementSelector": "",
+            "waitForElementDelay": 5
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "color",
+            "size_chart_page": "",
+            "cg_option_label_size": 14,
+            "cg_option_label_weight": "700",
+            "cg_option_label_bottom": 9,
+            "cg_option_spacing": 26,
+            "cg_thumb_width_mobile": 58,
+            "cg_thumb_height_mobile": 82,
+            "cg_thumb_width_desktop": 70,
+            "cg_thumb_height_desktop": 100,
+            "cg_thumb_gap": 4,
+            "cg_thumb_padding": 2,
+            "cg_thumb_radius": 0,
+            "cg_thumb_border_width": 1,
+            "cg_thumb_selected_width": 2,
+            "cg_thumb_border_color": "#d5d5d5",
+            "cg_thumb_selected_color": "#171717",
+            "cg_thumb_background": "#f7f7f5",
+            "cg_size_min_width_mobile": 42,
+            "cg_size_min_width_desktop": 58,
+            "cg_size_height": 31,
+            "cg_size_gap": 4,
+            "cg_size_font": 12,
+            "cg_size_weight": "400",
+            "cg_size_radius": 2,
+            "cg_size_border_width": 1,
+            "cg_size_border_color": "#cecece",
+            "cg_size_text_color": "#555555",
+            "cg_size_background": "#ffffff",
+            "cg_size_selected_background": "#252525",
+            "cg_size_selected_text": "#ffffff",
+            "cg_size_selected_border": "#252525",
+            "cg_size_chart_font": 14,
+            "cg_size_chart_weight": "500"
+          }
+        },
+        "fogella_dot_LbbNTQ": {
+          "type": "fogella_dot",
+          "disabled": true,
+          "settings": {
+            "dot_start_text": "Op voorraad en klaar om te verzenden",
+            "dot_count_text": "",
+            "count_text_color": "#1c1c1c",
+            "dot_end_text": "",
+            "dot_color": "#307a07",
+            "dot_text_color": false,
+            "dot_size": 12,
+            "dot_font_size": 16,
+            "margin_top": 0,
+            "margin_bottom": -5
+          }
+        },
+        "liquid_yALtCz": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<style>\n:root{\n  --usp-shift-x: 10px;   /* verplaatst alles naar links, pas 0 → -10px voor fine-tune */\n  --icon-size: 24px;\n  --gap: 8px;\n  --dot-size: 12px;\n  --dot-nudge-y: 1px;\n}\n\n/* Hele container naar links verschoven */\n.usp-wrap{\n  transform: translateX(var(--usp-shift-x));\n}\n\n.usp-line{\n  display: flex;\n  align-items: center;\n  gap: var(--gap);\n  font-size: 16px;\n  color: #1C1C1C;\n  margin: 0 0 10px 0;\n}\n\n/* Uniforme icon-slot */\n.usp-line .icon{\n  width: var(--icon-size);\n  height: var(--icon-size);\n  flex: 0 0 var(--icon-size);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* Afbeeldingsiconen */\n.usp-line img{\n  width: var(--icon-size);\n  height: var(--icon-size);\n  object-fit: contain;\n  display: block;\n}\n\n/* Groene dot — 100% stabiel rond en gecentreerd */\n.usp-line .dot{\n  width: var(--dot-size);\n  height: var(--dot-size);\n  min-width: var(--dot-size);\n  min-height: var(--dot-size);\n  border-radius: 50%;\n  background: #307A07;\n  box-shadow: 0 0 0 6px rgba(48,122,7,0.15);\n  animation: pulse 1.8s infinite ease-in-out;\n  transform: translateY(var(--dot-nudge-y));\n}\n\n@keyframes pulse{\n  0%   { box-shadow:0 0 0 6px rgba(48,122,7,0.15); transform:translateY(var(--dot-nudge-y)) scale(1); }\n  50%  { box-shadow:0 0 0 10px rgba(48,122,7,0.05); transform:translateY(var(--dot-nudge-y)) scale(1.05); }\n  100% { box-shadow:0 0 0 6px rgba(48,122,7,0.15); transform:translateY(var(--dot-nudge-y)) scale(1); }\n}\n\n.usp-line b{ font-weight:700; }\n</style>\n\n<div class=\"usp-wrap\">\n  <div class=\"usp-line\">\n    <span class=\"icon\"><span class=\"dot\"></span></span>\n    <span>Op voorraad en klaar om te verzenden</span>\n  </div>\n\n  <div class=\"usp-line\">\n    <span class=\"icon\">\n      <img src=\"{{ 'delivery-status_1.png' | file_url }}\" alt=\"Retourneren icoon\">\n    </span>\n    <span><b>30 dagen</b> zorgeloos retourneren</span>\n  </div>\n\n  <div class=\"usp-line\">\n    <span class=\"icon\">\n      <img src=\"{{ 'delivery-truck_2.png' | file_url }}\" alt=\"Gratis verzending icoon\">\n    </span>\n    <span><b>Gratis</b> verzending</span>\n  </div>\n</div>",
+            "cg_enable_liquid_styling": false,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "liquid_LTXPAa": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{% render 'product-details' %}",
+            "cg_enable_liquid_styling": true,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "liquid_iwgp98": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<style>\n.cg-trust-list{\n    display:flex;\n    flex-direction:column;\n    gap:2px;\n    margin:2px 0 2px;\n    padding:0;\n}\n\n.cg-trust-row{\n    display:grid;\n    grid-template-columns:20px 1fr;\n    column-gap:12px;\n    align-items:center;\n\n    margin:0;\n    padding:0;\n\n    min-height:20px;\n\n    font-size:14px;\n    line-height:1.15;\n    color:#1C1C1C;\n}\n\n.cg-trust-row__icon,\n.cg-trust-row__dot-holder{\n    width:20px;\n    height:20px;\n\n    display:flex;\n    align-items:center;\n    justify-content:center;\n}\n\n.cg-trust-row__icon img{\n    width:18px;\n    height:18px;\n    display:block;\n    object-fit:contain;\n}\n\n.cg-trust-row__icon--truck img{\n    transform:scale(1.15);\n}\n\n.cg-trust-row__dot-holder{\n    position:relative;\n    left:0;\n    transform:translateX(-1px);\n}\n.cg-trust-row__dot{\n    width:9px;\n    height:9px;\n\n    border-radius:50%;\n    background:{{ settings.blinktext_IconColor }};\n\n    position:relative;\n}\n\n.cg-trust-row__dot::before{\n    content:\"\";\n    position:absolute;\n\n    width:22px;\n    height:22px;\n\n    top:-6.5px;\n    left:-6.5px;\n\n    border-radius:50%;\n    background:{{ settings.blinktext_IconColor }};\n\n    animation:cgPulse 2s infinite;\n}\n\n@keyframes cgPulse{\n\n0%{\ntransform:scale(.35);\nbox-shadow:0 0 {{ settings.blinktext_IconColor }};\nopacity:.4;\n}\n\n70%{\ntransform:scale(.35);\nbox-shadow:0 0 0 10px {{ settings.blinktext_IconColor }};\nopacity:.4;\n}\n\n100%{\ntransform:scale(.35);\nbox-shadow:0 0 {{ settings.blinktext_IconColor }};\nopacity:.4;\n}\n\n}\n\n.cg-trust-row--available{\n    color:{{ settings.blinktext_TextColor }};\n}\n\n.cg-trust-row strong,\n.cg-trust-row--available span:last-child{\n    font-weight:600;\n}\n</style>\n\n<div class=\"cg-trust-list\">\n\n<div class=\"cg-trust-row cg-trust-row--available\">\n\n<div class=\"cg-trust-row__dot-holder\">\n<div class=\"cg-trust-row__dot\"></div>\n</div>\n\n<span>{{ settings.blinktext_Text | default: \"Available\" }}</span>\n\n</div>\n\n<div class=\"cg-trust-row\">\n\n<div class=\"cg-trust-row__icon\">\n<img src=\"{{ 'Carter_Gray_-_30Days.png' | file_url }}\" alt=\"\">\n</div>\n\n<span><strong>30-Day</strong> Hassle-Free Returns</span>\n\n</div>\n\n<div class=\"cg-trust-row\">\n\n<div class=\"cg-trust-row__icon cg-trust-row__icon--truck\">\n<img src=\"{{ 'Carter_Gray_-_Delivery.png' | file_url }}\" alt=\"\">\n</div>\n\n<span><strong>Free U.S. Shipping</strong> on all orders</span>\n\n</div>\n\n</div>",
+            "cg_enable_liquid_styling": false,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": false,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "#000000",
+            "atc_button_text_color": "#ffffff",
+            "payment_button_background": "#000000",
+            "payment_button_text_color": "#000000"
+          }
+        },
+        "liquid_yjPqef": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<div style=\"display:flex;justify-content:center;align-items:center;gap:8px;margin:-28px 0 -6px 0;flex-wrap:wrap;\">\n  <img src=\"{{ 'amex-svgrepo-com_2.svg' | file_url }}\" alt=\"American Express\" style=\"height:32px;width:auto;display:block;\">\n  <img src=\"{{ 'apple-pay-svgrepo-com_1.svg' | file_url }}\" alt=\"Apple Pay\" style=\"height:32px;width:auto;display:block;\">\n  <img src=\"{{ 'google-pay-svgrepo-com_2.svg' | file_url }}\" alt=\"Google Pay\" style=\"height:32px;width:auto;display:block;\">\n  <img src=\"{{ 'mastercard-svgrepo-com_2.svg' | file_url }}\" alt=\"Mastercard\" style=\"height:32px;width:auto;display:block;\">\n  <img src=\"{{ 'Shop-pay-logo.avif' | file_url }}\" alt=\"Shop Pay\" style=\"height:22px;max-width:58px;width:auto;display:block;\">\n  <img src=\"{{ 'visa-svgrepo-com_2.svg' | file_url }}\" alt=\"Visa\" style=\"height:32px;width:auto;display:block;\">\n</div>",
+            "cg_enable_liquid_styling": false,
+            "cg_liquid_text_size": 14,
+            "cg_liquid_icon_size": 18
+          }
+        },
+        "complementary_products": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "Pairs well with",
+            "products_count": 2,
+            "show_below_gallery": true,
+            "stack_products": false,
+            "show_quick_buy": true
+          }
+        },
+        "description_dtjwEH": {
+          "type": "description",
+          "settings": {
+            "collapse_content": true,
+            "open": false,
+            "show_below_gallery": false,
+            "cg_accordion_title_size": 12,
+            "cg_accordion_row_height": 46,
+            "cg_accordion_plus_size": 12,
+            "cg_accordion_content_size": 12
+          }
+        },
+        "accordion_t9RwXk": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": false,
+            "open": false,
+            "icon": "none",
+            "title": "Shipping Information",
+            "content": "<p>We offer free standard shipping on every order placed for delivery within the United States, with no minimum spend.<br/><br/>Each shipment includes full tracking and is handled through secure, premium shipping services to ensure a safe and dependable arrival.<br/><br/>Shipping origin: Orders ship directly from our warehouse in China.<br/><br/>Processing time (handling): 2–3 business days (Monday–Friday)<br/>Transit time: 4–9 business days (Monday–Friday)<br/>Estimated total delivery time: 6–12 business days<br/><br/>Order cut-off: 6:00 PM (EST)<br/><br/>Please note: Shipping times are estimates and may be affected by carrier delays, peak periods or severe weather.<br/><br/></p>",
+            "liquid": "",
+            "page": "",
+            "cg_accordion_title_size": 12,
+            "cg_accordion_row_height": 46,
+            "cg_accordion_plus_size": 12,
+            "cg_accordion_content_size": 12
+          }
+        },
+        "accordion_aVP4Uk": {
+          "type": "accordion",
+          "settings": {
+            "show_below_gallery": false,
+            "open": false,
+            "icon": "none",
+            "title": "Return Policy",
+            "content": "<p>We want you to feel confident in your purchase. If for any reason it isn't quite right, you may return or exchange your order within 30 days of receipt.<br/><br/>Return conditions: Items must be unworn, unused, with tags attached, and in their original packaging. Proof of purchase is required.<br/><br/>Return costs:<br/>- If an item is defective or arrives damaged, we cover the return shipping cost.<br/>- In all other cases (e.g. sizing or preference), return shipping costs are the responsibility of the customer.<br/><br/>Return address: Approved returns must be shipped back to our warehouse in China.<br/><br/>How to start a return: Email us at info@carterandgray.com with your order number and details of the return. We'll review your request and confirm the next steps.<br/><br/>Refunds: Once your return has been received and inspected, approved refunds are issued to the original payment method within 10 business days. Please allow additional time for your bank or card provider to process the transaction.<br/><br/>For further details, please refer to our Return & Refund Policy.</p>",
+            "liquid": "",
+            "page": "",
+            "cg_accordion_title_size": 12,
+            "cg_accordion_row_height": 46,
+            "cg_accordion_plus_size": 12,
+            "cg_accordion_content_size": 14
+          }
+        }
+      },
+      "block_order": [
+        "liquid_JkGCXr",
+        "liquid_idtLQy",
+        "title",
+        "liquid_JkFaM7",
+        "price",
+        "selluxe_sale_announcement_DFmrz8",
+        "kiwi_size_chart_recommender_kiwi_sizing_rJWYVA",
+        "variant_picker",
+        "fogella_dot_LbbNTQ",
+        "liquid_yALtCz",
+        "liquid_LTXPAa",
+        "liquid_iwgp98",
+        "separator",
+        "buy_buttons",
+        "liquid_yjPqef",
+        "complementary_products",
+        "description_dtjwEH",
+        "accordion_t9RwXk",
+        "accordion_aVP4Uk"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "scheme-acc84aea-aef0-4a13-9bf1-d0ad2d331451",
+        "container_size": "lg",
+        "product_info_size": 50,
+        "show_sticky_add_to_cart": true,
+        "center_basic_info": false,
+        "desktop_media_layout": "carousel_thumbnails_bottom",
+        "desktop_media_grid_gap": 30,
+        "mobile_controls": "free_scroll",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3,
+        "show_banner": "all",
+        "banner_heading": "{{ product.metafields.custom.badge.value }}",
+        "banner_body": "",
+        "banner_heading_size": 14,
+        "banner_body_size": 12,
+        "banner_position": 10,
+        "banner_bg": "#2f3e46",
+        "font_color": "#ffffff"
+      }
+    },
+    "cg_tabbed_premium_slider_4cbUCc": {
+      "type": "cg-tabbed-premium-slider",
+      "blocks": {
+        "slider_item_6WXEmd": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "boots-women",
+            "product": "",
+            "custom_image": "shopify://shop_images/Women_s_Cowboy_Boots_Knee_High_Cow_Print-2.jpg",
+            "image_position": "center center",
+            "custom_title": "WOMEN'S BOOTS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_y7zmY3": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "hoodies-sweatshirts-men",
+            "product": "",
+            "custom_image": "shopify://shop_images/Men_s_Zip_Up_Hoodie_Full_Zip_Ribbed_Knit-11.jpg",
+            "image_position": "center 10%",
+            "custom_title": "MEN'S SWEATSHIRTS & HOODIES",
+            "custom_link": ""
+          }
+        },
+        "slider_item_3NLnkY": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "dresses",
+            "product": "",
+            "custom_image": "shopify://shop_images/Women_s_Sequin_Dress_Crew_Neck_Balloon_Sleeve_Mini-1.png",
+            "image_position": "center 10%",
+            "custom_title": "DRESSES",
+            "custom_link": ""
+          }
+        },
+        "slider_item_xAwhCh": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "sweaters-cardigans-men",
+            "product": "",
+            "custom_image": "shopify://shop_images/Men_s_Knitted_Jumper_Half_Zip_Cable_Knit-5_1dde118a-647d-480f-a131-302a387f3047.png",
+            "image_position": "center 10%",
+            "custom_title": "MEN'S SWEATERS & CARDIGANS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_WezG4g": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "sweaters-cardigans-women",
+            "product": "",
+            "custom_image": "shopify://shop_images/Women_s_Jumper_Roll_Neck_with_Ribbed_Trims-14_ff1ce8b2-8904-4183-9d6e-42024f589174.png",
+            "image_position": "center 10%",
+            "custom_title": "WOMEN'S SWEATERS & CARDIGANS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_76Nrdn": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "sneakers-women",
+            "product": "",
+            "custom_image": "shopify://shop_images/Women_s_Sneakers_Chunky_Sole_with_Color_Block_Panels-3.jpg",
+            "image_position": "center 20%",
+            "custom_title": "WOMEN'S SNEAKERS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_KMw6EH": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "shoes-men",
+            "product": "",
+            "custom_image": "shopify://shop_images/Men_s_Ankle_Boots_Side_Zip_with_Moc_Toe_Stitching-2.png",
+            "image_position": "center center",
+            "custom_title": "MEN'S SHOES",
+            "custom_link": ""
+          }
+        },
+        "slider_item_fqW8GF": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "coats-jackets-men",
+            "product": "",
+            "custom_image": "shopify://shop_images/Men_s_Coat_Mid_Length_Button_Front-6_0f2ccf33-2846-45ff-a423-5975c096d6e3.png",
+            "image_position": "center 10%",
+            "custom_title": "MEN'S COATS & JACKETS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_eT9V6b": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "coats-jackets-women",
+            "product": "",
+            "custom_image": "shopify://shop_images/Women_s_Coats_Trench_Style_Button_Front-6_2ef507ee-7adb-42b6-a8c5-8c74ac43d5d6.png",
+            "image_position": "center 10%",
+            "custom_title": "WOMEN'S COATS & JACKETS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_84xNmC": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection",
+            "collection": "pants-men",
+            "product": "",
+            "custom_image": "shopify://shop_images/Carter_Gray_-_Pants_Collection.png",
+            "image_position": "center 65%",
+            "custom_title": "MEN'S PANTS",
+            "custom_link": ""
+          }
+        },
+        "slider_item_qyNtGR": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-trench-coat-single-breasted-notch-lapel",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_RXRV38": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-cable-knit-sweater-quarter-zip-ribbed-collar",
+            "image_position": "center 20%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_qBdYnz": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-boots-lace-up-with-chunky-lug-sole",
+            "image_position": "center 65%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_J8W7rb": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-sweater-funnel-neck-herringbone-panel",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_3iYBAL": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-jeans-loose-fit-washed-straight-leg",
+            "image_position": "center 65%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_xxjAdC": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-shoes-lace-up-with-lug-sole",
+            "image_position": "center 30%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_peCbtB": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-sneakers-lace-up-with-visible-air-unit",
+            "image_position": "center 20%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_rRfcka": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-cowboy-boots-knee-high-cow-print",
+            "image_position": "center 65%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_D8mbmq": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-leather-look-jacket-quilted-shoulder-panels",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_6XEBMk": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-winter-jacket-sherpa-lined-hood-with-flap-pockets",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_Gjwr9J": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-coat-mandarin-collar-button-front",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_4jL4Vh": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-coat-button-front-with-faux-fur-hood",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_tiqtm3": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-winter-jacket-detachable-hood-zip-chest-pockets",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_p9yLAN": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-oversized-sweater-turtleneck-ribbed-trims",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_bfAErQ": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-sherpa-jacket-lined-collar-with-snap-front",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_NyrYaw": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-sneakers-chunky-sole-with-color-block-panels",
+            "image_position": "center 20%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_atkygi": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-hoodie-asymmetric-color-block-panels",
+            "custom_image": "shopify://shop_images/Men_s_Hoodie_Asymmetric_Color_Block_Panels-1.png",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_HaR7mf": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "mens-puffer-jacket-hooded-two-tone-ribbed-yoke",
+            "image_position": "center 10%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_DWzyXp": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-trench-coat-double-breasted-with-belted-back",
+            "image_position": "center 20%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        },
+        "slider_item_yMLK7t": {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product",
+            "collection": "",
+            "product": "womens-snow-boots-side-zip-lug-sole",
+            "image_position": "center 65%",
+            "custom_title": "",
+            "custom_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slider_item_6WXEmd",
+        "slider_item_y7zmY3",
+        "slider_item_3NLnkY",
+        "slider_item_xAwhCh",
+        "slider_item_WezG4g",
+        "slider_item_76Nrdn",
+        "slider_item_KMw6EH",
+        "slider_item_fqW8GF",
+        "slider_item_eT9V6b",
+        "slider_item_84xNmC",
+        "slider_item_qyNtGR",
+        "slider_item_RXRV38",
+        "slider_item_qBdYnz",
+        "slider_item_J8W7rb",
+        "slider_item_3iYBAL",
+        "slider_item_xxjAdC",
+        "slider_item_peCbtB",
+        "slider_item_rRfcka",
+        "slider_item_D8mbmq",
+        "slider_item_6XEBMk",
+        "slider_item_Gjwr9J",
+        "slider_item_4jL4Vh",
+        "slider_item_tiqtm3",
+        "slider_item_p9yLAN",
+        "slider_item_bfAErQ",
+        "slider_item_NyrYaw",
+        "slider_item_atkygi",
+        "slider_item_HaR7mf",
+        "slider_item_DWzyXp",
+        "slider_item_yMLK7t"
+      ],
+      "name": "CG Tabbed premium slider",
+      "settings": {
+        "heading": "Just for You",
+        "tabs_accessibility_label": "Selecteer een categorie",
+        "tab_1_label": "Trending Now",
+        "tab_2_label": "Our Favorites",
+        "tab_3_label": "New Arrivals",
+        "starting_tab": "tab_1",
+        "heading_font": "times_new_roman_n4",
+        "mobile_heading_size": 33,
+        "desktop_heading_size": 58,
+        "heading_weight": "400",
+        "heading_line_height": 100,
+        "heading_letter_spacing": 0,
+        "tab_font": "sans_serif_n4",
+        "mobile_tab_size": 11,
+        "desktop_tab_size": 13,
+        "active_tab_weight": "600",
+        "inactive_tab_weight": "500",
+        "tab_line_height": 114,
+        "tab_letter_spacing": 0,
+        "uppercase_tabs": true,
+        "tab_underline_thickness": 2,
+        "tab_underline_offset": 3,
+        "mobile_tab_gap": 24,
+        "desktop_tab_gap": 42,
+        "collection_image_ratio": "portrait",
+        "product_image_ratio": "portrait",
+        "image_fit": "cover",
+        "enable_image_zoom": true,
+        "mobile_card_width": 66,
+        "desktop_cards_per_view": 4,
+        "mobile_card_gap": 8,
+        "desktop_card_gap": 12,
+        "card_font": "sans_serif_n4",
+        "mobile_card_title_size": 12,
+        "desktop_card_title_size": 14,
+        "card_title_weight": "600",
+        "card_title_line_height": 122,
+        "card_title_letter_spacing": 0,
+        "mobile_image_content_gap": 9,
+        "desktop_image_content_gap": 10,
+        "collection_link_label": "Shop now",
+        "mobile_collection_link_size": 12,
+        "desktop_collection_link_size": 11,
+        "collection_link_weight": "500",
+        "collection_link_letter_spacing": 5,
+        "uppercase_collection_link": true,
+        "collection_title_link_gap": 12,
+        "collection_link_underline_thickness": 1,
+        "collection_link_underline_offset": 3,
+        "show_compare_at_price": true,
+        "mobile_price_size": 12,
+        "desktop_price_size": 13,
+        "price_weight": "600",
+        "price_letter_spacing": 0,
+        "product_title_price_gap": 10,
+        "price_gap": 6,
+        "mobile_padding_top": 26,
+        "mobile_padding_bottom": 12,
+        "mobile_side_padding": 8,
+        "mobile_heading_tabs_gap": 25,
+        "mobile_tabs_slider_gap": 27,
+        "mobile_track_bottom_padding": 4,
+        "desktop_padding_top": 34,
+        "desktop_padding_bottom": 20,
+        "desktop_side_padding": 18,
+        "desktop_heading_tabs_gap": 11,
+        "desktop_tabs_slider_gap": 28,
+        "desktop_track_bottom_padding": 4,
+        "arrow_size": 40,
+        "arrow_gap": 8,
+        "arrow_radius": 0,
+        "arrow_border_width": 0,
+        "arrow_border_color": "#e7e2dc",
+        "background_color": "#ffffff",
+        "text_color": "#111111",
+        "muted_text_color": "#777777",
+        "active_tab_color": "#111111",
+        "inactive_tab_color": "#777777",
+        "image_background": "#f4f2ef",
+        "arrow_background": "#e7e2dc",
+        "arrow_color": "#111111"
+      }
+    },
+    "cg_editorial_faq_hCQGdX": {
+      "type": "cg-editorial-faq",
+      "blocks": {
+        "question_3tLF7L": {
+          "type": "question",
+          "settings": {
+            "question": "What are the shipping costs?",
+            "answer": "<p>We offer <strong>free shipping</strong> on all orders within the United States. </p>",
+            "open_by_default": false
+          }
+        },
+        "question_zzhqQL": {
+          "type": "question",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Yes. Once your order has been shipped, you will receive a confirmation email containing your tracking details, allowing you to monitor the progress of your delivery.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_rQHamK": {
+          "type": "question",
+          "settings": {
+            "question": "How do I return an item?",
+            "answer": "<p>If you'd like to return an item, you may do so within 30 days of receipt, as long as it's unworn, unwashed and in its original condition.</p><p>To start the process, please contact us at <a href=\"mailto:info@carterandgray.com\" title=\"mailto:info@carterandgray.com\"><strong>info@carterandgray.com</strong></a> . Our team will guide you through the next steps.</p><p>Further details can be found in our <a href=\"/policies/refund-policy\" title=\"Refund Policy\">Refund Policy</a><em><strong>.</strong></em></p>",
+            "open_by_default": false
+          }
+        },
+        "question_UkiHfk": {
+          "type": "question",
+          "settings": {
+            "question": "How can I contact Customer Care?",
+            "answer": "<p>If you need any assistance, our Customer Care team is happy to help.</p><p>Email: <a href=\"mailto:info@carterandgray.com\"><strong>info@carterandgray.com</strong></a><br/>Phone: +1 (646) 980-4459</p><p>Customer Care Hours:<br/>Monday to Friday | 9:00 AM – 6:00 PM (ET)<br/>Weekends | Closed</p><p>You can also use our <a href=\"/pages/contact\" title=\"Contact\">contact form</a> and we will respond as promptly as possible.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_qFtf3X": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the correct size?",
+            "answer": "<p>A detailed size guide is available on almost every product page to help you find the best fit.</p><p>If you'd like more advice, our Customer Care team is happy to help at <a href=\"mailto:info@carterandgray.com\" title=\"mailto:info@carterandgray.com\"><strong>info@carterandgray.com </strong></a>.</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "question_3tLF7L",
+        "question_zzhqQL",
+        "question_rQHamK",
+        "question_UkiHfk",
+        "question_qFtf3X"
+      ],
+      "name": "CG Editorial FAQ",
+      "settings": {
+        "eyebrow": "Customer care",
+        "heading": "Frequently Asked Questions",
+        "intro": "<p>Everything you need to know about shipping, returns and ordering.</p>",
+        "header_width": 700,
+        "intro_width": 620,
+        "heading_font": "times_new_roman_n4",
+        "mobile_heading_size": 40,
+        "desktop_heading_size": 58,
+        "heading_weight": "400",
+        "heading_line_height": 100,
+        "heading_letter_spacing": 0,
+        "answer_font": "sans_serif_n4",
+        "mobile_eyebrow_size": 11,
+        "desktop_eyebrow_size": 11,
+        "eyebrow_weight": "600",
+        "eyebrow_letter_spacing": 12,
+        "uppercase_eyebrow": true,
+        "eyebrow_heading_gap": 12,
+        "mobile_intro_size": 15,
+        "desktop_intro_size": 16,
+        "intro_weight": "400",
+        "intro_line_height": 156,
+        "intro_letter_spacing": 0,
+        "heading_intro_gap": 18,
+        "question_font": "sans_serif_n4",
+        "mobile_question_size": 14,
+        "desktop_question_size": 14,
+        "question_weight": "400",
+        "question_line_height": 136,
+        "question_letter_spacing": 0,
+        "question_hover_underline": false,
+        "mobile_answer_size": 13,
+        "desktop_answer_size": 13,
+        "answer_weight": "400",
+        "answer_line_height": 160,
+        "answer_letter_spacing": 0,
+        "answer_width": 760,
+        "answer_right_padding": 40,
+        "answer_paragraph_gap": 12,
+        "mobile_header_items_gap": 46,
+        "desktop_header_items_gap": 56,
+        "mobile_question_padding": 14,
+        "desktop_question_padding": 14,
+        "mobile_answer_bottom_padding": 26,
+        "desktop_answer_bottom_padding": 30,
+        "question_icon_gap": 24,
+        "icon_size": 14,
+        "icon_line_length": 58,
+        "icon_line_thickness": 1,
+        "line_thickness": 1,
+        "footer_text": "Still have a question? Our Customer Care team is happy to help.",
+        "button_label": "Contact us",
+        "button_link": "mailto:info@carterandgray.com",
+        "mobile_list_footer_gap": 42,
+        "desktop_list_footer_gap": 50,
+        "footer_text_button_gap": 20,
+        "mobile_footer_size": 15,
+        "desktop_footer_size": 15,
+        "footer_weight": "400",
+        "footer_line_height": 150,
+        "button_height": 38,
+        "button_horizontal_padding": 28,
+        "button_text_size": 12,
+        "button_weight": "600",
+        "button_letter_spacing": 8,
+        "uppercase_button": true,
+        "button_border_width": 2,
+        "button_radius": 0,
+        "content_width": 980,
+        "mobile_padding_top": 50,
+        "mobile_padding_bottom": 64,
+        "mobile_side_padding": 20,
+        "desktop_padding_top": 88,
+        "desktop_padding_bottom": 88,
+        "desktop_side_padding": 24,
+        "background_color": "#ffffff",
+        "heading_color": "#171717",
+        "eyebrow_color": "#66625d",
+        "question_color": "#171717",
+        "answer_color": "#585550",
+        "line_color": "#d8d3cc",
+        "icon_color": "#171717",
+        "button_background": "#171717",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#a5a49f",
+        "button_hover_background": "#ffffff",
+        "button_hover_text_color": "#171717",
+        "button_hover_border_color": "#171717"
+      }
+    },
+    "editorial_testimonials_product": {
+      "type": "editorial-testimonials",
+      "blocks": {
+        "testimonial_FK3jFd": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Comfortable and easy to slip on. I've mostly been wearing them around the house and for popping outside quickly. Size was right for me too.",
+            "quote_position": 3,
+            "author": "David H. / Birmingham",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/mens-clogs-open-back-with-buckle-strap",
+            "product_link_label": "Men's Clogs | Comfort Slip On Beige",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_PXYd4p": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Good solid pair of shoes. Comfortable from the first wear and they feel sturdy without being too heavy. I've worn them a few times now and no issues so far.",
+            "quote_position": 3,
+            "author": "Colin W. / Newcastle",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/mens-shoes-lace-up-with-lug-sole",
+            "product_link_label": "Men's Shoes | Comfort with Cushioned Insole",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_FD6KTq": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Really pleased with this cardigan. The colour is lovely in person and it feels soft without being too heavy. Would order another colour.",
+            "quote_position": 3,
+            "author": "Susan W. / Manchester",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/womens-cardigan-round-neck-button-front-raglan-sleeve",
+            "product_link_label": "Women's Cardigan | V Neck with Buttons",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_JTDz3c": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Good pair of shorts for everyday wear. Comfortable fit and plenty of pockets, which is what I wanted really. Worn them a few times now and no complaints.",
+            "quote_position": 3,
+            "author": "Alan P. / Kent",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/men-s-shorts-cargo-style-with-multiple-pockets",
+            "product_link_label": "Men's Shorts | Cargo Style with Multiple Pockets",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_kNmKV6": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Really comfortable loafers. I've worn them with linen trousers and they're spot on for this summer. Might order the beige pair as well.",
+            "quote_position": 3,
+            "author": "Michael B. / Glasgow",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/mens-loafers-lace-up-suede-look-with-cup-sole",
+            "product_link_label": "Men's Loafers | Suede Look with Lace-Up Detail",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_x3bqm9": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Really lovely shirt, light and comfy. I actually ordered the wrong size at first, but Claire from Bennett & Clarke customer care was very helpful and made the size exchange easy. Happy with it now.",
+            "quote_position": 3,
+            "author": "Sarah L. / Brighton",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/women-s-shirt-button-up-long-sleeve",
+            "product_link_label": "Women's Shirt | Button Up Long Sleeve",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_jbp9f3": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Very comfortable sandals, soft on the feet and easy to walk in. I've worn them a few times now and they don't rub, which is always my main worry. Nice colour too.",
+            "quote_position": 3,
+            "author": "Margaret W. / Surrey",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/womens-sandals-with-adjustable-straps",
+            "product_link_label": "Women's Sandals | with Adjustable Straps",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_Ugyy7R": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Good jacket, nice and light but still feels decent quality. My wife, who took the photo, likes it even more, so that's always a good sign ;)",
+            "quote_position": 3,
+            "author": "Robert M. / Southampton",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/men-s-harrington-jacket-lightweight-zip-up-with-collar",
+            "product_link_label": "Men's Harrington Jacket | Lightweight Zip-Up with Collar",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_bikzAG": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 4,
+            "stars_position": 2,
+            "quote": "Good fit and comfortable to wear. The jeans have a bit of room without looking too baggy, but I actually like it tbh.",
+            "quote_position": 3,
+            "author": "Luke M. / Manchester",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/mens-jeans-loose-fit-washed-straight-leg",
+            "product_link_label": "Men's Jeans | Loose Fit Straight Leg",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_nJNiVE": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Nice jacket, fits well and feels light on. Been wearing it most days over a t-shirt and it does the job. Looks exactly like the photos.",
+            "quote_position": 3,
+            "author": "Stephen R. / Sheffield",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/mens-bomber-jacket-ribbed-collar-zip-sleeve-pocket",
+            "product_link_label": "Men's Bomber Jacket | with Zip Sleeve Pocket",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_HHewRW": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Lovely shoes, really easy to slip on and they feel comfortable straight away. I bought them for warmer days but I've already been wearing them round the house. Might get another colour too.",
+            "quote_position": 3,
+            "author": "Elaine R. / London",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/womens-sneakers-tassel-slip-on-with-stitched-midsole",
+            "product_link_label": "Women's Trainers | Slip-On with Cushioned Support",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_F7CYUR": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Lovely shirt, nice and light without feeling too thin. The navy colour is actually sooo nice too. I am in love... Bought one for my friend too",
+            "quote_position": 3,
+            "author": "Claire M. / Chester",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/women-s-blouse-with-ruffle-hem",
+            "product_link_label": "Women's Blouse | with Ruffle Hem",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_dfw8bH": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Really comfy little shoes and the blue is a nice change from my usual black. I've worn them twice already and have just ordered the white pair as well.",
+            "quote_position": 3,
+            "author": "Anne K. / Cambridge",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/womens-loafers-tassel-trim-with-low-wedge-sole",
+            "product_link_label": "Women's Loafers | with Cushioned Insole",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_RUMbJA": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Really happy with this jacket. It feels warm without being bulky and the fit is just right. I've already worn it a few times, very easy to throw on.",
+            "quote_position": 3,
+            "author": "Julie A. / Surrey",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/womens-pea-coat-cropped-double-breasted",
+            "product_link_label": "Women's Jacket | Cropped Double-Breasted with Wide Lapels",
+            "product_link_position": 7
+          }
+        },
+        "testimonial_xP4UHz": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "stars_position": 2,
+            "quote": "Nice shirt, feels light and comfortable. I wore it out at the weekend and ended up ordering the white one as well haha. Good fit for me, not too tight.",
+            "quote_position": 3,
+            "author": "Anthony G. / Bristol",
+            "author_position": 4,
+            "show_badge": true,
+            "badge_text": "Verified customer",
+            "badge_position": 5,
+            "image_position_stacked": 6,
+            "product_link": "shopify://products/men-s-shirt-linen-look-long-sleeve",
+            "product_link_label": "Men's Shirt | Linen Look Long Sleeve",
+            "product_link_position": 7
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_FK3jFd",
+        "testimonial_PXYd4p",
+        "testimonial_FD6KTq",
+        "testimonial_JTDz3c",
+        "testimonial_kNmKV6",
+        "testimonial_x3bqm9",
+        "testimonial_jbp9f3",
+        "testimonial_Ugyy7R",
+        "testimonial_bikzAG",
+        "testimonial_nJNiVE",
+        "testimonial_HHewRW",
+        "testimonial_F7CYUR",
+        "testimonial_dfw8bH",
+        "testimonial_RUMbJA",
+        "testimonial_xP4UHz"
+      ],
+      "disabled": true,
+      "name": "Editorial testimonials",
+      "settings": {
+        "show_rating_bar": true,
+        "rating_position": "above",
+        "rating_stars_value": 4.7,
+        "rating_text": "4.7/5 (2749+ reviews)",
+        "rating_color": "#88795d",
+        "rating_stars_size_mobile": 15,
+        "rating_stars_size_desktop": 17,
+        "rating_text_size_mobile": 13,
+        "rating_text_size_desktop": 14,
+        "rating_heading_gap_mobile": 8,
+        "rating_heading_gap_desktop": 10,
+        "heading": "<p><em><strong>YOUR</strong></em><strong> OWN WORDS</strong></p>",
+        "heading_size_desktop": 28,
+        "heading_size_mobile": 25,
+        "subheading": "",
+        "subheading_position": 1,
+        "desktop_cards_per_row": "4",
+        "layout": "side-by-side",
+        "image_position": "right",
+        "image_size": "xs",
+        "quote_size_desktop": 32,
+        "quote_size_mobile": 15,
+        "quote_max_lines": 11,
+        "background_color": "#ffffff",
+        "card_background": "#f8f8f8",
+        "text_color": "#1a1a1a",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
+    "related_products_mdcPar": {
+      "type": "related-products",
+      "disabled": true,
+      "name": "t:sections.related_products.presets.related_products.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "hide_product_information": false,
+        "stack_products": false,
+        "recommendations_count": 10,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "horizontal_spacing_factor": 1,
+        "vertical_spacing_factor": 1,
+        "subheading": "",
+        "title": "Recommended for you",
+        "content": ""
+      }
+    },
+    "faq_6qp6q7": {
+      "type": "faq",
+      "blocks": {
+        "category_AzaM3m": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "icon": "none",
+            "icon_width": 16
+          }
+        },
+        "question_rY3NY9": {
+          "type": "question",
+          "settings": {
+            "question": "What are the delivery costs?",
+            "answer": "<p>We offer <strong>free delivery</strong> on all orders within the United Kingdom. </p>"
+          }
+        },
+        "question_NB4E9q": {
+          "type": "question",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Yes. Once your order has been dispatched, you will receive a confirmation email containing your tracking details, allowing you to monitor the progress of your delivery.</p>"
+          }
+        },
+        "question_GKV8Dy": {
+          "type": "question",
+          "settings": {
+            "question": "How do I return an item?",
+            "answer": "<p>If you wish to return an item, you may do so within 30 days of receipt, provided it is unworn, unwashed and in its original condition.</p><p>To begin the process, please contact us at <a href=\"mailto:info@bennettandclarke.co.uk\" title=\"mailto:info@bennettandclarke.co.uk\"><strong>info@bennettandclarke.co.uk</strong></a><strong> </strong>. Our team will guide you through the next steps.</p><p>Further details can be found in our <a href=\"/policies/refund-policy\" title=\"Refund Policy\">Refund Policy</a><em><strong>.</strong></em></p>"
+          }
+        },
+        "question_3446XN": {
+          "type": "question",
+          "settings": {
+            "question": "How can I contact Customer Service?",
+            "answer": "<p>If you require any assistance, our Customer Care team will be pleased to help.<br/><br/>Email: <a href=\"mailto:info@bennettandclarke.co.uk\" title=\"mailto:info@bennettandclarke.co.uk\"><strong>info@bennettandclarke.co.uk<br/></strong></a>Telephone: +44 20 8073 1447</p><p><br/>Customer Care Hours:<br/>Monday to Friday | 9:00AM – 6:00PM<br/>Weekends | Closed<br/><br/>Alternatively, you may use our <a href=\"/pages/contact\" title=\"Contact\">contact form</a> and we will respond as promptly as possible.</p>"
+          }
+        },
+        "question_NeAD3a": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the correct size?",
+            "answer": "<p>A detailed size guide is available on almost each product page to help you select the most suitable fit.</p><p>If you require further advice, our Customer Care team will be happy to assist you at <a href=\"mailto:info@bennettandclarke.co.uk\" title=\"mailto:info@bennettandclarke.co.uk\"><strong>info@bennettandclarke.co.uk</strong></a> .</p>"
+          }
+        }
+      },
+      "block_order": [
+        "category_AzaM3m",
+        "question_rY3NY9",
+        "question_NB4E9q",
+        "question_GKV8Dy",
+        "question_3446XN",
+        "question_NeAD3a"
+      ],
+      "disabled": true,
+      "name": "t:sections.faq.presets.faq.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "show_categories": false,
+        "subheading": "",
+        "title": "<strong>FAQ</strong>",
+        "content": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cg_tabbed_premium_slider_4cbUCc",
+    "cg_editorial_faq_hCQGdX",
+    "editorial_testimonials_product",
+    "related_products_mdcPar",
+    "faq_6qp6q7"
+  ]
+}

@@ -1,0 +1,319 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+{% style %}
+#selluxe-multicolumn-slider__{{ section.id }}{
+  margin-top:{{ section.settings.margin_top | append: "px" }};
+  margin-bottom:{{ section.settings.margin_bottom | append: "px" }};
+  background:{{ section.settings.background }};
+  padding-top:{{ section.settings.padding_top | append: "px" }};
+  padding-bottom:{{ section.settings.padding_bottom | append: "px" }};
+  /* margin:auto;
+  width:{{ section.settings.section_width | append: "%" }}; */
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }}>h2{
+  text-align:center;
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  max-width:258px;
+  margin:auto;
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }} .swiper{
+  padding-bottom: 50px;
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  img{
+  height:{{ section.settings.image_size | append: "px" }};
+  width:auto;
+  margin-bottom:15px;
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  .block_heading_text{
+  font-size:{{ section.settings.heading_size | append: "px" }};
+  text-align:center;
+  color:{{ section.settings.header_color }};
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  .block_content_text{
+  font-size:{{ section.settings.content_size | append: "px" }};
+  text-align:center;
+  color:{{ section.settings.text_color }};
+}
+  
+#selluxe-multicolumn-slider__{{ section.id }} .swiper span.swiper-pagination-bullet {
+  background: black;
+}
+
+@media(min-width:1000px){
+  #selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide:nth-child(2) {
+    border-left: 1px solid rgb(10 10 10 / 0.2);
+    border-right: 1px solid rgb(10 10 10 / 0.2);
+  }
+}
+  
+@media(max-width:768px){
+  #selluxe-multicolumn-slider__{{ section.id }} {
+    width: 100%;
+    margin: 0;
+  }
+  
+  #selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div{
+    max-width:unset;
+  }
+  
+  #selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  img{
+    height:{% if section.settings.image_size > 80 %}{{ section.settings.image_size | minus: 50 | append: "px" }}{% else %}{{ section.settings.image_size | append: "px" }}{% endif %};
+    width:auto;
+  }
+
+  #selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  .block_heading_text{
+    font-size:15px;
+  }
+    
+  #selluxe-multicolumn-slider__{{ section.id }} .swiper .block-wrapper .block-slide div  .block_content_text{
+    font-size:13px;
+  }
+}
+  
+{% endstyle %}
+
+<section id="selluxe-multicolumn-slider__{{ section.id }}" class="{% if section.settings.full_width != true %} section {% endif %}">
+  {% if section.settings.title != blank %}
+    <h2 class="Heading"> {{ section.settings.title }} </h2>
+  {% endif %}
+
+  <div class="swiper {{ section.id }}__multiColumn">
+    <div class="swiper-wrapper block-wrapper">
+    {% for block in section.blocks %}
+      <div class="swiper-slide block-slide div ">
+        <div>
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 400 | image_tag }}
+          {% endif %}
+  
+          {% if block.settings.heading != blank %}
+           <span class="block_heading_text"> {{ block.settings.heading }} </span>
+          {% endif %}
+          
+          {% if block.settings.text != blank %}
+           <span class="block_content_text"> {{ block.settings.text }} </span>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+  
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var {{ section.id | replace: "--","_" | replace: "-","_" }}__swiper = new Swiper(".{{ section.id }}__multiColumn", {
+    pagination: {
+      el: ".swiper-pagination",
+    },
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+      },
+      loop: true,
+      breakpoints: {
+        330: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        440: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 40,
+        },
+        1080: {
+          slidesPerView: {{ section.settings.slides_per_view }},
+          spaceBetween: 40,
+        }
+      },
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Selluxe Multicol Slider",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background color"
+      },
+     {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Make section full width",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "section_width",
+        "unit": "%",
+        "step": 5,
+        "min": 50,
+        "max": 100,
+        "label": "Section width",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Margins and padding settings"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 0
+      },
+      {
+        "type": "inline_richtext",
+        "id": "title",
+        "label": "Title",
+        "default": "Selluxe Section Title"
+      },
+      {
+        "type": "header",
+        "content": "Content settings"
+      },
+      {
+        "type": "range",
+        "id": "image_size",
+        "min": 10,
+        "max": 150,
+        "step": 2,
+        "unit": "px",
+        "label": "Icon/image Size",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "heading_size",
+        "min": 15,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading text size",
+        "default": 20
+      },
+      {
+        "type": "color",
+        "id": "header_color",
+        "label": "Header text color",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "content_size",
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Text size",
+        "default": 12
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Body text color",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "slides_per_view",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "unit": "pc",
+        "label": "Slide per view (Desktop)",
+        "default": 4
+      },
+    ],
+    "blocks": [
+      {
+        "type": "icon_and_text",
+        "name": "icon/image and Text",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Icon/image"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "heading",
+            "label": "Heading text",
+            "default": "Heading Text"
+          },
+          {
+            "type": "inline_richtext",
+            "id":"text",
+            "label": "Text",
+            "default": "Text content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Selluxe Multicol Slider"
+      }
+    ]
+  }
+{% endschema %}

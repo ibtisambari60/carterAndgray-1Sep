@@ -1,0 +1,54 @@
+<style>
+  .Custom-sec {
+      padding: 12px;
+      background-color: #F9F9F9;
+      border-radius: 4px;
+      border: 1px solid #EDE6E2;
+  }
+
+  .sub-custom {
+      display: flex;
+      width: 100%;
+  }
+
+  .last-sec {
+      width: 33.33%;
+      text-align: center;
+  }
+
+  .cus-img {
+      margin: 0 auto;
+      height: {{ block.settings.image_size }}px;
+      margin-bottom: 5px;
+  }
+
+  .cus-text {
+      font-size: {{ block.settings.text_font_size }}px;
+  }
+
+  .below_cus-text {
+      font-size: {{ block.settings.text_font_size_below }}px;
+  }
+</style>
+
+<div class="Custom-sec">
+    <div class="sub-custom" style="margin-top:10px;">
+      <div class="last-sec">
+        <img src="{% if block.settings.guarantee_icon_1.preview_image != null %}{{ block.settings.guarantee_icon_1 | img_url }}{% else %} https://cdn.shopify.com/s/files/1/0794/1898/2740/files/DHL_logo.png?v=1701836595 {% endif %}" class="cus-img">
+        <div style="color:{{block.settings.guarantee_text_color_1 }};" class="cus-text">{{block.settings.guarantee_text_1 }}</div>
+        <div style="color:{{block.settings.below_text_color_1 }};" class="below_cus-text">{{block.settings.guarantee_text_1_below }}</div>
+      </div>
+      <div class="last-sec">
+        <img src="{% if block.settings.guarantee_icon_2.preview_image != null %}{{ block.settings.guarantee_icon_2 | img_url }}{% else %} https://trendpunt.nl/cdn/shop/files/HALLO.webp?v=1697109085 {% endif %}" class="cus-img">
+        <div style="color:{{block.settings.guarantee_text_color_2 }};" class="cus-text">{{block.settings.guarantee_text_2 }}</div>
+        <div style="color:{{block.settings.below_text_color_2 }};" class="below_cus-text">{{block.settings.guarantee_text_2_below }}</div>
+      </div>
+      <div class="last-sec">
+        <img src="{% if block.settings.guarantee_icon_3.preview_image != null %}{{ block.settings.guarantee_icon_3 | img_url }}{% else %} https://cdn.shopify.com/s/files/1/0781/1674/9659/files/1_62684060-4b60-493e-a8f7-46d7dd7b8ddf.png?v=1699651059 {% endif %}" class="cus-img">
+        <div style="color:{{block.settings.guarantee_text_color_3 }};" class="cus-text">{{block.settings.guarantee_text_3 }}</div>
+        <div style="color:{{block.settings.below_text_color_3 }};" class="below_cus-text">{{block.settings.guarantee_text_3_below }}</div>
+      </div>
+    </div>
+</div>
+
+<div id='product-videos'></div>

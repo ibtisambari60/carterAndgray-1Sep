@@ -1,0 +1,55 @@
+<style>
+    .{{ block.id }}--custom-container {
+      background: {{ block.settings.sale_background_color }} !important;
+      color: {{ block.settings.sale_text_color }};
+      border-radius: 4px; 
+      text-align:left;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:{{ block.settings.margin_top | append:"px" }} !important;
+      margin-bottom:{{ block.settings.margin_bottom | append:"px" }} !important;
+      padding-top:{{ block.settings.padding_top | append: "px" }};
+      padding-bottom:{{ block.settings.padding_bottom | append: "px" }};
+      padding-left:{{ block.settings.padding_left | append: "px" }};
+      padding-right:{{ block.settings.padding_right | append: "px" }};
+    }
+    .{{ block.id }}--custom-container .custom-icon {
+      height:{{ block.settings.icon_height | append: "px" }};
+      width:{{ block.settings.icon_height | append: "px" }};
+    }
+    .{{ block.id }}--custom-container .text-container{
+      width:100%;
+      text-align: {{ block.settings.align_text }};
+    }
+  
+    .{{ block.id }}--custom-container .text-container>.sale-text{
+      font-size:{{ block.settings.sale_font_size }}px;
+    }
+
+</style>
+
+
+{% if block.settings.sale_text != empty %}
+<div class="{{ block.id }}--custom-container">
+  {% if block.settings.show_icon %}
+    {% if block.settings.custom_icon %}
+      {{ block.settings.custom_icon | image_url: height:"25" | image_tag: class:"custom-icon" }}
+    {% else %}
+      <svg height="{{ block.settings.icon_height | append: "px" }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+        <g id="SVGRepo_iconCarrier">
+          <path d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="{{ block.settings.sale_text_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    {% endif %}
+  {% endif %}
+  <div class="text-container">
+    {% if block.settings.header != empty %}
+      <h1> {{ block.settings.header }} </h1>
+    {% endif %}
+    <span class="sale-text">{{ block.settings.sale_text }}</span>
+  </div>
+</div>
+{% endif %}

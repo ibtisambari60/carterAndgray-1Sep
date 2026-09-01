@@ -1,0 +1,934 @@
+{%- comment -%} Header item count + cart gender (excludes shipping protection) {%- endcomment -%}
+{%- assign header_count = 0 -%}
+{%- assign cart_gender = '' -%}
+{%- for item in cart.items -%}
+  {%- unless item.product.handle == 'shipping-protection' -%}
+    {%- assign header_count = header_count | plus: item.quantity -%}
+    {%- if cart_gender == '' -%}
+      {%- assign it = item.product.title | downcase -%}
+      {%- if it contains 'women' -%}{%- assign cart_gender = 'women' -%}
+      {%- elsif it contains 'men' -%}{%- assign cart_gender = 'men' -%}{%- endif -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+<cart-drawer id="cart-drawer" class="cart-drawer drawer bc-cart {% if cart.empty? %}drawer--center-body{% endif %} color-scheme color-scheme--{{ section.settings.color_scheme.id }}" data-show-sp="{{ section.settings.show_shipping_protection }}" data-show-bundle="{{ section.settings.show_bundle_bar }}" data-show-fbt="{{ section.settings.show_fbt }}" data-fbt-title="{{ section.settings.fbt_title | default: 'People also bought' | escape }}" data-fbt-btn="{{ section.settings.fbt_button_text | default: 'Add +' | escape }}" data-show-checkout="{{ section.settings.show_checkout_button }}" data-show-pay="{{ section.settings.show_payment_icons }}" data-show-reviews="{{ section.settings.show_reviews }}" data-empty1="{% if section.settings.empty_image_1 != blank %}{{ section.settings.empty_image_1 | image_url: width: 700 }}{% else %}https://cdn.shopify.com/s/files/1/1005/2209/9036/files/Women_collection_-_B_C.png?v=1783199471&width=700{% endif %}" data-empty2="{% if section.settings.empty_image_2 != blank %}{{ section.settings.empty_image_2 | image_url: width: 700 }}{% else %}https://cdn.shopify.com/s/files/1/1005/2209/9036/files/Men_collection_-B_C.png?v=1783199447&width=700{% endif %}" initial-focus="false" handle-editor-events>
+  <p class="h4 bc-cart__title" slot="header">{{ 'cart.general.title' | t }}{%- if header_count > 0 %} <span class="bc-cart__count">{{ header_count }}</span>{% endif -%}</p>
+
+  {%- if cart.empty? -%}
+    {%- comment -%} ---------------- EMPTY STATE (Icon-style, B&C house style) ---------------- {%- endcomment -%}
+    {%- assign c1 = section.settings.empty_collection_1 -%}
+    {%- unless c1 != blank -%}{%- assign c1 = collections['women'] -%}{%- endunless -%}
+    {%- assign c2 = section.settings.empty_collection_2 -%}
+    {%- unless c2 != blank -%}{%- assign c2 = collections['men'] -%}{%- endunless -%}
+
+    <div class="bc-empty">
+      <p class="bc-empty__title">{{ section.settings.empty_title | default: 'Your cart is empty' }}</p>
+      <p class="bc-empty__sub">{{ section.settings.empty_subtitle | default: 'Discover our latest collections' }}</p>
+      <a href="{{ section.settings.empty_button_link | default: '/collections/all-products' }}" class="bc-empty__btn">{{ section.settings.empty_button_text | default: 'Shop all' }}</a>
+
+      <div class="bc-empty__tiles">
+        {%- if section.settings.empty_image_1 != blank -%}{%- assign tile1_src = section.settings.empty_image_1 | image_url: width: 700 -%}{%- else -%}{%- assign tile1_src = 'https://cdn.shopify.com/s/files/1/1005/2209/9036/files/Women_collection_-_B_C.png?v=1783199471&width=700' -%}{%- endif -%}
+        {%- if section.settings.empty_image_2 != blank -%}{%- assign tile2_src = section.settings.empty_image_2 | image_url: width: 700 -%}{%- else -%}{%- assign tile2_src = 'https://cdn.shopify.com/s/files/1/1005/2209/9036/files/Men_collection_-B_C.png?v=1783199447&width=700' -%}{%- endif -%}
+        <a href="{{ c1.url | default: '/collections/women' }}" class="bc-empty__tile">
+          <img src="{{ tile1_src }}" alt="{{ section.settings.empty_label_1 | default: 'Women' }}" loading="lazy" width="600" height="800" class="bc-empty__tile-img">
+          <span class="bc-empty__tile-label">{{ section.settings.empty_label_1 | default: 'Women' }}</span>
+        </a>
+        <a href="{{ c2.url | default: '/collections/men' }}" class="bc-empty__tile">
+          <img src="{{ tile2_src }}" alt="{{ section.settings.empty_label_2 | default: 'Men' }}" loading="lazy" width="600" height="800" class="bc-empty__tile-img">
+          <span class="bc-empty__tile-label">{{ section.settings.empty_label_2 | default: 'Men' }}</span>
+        </a>
+      </div>
+    </div>
+
+  {%- else -%}
+    {%- comment -%} ---------------- BUNDLE DEAL BAR (tiered, editable in theme editor) ---------------- {%- endcomment -%}
+    {%- if section.settings.show_bundle_bar -%}
+    {%- assign bp2 = section.settings.bundle_pct_2 | default: 10 -%}
+    {%- assign bp3 = section.settings.bundle_pct_3 | default: 15 -%}
+    {%- assign bp4 = section.settings.bundle_pct_4 | default: 20 -%}
+    {%- assign bp5 = section.settings.bundle_pct_5 | default: 25 -%}
+    {%- assign bundle_qty = header_count -%}
+    {%- assign cur_disc = 0 -%}
+    {%- if bundle_qty >= 2 -%}{%- assign cur_disc = bp2 -%}{%- endif -%}
+    {%- if bundle_qty >= 3 -%}{%- assign cur_disc = bp3 -%}{%- endif -%}
+    {%- if bundle_qty >= 4 -%}{%- assign cur_disc = bp4 -%}{%- endif -%}
+    {%- if bundle_qty >= 5 -%}{%- assign cur_disc = bp5 -%}{%- endif -%}
+    {%- assign next_thresh = 0 -%}
+    {%- assign next_disc = 0 -%}
+    {%- if bundle_qty < 2 -%}
+      {%- assign next_thresh = 2 -%}{%- assign next_disc = bp2 -%}
+    {%- elsif bundle_qty < 3 -%}
+      {%- assign next_thresh = 3 -%}{%- assign next_disc = bp3 -%}
+    {%- elsif bundle_qty < 4 -%}
+      {%- assign next_thresh = 4 -%}{%- assign next_disc = bp4 -%}
+    {%- elsif bundle_qty < 5 -%}
+      {%- assign next_thresh = 5 -%}{%- assign next_disc = bp5 -%}
+    {%- endif -%}
+    {%- assign remaining = next_thresh | minus: bundle_qty -%}
+    {%- assign fill_pct = bundle_qty | times: 20 -%}
+    {%- if fill_pct > 100 -%}{%- assign fill_pct = 100 -%}{%- endif -%}
+    {%- if bundle_qty >= 2 -%}{%- assign bar_state = 'is-unlocked' -%}{%- else -%}{%- assign bar_state = 'is-locked' -%}{%- endif -%}
+
+    <div class="bc-rewards {{ bar_state }}">
+      <p class="bc-rewards__msg">
+        {%- if bundle_qty >= 5 -%}
+          <strong>{{ bp5 }}% off</strong> automatically applied!
+        {%- elsif bundle_qty < 2 -%}
+          Add <strong>{{ remaining }} more item{% if remaining != 1 %}s{% endif %}</strong> to save an extra <strong>{{ next_disc }}% off</strong>
+        {%- else -%}
+          Add <strong>{{ remaining }} more item{% if remaining != 1 %}s{% endif %}</strong> for <strong>{{ next_disc }}% off</strong> <span class="bc-rewards__applied">| {{ cur_disc }}% off applied!</span>
+        {%- endif -%}
+      </p>
+      <div class="bc-rewards__track">
+        <div class="bc-rewards__fill" style="width: {{ fill_pct }}%;"></div>
+        {%- for t in (2..5) -%}
+          {%- assign tick_pos = t | times: 20 -%}
+          <span class="bc-rewards__tick {% if bundle_qty >= t %}is-passed{% endif %}" style="left: {{ tick_pos }}%;"></span>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- comment -%} ---------------- LINE ITEMS (custom, double strike-through) ---------------- {%- endcomment -%}
+    <div class="cart-drawer__items bc-items">
+      {%- for line_item in cart.items -%}
+        {%- if line_item.product.handle == 'shipping-protection' -%}{%- continue -%}{%- endif -%}
+        {%- assign v = line_item.variant -%}
+        <div class="bc-li">
+          <a href="{{ line_item.url }}" class="bc-li__thumb" data-instant>
+            {%- if line_item.image -%}
+              {{ line_item.image | image_url: width: 200 | image_tag: loading: 'lazy', sizes: '84px', widths: '84,120,168,240', class: 'bc-li__thumb-img' }}
+            {%- endif -%}
+          </a>
+          <div class="bc-li__info">
+            <a href="{{ line_item.url }}" class="bc-li__name" data-instant>{{ line_item.product.title | default: line_item.title }}</a>
+
+            <div class="bc-li__prices">
+              {%- if v.compare_at_price and v.compare_at_price > line_item.original_price -%}
+                <s class="bc-li__was">{{ v.compare_at_price | money }}</s>
+              {%- endif -%}
+              {%- if line_item.original_price > line_item.final_price -%}
+                <s class="bc-li__was">{{ line_item.original_price | money }}</s>
+                <span class="bc-li__now is-sale">{{ line_item.final_price | money }}</span>
+              {%- elsif v.compare_at_price and v.compare_at_price > line_item.original_price -%}
+                <span class="bc-li__now is-sale">{{ line_item.final_price | money }}</span>
+              {%- else -%}
+                <span class="bc-li__now">{{ line_item.final_price | money }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- unless line_item.product.has_only_default_variant or line_item.gift_card -%}
+              <p class="bc-li__variant">{{ line_item.variant.title }}</p>
+            {%- endunless -%}
+
+            <div class="bc-li__qtyrow">
+              <div class="bc-li__qty" data-key="{{ line_item.key }}">
+                <button type="button" class="bc-li__qtybtn" data-delta="-1" aria-label="Decrease quantity">&minus;</button>
+                <span class="bc-li__qtyval">{{ line_item.quantity }}</span>
+                <button type="button" class="bc-li__qtybtn" data-delta="1" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} ---------------- FBT UPSELL (same-gender, data-driven, max 4) ---------------- {%- endcomment -%}
+    {%- assign fbt_max = 4 -%}
+    {%- assign cart_handles = ',' -%}
+    {%- for item in cart.items -%}
+      {%- assign cart_handles = cart_handles | append: item.product.handle | append: ',' -%}
+    {%- endfor -%}
+
+    {%- assign fbt_handles = '' -%}
+    {%- assign fbt_n = 0 -%}
+
+    {%- comment -%} tier 1: real co-purchase from custom.fbt {%- endcomment -%}
+    {%- for item in cart.items -%}
+      {%- assign recs = item.product.metafields.custom.fbt.value -%}
+      {%- if recs -%}
+        {%- for p in recs -%}
+          {%- if fbt_n >= fbt_max -%}{%- break -%}{%- endif -%}
+          {%- assign hh = ',' | append: p.handle | append: ',' -%}
+          {%- assign pt = p.title | downcase -%}
+          {%- assign pg = 'uni' -%}
+          {%- if pt contains 'women' -%}{%- assign pg = 'women' -%}{%- elsif pt contains 'men' -%}{%- assign pg = 'men' -%}{%- endif -%}
+          {%- assign gok = true -%}
+          {%- if cart_gender != '' and pg != 'uni' and pg != cart_gender -%}{%- assign gok = false -%}{%- endif -%}
+          {%- unless cart_handles contains hh or fbt_handles contains hh or p.handle == 'shipping-protection' or p.available == false or gok == false -%}
+            {%- assign fbt_handles = fbt_handles | append: hh -%}
+            {%- assign fbt_n = fbt_n | plus: 1 -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} detect cart category (footwear vs apparel) for complementary logic {%- endcomment -%}
+    {%- assign cart_cat = 'apparel' -%}
+    {%- for item in cart.items -%}
+      {%- assign ct = item.product.title | downcase -%}
+      {%- if ct contains 'clog' or ct contains 'sandal' or ct contains 'loafer' or ct contains 'shoe' or ct contains 'boot' or ct contains 'trainer' or ct contains 'mule' or ct contains 'brogue' or ct contains 'heel' or ct contains 'wedge' -%}
+        {%- assign cart_cat = 'footwear' -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} tier 2: same-gender COMPLEMENTARY category (outfit completion when no co-purchase data) {%- endcomment -%}
+    {%- if fbt_n < fbt_max -%}
+      {%- if cart_gender == 'women' and cart_cat == 'footwear' -%}
+        {%- assign complementary = 'women-s-summer-printed-shirt-dress-maxi,women-s-blouse-v-neck-short-sleeve,women-s-cardigan-v-neck-with-buttons,women-s-shirt-button-up-long-sleeve,women-s-high-waist-knee-length-shorts-loose-fit' | split: ',' -%}
+      {%- elsif cart_gender == 'women' -%}
+        {%- assign complementary = 'women-s-high-waist-knee-length-shorts-loose-fit,womens-sandals-with-adjustable-straps,women-s-cardigan-v-neck-with-buttons,womens-loafers-with-cushioned-insole,women-s-tote-bag-large-with-inner-pockets' | split: ',' -%}
+      {%- elsif cart_cat == 'footwear' -%}
+        {%- assign complementary = 'men-s-jeans-loose-fit-straight-leg,men-s-shirt-linen-look-long-sleeve,men-s-shirt-wrinkle-free-slim-fit,men-s-harrington-jacket-lightweight-zip-up-with-collar,men-s-cargo-shorts-with-utility-pockets' | split: ',' -%}
+      {%- else -%}
+        {%- assign complementary = 'men-s-jeans-loose-fit-straight-leg,mens-clogs-comfort-slip-on-beige,men-s-cardigan-button-v-neck,men-s-loafers-suede-look-with-lace-up-detail,men-s-cargo-shorts-with-utility-pockets' | split: ',' -%}
+      {%- endif -%}
+      {%- for h in complementary -%}
+        {%- if fbt_n >= fbt_max -%}{%- break -%}{%- endif -%}
+        {%- assign hh = ',' | append: h | append: ',' -%}
+        {%- assign fp = all_products[h] -%}
+        {%- unless cart_handles contains hh or fbt_handles contains hh or fp == empty or fp.available == false -%}
+          {%- assign fbt_handles = fbt_handles | append: hh -%}
+          {%- assign fbt_n = fbt_n | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- comment -%} tier 3: same-gender bestsellers (any category) — final safety net {%- endcomment -%}
+    {%- if fbt_n < fbt_max -%}
+      {%- if cart_gender == 'women' -%}
+        {%- assign hard_fallback = 'womens-loafers-with-cushioned-insole,women-s-mules-breathable-mesh-with-air-cushion,women-s-summer-printed-shirt-dress-maxi,women-s-blouse-v-neck-short-sleeve,women-s-clogs-suede-look-with-buckle-strap' | split: ',' -%}
+      {%- else -%}
+        {%- assign hard_fallback = 'men-s-loafers-suede-look-with-lace-up-detail,men-s-sandals-double-buckle-with-contoured-footbed,men-s-jeans-loose-fit-straight-leg,mens-shoes-comfort-with-cushioned-insole,men-s-harrington-jacket-lightweight-zip-up-with-collar' | split: ',' -%}
+      {%- endif -%}
+      {%- for h in hard_fallback -%}
+        {%- if fbt_n >= fbt_max -%}{%- break -%}{%- endif -%}
+        {%- assign hh = ',' | append: h | append: ',' -%}
+        {%- assign fp = all_products[h] -%}
+        {%- unless cart_handles contains hh or fbt_handles contains hh or fp == empty or fp.available == false -%}
+          {%- assign fbt_handles = fbt_handles | append: hh -%}
+          {%- assign fbt_n = fbt_n | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- comment -%} tier 4: merchant-picked fallback products (theme setting) — store-agnostic, needs no metafields, orders or API. On a store without co-purchase data this is what fills the upsell. {%- endcomment -%}
+    {%- if fbt_n < fbt_max and section.settings.fbt_fallback_products != blank -%}
+      {%- for fp in section.settings.fbt_fallback_products -%}
+        {%- if fbt_n >= fbt_max -%}{%- break -%}{%- endif -%}
+        {%- assign hh = ',' | append: fp.handle | append: ',' -%}
+        {%- unless cart_handles contains hh or fbt_handles contains hh or fp == empty or fp.available == false or fp.handle == 'shipping-protection' -%}
+          {%- assign fbt_handles = fbt_handles | append: hh -%}
+          {%- assign fbt_n = fbt_n | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if section.settings.show_fbt and fbt_n > 0 -%}
+      <div class="bc-fbt">
+        <p class="bc-fbt__title">{{ section.settings.fbt_title | default: 'People also bought' }}</p>
+        <div class="bc-fbt__scroller">
+          {%- assign fbt_list = fbt_handles | split: ',' -%}
+          {%- for h in fbt_list -%}
+            {%- if h == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign fp = all_products[h] -%}
+            {%- if fp == empty or fp.available == false -%}{%- continue -%}{%- endif -%}
+            {%- assign fv = fp.selected_or_first_available_variant -%}
+            <div class="bc-fbt__card">
+              <a href="{{ fp.url }}" class="bc-fbt__thumb" data-instant>
+                {%- if fp.featured_media -%}
+                  {{ fp.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', sizes: '90px', widths: '90,140,180,220', class: 'bc-fbt__thumb-img' }}
+                {%- endif -%}
+              </a>
+              <div class="bc-fbt__body">
+                <a href="{{ fp.url }}" class="bc-fbt__name" data-instant>{{ fp.title }}</a>
+                <div class="bc-fbt__prices">
+                  {%- if fv.compare_at_price > fv.price -%}
+                    <s class="bc-fbt__was">{{ fv.compare_at_price | money }}</s>
+                    <span class="bc-fbt__now is-sale">{{ fv.price | money }}</span>
+                  {%- else -%}
+                    <span class="bc-fbt__now">{{ fv.price | money }}</span>
+                  {%- endif -%}
+                </div>
+                {%- if fp.variants.size == 1 -%}
+                  <product-form class="bc-fbt__form">
+                    {%- form 'product', fp -%}
+                      <input type="hidden" name="id" value="{{ fv.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <input type="hidden" name="on_success" value="force_open_drawer">
+                      <button type="submit" class="bc-fbt__add">{{ section.settings.fbt_button_text | default: 'Add +' }}</button>
+                    {%- endform -%}
+                  </product-form>
+                {%- else -%}
+                  {%- comment -%} Multi-variant: open the custom in-drawer colour/size picker {%- endcomment -%}
+                  <div class="bc-fbt__form">
+                    <button type="button" class="bc-fbt__add" data-bc-picker data-handle="{{ fp.handle }}" data-url="{{ fp.url }}">{{ section.settings.fbt_button_text | default: 'Add +' }}</button>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ---------------- FOOTER (compact) ---------------- {%- endcomment -%}
+    <form action="{{ routes.cart_url }}" method="POST" class="bc-footer" slot="footer">
+
+      {%- assign sp_variant = section.settings.shipping_protection_variant -%}
+      {%- if section.settings.show_shipping_protection and sp_variant != blank -%}
+        {%- assign sp_in_cart = false -%}
+        {%- for item in cart.items -%}
+          {%- assign vid = item.variant_id | append: '' -%}
+          {%- if vid == sp_variant -%}{%- assign sp_in_cart = true -%}{%- endif -%}
+        {%- endfor -%}
+        <div class="bc-protection {% if sp_in_cart %}is-on{% endif %}">
+          <div class="bc-protection__text">
+            <span class="bc-protection__title">{{ section.settings.protection_title | default: '100% Shipping Protection' }}</span>
+            <span class="bc-protection__sub">{{ section.settings.protection_sub | default: 'Don&rsquo;t take any risks' }}</span>
+          </div>
+          <span class="bc-protection__price">{{ section.settings.protection_price | default: '&pound;2.95' }}</span>
+          <button type="button" class="bc-toggle {% if sp_in_cart %}is-on{% endif %}" data-variant="{{ sp_variant }}" aria-pressed="{% if sp_in_cart %}true{% else %}false{% endif %}" aria-label="Toggle shipping protection">
+            <span class="bc-toggle__knob"></span>
+          </button>
+        </div>
+      {%- endif -%}
+
+      {%- assign disc_total = cart.original_total_price | minus: cart.total_price -%}
+      {%- comment -%} compare-at total for double strike-through (product sale + bundle) {%- endcomment -%}
+      {%- assign compare_total = 0 -%}
+      {%- for item in cart.items -%}
+        {%- if item.variant.compare_at_price and item.variant.compare_at_price > item.original_price -%}
+          {%- assign line_c = item.variant.compare_at_price | times: item.quantity -%}
+        {%- else -%}
+          {%- assign line_c = item.original_price | times: item.quantity -%}
+        {%- endif -%}
+        {%- assign compare_total = compare_total | plus: line_c -%}
+      {%- endfor -%}
+      {%- assign total_saved = compare_total | minus: cart.total_price -%}
+      {%- if section.settings.free_delivery_text != blank -%}
+        <div class="bc-row bc-row--free"><span class="bc-free-delivery">{{ section.settings.free_delivery_text }}</span></div>
+      {%- endif -%}
+
+      {%- if disc_total > 0 -%}
+        {%- assign disc_title = '' -%}
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          {%- assign disc_title = cart.cart_level_discount_applications.first.title -%}
+        {%- elsif cart.discount_applications.size > 0 -%}
+          {%- assign disc_title = cart.discount_applications.first.title -%}
+        {%- endif -%}
+        <div class="bc-row bc-row--disc">
+          <span class="bc-disc-label">Discounts</span>
+          {%- if disc_title != blank -%}<span class="bc-disc-pill">{%- render 'icon' with 'discount', width: 12 -%} {{ disc_title }}</span>{%- endif -%}
+          <span class="bc-disc-amt">-{{ disc_total | money }}</span>
+        </div>
+      {%- endif -%}
+
+      <div class="bc-row bc-row--subtotal">
+        <span class="bc-subtotal__label">Subtotal</span>
+        <span class="bc-subtotal__vals">
+          {%- if compare_total > cart.original_total_price -%}<s class="bc-subtotal__was">{{ compare_total | money }}</s>{%- endif -%}
+          {%- if cart.original_total_price > cart.total_price -%}<s class="bc-subtotal__was">{{ cart.original_total_price | money }}</s>{%- endif -%}
+          <strong class="bc-subtotal__now">{{ cart.total_price | money }}</strong>
+          {%- if total_saved > 0 -%}<span class="bc-save">Save {{ total_saved | money }}</span>{%- endif -%}
+        </span>
+      </div>
+
+      {%- if section.settings.show_checkout_button -%}
+        <button type="submit" name="checkout" class="bc-checkout">
+          <svg class="bc-checkout__lock" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 5a3 3 0 0 1 6 0v3H9V7zm3 7a1.5 1.5 0 0 1 .75 2.8V19a.75.75 0 0 1-1.5 0v-2.2A1.5 1.5 0 0 1 12 14z"/>
+          </svg>
+          <span>{{ section.settings.checkout_text | default: 'Checkout Securely' }}</span>
+        </button>
+      {%- endif -%}
+
+      {%- if section.settings.show_payment_icons -%}
+        {%- comment -%} Same custom payment icons as the product page (uploaded to Files) {%- endcomment -%}
+        <ul class="payment-methods unstyled-list bc-payments">
+          <li><img src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/amex-svgrepo-com_2.svg?v=1772398597" alt="American Express" loading="lazy" width="38" height="24"></li>
+          <li><img src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/apple-pay-svgrepo-com_1.svg?v=1772398597" alt="Apple Pay" loading="lazy" width="38" height="24"></li>
+          <li><img src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/google-pay-svgrepo-com_2.svg?v=1772398597" alt="Google Pay" loading="lazy" width="38" height="24"></li>
+          <li><img src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/mastercard-svgrepo-com_2.svg?v=1772398597" alt="Mastercard" loading="lazy" width="38" height="24"></li>
+          <li><img src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/Shop-pay-logo.avif?v=1778019426" alt="Shop Pay" loading="lazy" width="38" height="24"></li>
+          <li><img src="https://cdn.shopify.com/s/files/1/1005/2209/9036/files/visa-svgrepo-com_2.svg?v=1772398597" alt="Visa" loading="lazy" width="38" height="24"></li>
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.show_reviews and section.settings.reviews_text != blank -%}
+        <div class="bc-reviews">
+          <span class="bc-stars" style="--pct: {{ section.settings.reviews_rating | default: 4.5 | times: 20 }}%;" aria-hidden="true"></span>
+          <span class="bc-reviews__txt">{{ section.settings.reviews_text }}</span>
+        </div>
+      {%- endif -%}
+    </form>
+
+  {%- endif -%}
+</cart-drawer>
+
+{%- comment -%} ---------------- CUSTOM VARIANT PICKER (section-level, always present) ---------------- {%- endcomment -%}
+<dialog class="bc-picker" id="bc-picker">
+  <div class="bc-picker__panel">
+    <button type="button" class="bc-picker__close" data-bc-close aria-label="Close">&times;</button>
+    <div class="bc-picker__content" id="bc-picker-content"></div>
+  </div>
+</dialog>
+
+{%- comment -%} ============================ STYLES ============================ {%- endcomment -%}
+<style>
+  /* Full-screen on mobile + tighter drawer padding */
+  #cart-drawer { --drawer-body-padding-block: .55rem; --drawer-footer-padding-block: .4rem; }
+  /* Mobile: full-screen drawer, solid white overlay panel, full dynamic-viewport height. */
+  @media (max-width: 768px) {
+    #cart-drawer { --drawer-max-width: 100vw; }
+    #cart-drawer::part(overlay) { background: rgb(var(--background)); }
+    #cart-drawer::part(base), #cart-drawer::part(content) { height: 100dvh; min-height: -webkit-fill-available; }
+  }
+  /* Remove header divider; keep panel white full height incl. safe area; divider above footer */
+  #cart-drawer::part(header) { border-block-end: 0 !important; box-shadow: none !important; }
+  #cart-drawer::part(base) { height: 100dvh; }
+  #cart-drawer::part(content) { background: rgb(var(--background)); height: 100dvh; min-height: 100dvh; }
+  #cart-drawer::part(footer) { background: rgb(var(--background)); border-block-start: 1px solid #ececec; padding-block-start: 0; padding-block-end: max(env(safe-area-inset-bottom), 4px); }
+
+  .bc-cart .bc-cart__title { text-transform: uppercase; letter-spacing: .02em; }
+  .bc-cart .bc-cart__count { color: #b6b6b6; font-weight: 500; margin-left: 4px; }
+
+  /* ---- Empty state ---- */
+  .bc-empty { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 2px 4px; }
+  .bc-empty__title { text-transform: uppercase; font-weight: 700; letter-spacing: .02em; font-size: 22px; margin: 8px 0 6px; }
+  .bc-empty__sub { color: #7a7a7a; font-size: 14px; margin: 0 0 18px; white-space: nowrap; }
+  .bc-empty__btn { display: inline-flex; align-items: center; justify-content: center; background: #111; color: #fff; text-transform: uppercase; font-weight: 700; letter-spacing: .04em; font-size: 14px; padding: 15px 44px; border-radius: 0; text-decoration: none; margin-bottom: 24px; }
+  .bc-empty__btn:hover { background: #000; }
+  .bc-empty__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+  .bc-empty__tile { position: relative; display: block; border-radius: 0; overflow: hidden; aspect-ratio: 3 / 4; background: #f2f2f2; }
+  .bc-empty__tile-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bc-empty__tile-label { position: absolute; left: 12px; bottom: 12px; color: #fff; text-transform: uppercase; font-weight: 700; letter-spacing: .04em; font-size: 15px; text-shadow: 0 1px 6px rgba(0,0,0,.35); }
+
+  /* ---- Bundle deal bar ---- */
+  .bc-rewards { padding: 4px 0 12px; }
+  .bc-rewards__msg { font-size: 13px; margin: 0 0 8px; text-align: left; line-height: 1.3; }
+  .bc-rewards__msg strong { font-weight: 700; }
+  .bc-rewards__applied { font-weight: 400; }
+  .bc-rewards__track { position: relative; height: 5px; border-radius: 100px; background: #ececec; overflow: visible; }
+  .bc-rewards__fill { height: 100%; border-radius: 100px; transition: width .35s ease, background-color .35s ease; }
+  .bc-rewards.is-locked .bc-rewards__fill { background: #e53935; }
+  .bc-rewards.is-unlocked .bc-rewards__fill { background: #2e7d32; }
+  .bc-rewards__tick { position: absolute; top: 50%; width: 2px; height: 8px; transform: translate(-50%, -50%); background: #fff; opacity: .9; }
+
+  /* ---- Custom line items (Icon-style, heights synced to photo) ---- */
+  .bc-items { margin-top: 2px; }
+  .bc-li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .bc-li__thumb { flex: 0 0 92px; width: 92px; height: 112px; overflow: hidden; background: #f5f5f5; display: block; }
+  .bc-li__thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bc-li__info { flex: 1; min-width: 0; min-height: 112px; display: flex; flex-direction: column; gap: 4px; }
+  .bc-li__name { text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 1.25; letter-spacing: .01em; color: inherit; text-decoration: none; }
+  .bc-li__prices { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+  .bc-li__was { color: #a2a2a2; font-size: 12.5px; }
+  .bc-li__now { font-weight: 700; font-size: 14px; }
+  .bc-li__now.is-sale { color: #e53935; }
+  .bc-li__variant { color: #8a8a8a; font-size: 12px; text-transform: uppercase; letter-spacing: .02em; margin: 0; }
+  .bc-li__qtyrow { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+  .bc-li__qty { display: inline-flex; align-items: center; border: 1px solid #dcdcdc; border-radius: 100px; height: 30px; }
+  .bc-li__qtybtn { width: 30px; height: 30px; border: 0; background: transparent; font-size: 15px; line-height: 1; cursor: pointer; color: #333; display: flex; align-items: center; justify-content: center; padding: 0; }
+  .bc-li__qtyval { min-width: 20px; text-align: center; font-size: 13px; font-weight: 600; }
+  .bc-li__remove { border: 0; background: none; padding: 0; font-size: 12px; color: #8a8a8a; text-decoration: underline; cursor: pointer; }
+  .bc-li__qty.is-loading { opacity: .5; pointer-events: none; }
+
+  /* ---- FBT carousel ---- */
+  .bc-fbt { margin: 10px 0 6px; }
+  .bc-fbt__title { text-transform: uppercase; text-align: left; font-weight: 700; font-size: 15px; letter-spacing: .03em; margin: 0 0 12px; }
+  .bc-fbt__scroller { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+  .bc-fbt__scroller::-webkit-scrollbar { height: 4px; }
+  .bc-fbt__scroller::-webkit-scrollbar-thumb { background: #d8d8d8; border-radius: 100px; }
+  .bc-fbt__card { flex: 0 0 80%; scroll-snap-align: start; display: flex; gap: 12px; align-items: stretch; border: 1px solid #e5e5e5; border-radius: 0; padding: 10px; box-sizing: border-box; }
+  .bc-fbt__thumb { flex: 0 0 84px; width: 84px; height: 108px; overflow: hidden; background: #f5f5f5; display: block; }
+  .bc-fbt__thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bc-fbt__body { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .bc-fbt__name { text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 1.25; letter-spacing: .01em; text-decoration: none; color: inherit; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .bc-fbt__prices { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; }
+  .bc-fbt__was { color: #a2a2a2; font-size: 13px; }
+  .bc-fbt__now { font-weight: 700; font-size: 14px; }
+  .bc-fbt__now.is-sale { color: #e53935; }
+  .bc-fbt__form { margin-top: auto; }
+  .bc-fbt__add { display: block; box-sizing: border-box; width: 100%; text-align: center; text-decoration: none; border: 0; background: #111; color: #fff; text-transform: uppercase; font-weight: 700; letter-spacing: .04em; font-size: 12px; padding: 11px 10px; border-radius: 0; cursor: pointer; }
+  .bc-fbt__add:hover { background: #000; }
+
+  /* ---- Footer (compact, compartment rows) ---- */
+  .bc-footer { display: flex; flex-direction: column; align-items: stretch; gap: 0; background: rgb(var(--background, 255 255 255)); }
+  .bc-footer > * { width: 100%; box-sizing: border-box; }
+  /* The footer part already draws a top divider. Whatever ends up first inside it (the protection row, or
+     the free-delivery row when protection is hidden) must not add its own top border, otherwise you get a
+     double grey line. */
+  .bc-footer > *:first-child { border-top: none; }
+  .bc-protection { display: flex; align-items: center; gap: 12px; background: #f4f4f4; border-radius: 0; padding: 8px 12px; margin: 6px 0; }
+  .bc-protection__text { display: flex; flex-direction: column; line-height: 1.25; margin-right: auto; }
+  .bc-protection__title { text-transform: uppercase; font-weight: 700; font-size: 11.5px; letter-spacing: .01em; }
+  .bc-protection__sub { color: #8f8f8f; font-size: 11.5px; }
+  .bc-protection__price { font-size: 12.5px; color: #8f8f8f; }
+  .bc-toggle { position: relative; width: 40px; height: 22px; border-radius: 100px; background: #cfcfcf; border: 0; cursor: pointer; padding: 0; flex: 0 0 auto; transition: background-color .2s ease; }
+  .bc-toggle.is-on { background: #111; }
+  .bc-toggle__knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .2s ease; }
+  .bc-toggle.is-on .bc-toggle__knob { transform: translateX(18px); }
+  .bc-toggle.is-loading { opacity: .6; pointer-events: none; }
+
+  .bc-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-top: 1px solid #ededed; }
+  .bc-row--free { justify-content: flex-end; padding: 4px 0 3px; }
+  .bc-free-delivery { text-transform: uppercase; font-size: 12.5px; font-weight: 700; letter-spacing: .04em; color: #1c1c1c; }
+  .bc-disc-label { font-size: 13px; color: #444; }
+  .bc-disc-pill { display: inline-flex; align-items: center; gap: 4px; background: #f1f1f1; color: #333; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; padding: 4px 8px; border-radius: 0; }
+  .bc-disc-amt { margin-left: auto; font-size: 13px; color: #444; }
+  .bc-row--subtotal { justify-content: space-between; }
+  .bc-subtotal__label { font-weight: 700; font-size: 15px; }
+  .bc-subtotal__vals { display: inline-flex; align-items: center; gap: 8px; }
+  .bc-subtotal__was { color: #9a9a9a; }
+  .bc-subtotal__now { font-weight: 700; font-size: 16px; }
+  .bc-save { background: #e53935; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 0; white-space: nowrap; }
+
+  .bc-checkout { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; border: 0; border-radius: 0; background: #111; color: #fff; text-transform: uppercase; font-weight: 700; letter-spacing: .03em; font-size: 15px; padding: 14px; cursor: pointer; margin-top: 8px; }
+  .bc-checkout:hover { background: #000; }
+  .bc-checkout__lock { display: block; }
+
+  .bc-payments { display: flex; flex-wrap: nowrap; gap: 8px; justify-content: center; align-items: center; margin: 8px 0 0; padding: 0; }
+  .bc-payments li { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; line-height: 0; }
+  .bc-payments img { height: 30px; width: auto; display: block; }
+  .bc-payments img[alt="Shop Pay"] { height: 22px; }
+
+  /* ---- Custom variant picker (native <dialog>, top-layer — avoids the position:fixed iOS scroll-freeze) ---- */
+  .bc-picker { position: fixed; inset: 0; margin: 0; padding: 0; border: 0; width: 100vw; height: 100dvh; max-width: 100vw; max-height: 100dvh; background: transparent; overflow: visible; -webkit-tap-highlight-color: transparent; }
+  .bc-picker[open] { display: flex; flex-direction: column; justify-content: flex-end; }
+  .bc-picker::backdrop { background: rgba(0,0,0,.45); }
+  .bc-picker button:focus, .bc-picker button:focus-visible { outline: none; box-shadow: none; }
+  .bc-picker__panel { position: relative; width: 100%; max-height: 90dvh; overflow-y: auto; background: rgb(var(--background, 255 255 255)); padding: 18px 16px calc(30px + env(safe-area-inset-bottom)); box-shadow: 0 -6px 24px rgba(0,0,0,.15); }
+  .bc-picker__close { position: absolute; top: 10px; right: 12px; border: 0; background: none; font-size: 26px; line-height: 1; cursor: pointer; color: #333; z-index: 2; }
+  .bc-picker__back { display: inline-flex; align-items: center; gap: 5px; background: none; border: 0; padding: 0 0 12px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #555; cursor: pointer; }
+  .bc-picker__back:hover { color: #111; }
+  .bc-picker__head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; padding-right: 24px; }
+  .bc-picker__img { flex: 0 0 66px; width: 66px; height: 82px; object-fit: cover; background: #f5f5f5; }
+  .bc-picker__title { text-transform: uppercase; font-weight: 700; font-size: 13px; line-height: 1.25; margin: 0 0 4px; }
+  .bc-picker__prices { display: flex; align-items: baseline; gap: 6px; }
+  .bc-picker__was { color: #a2a2a2; font-size: 12.5px; text-decoration: line-through; }
+  .bc-picker__now { font-weight: 700; font-size: 14px; }
+  .bc-picker__now.is-sale { color: #e53935; }
+  .bc-picker__optname { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; font-size: 11.5px; font-weight: 700; letter-spacing: .02em; color: #333; margin: 12px 0 7px; }
+  .bc-picker__chart { font-size: 11px; font-weight: 600; text-decoration: underline; color: #6d6d6d; cursor: pointer; text-transform: none; letter-spacing: 0; }
+  .bc-picker__vals { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bc-picker__val { min-width: 42px; padding: 9px 12px; border: 1px solid #d9d9d9; background: #fff; font-size: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: .01em; }
+  .bc-picker__val.is-selected { border-color: #111; background: #111; color: #fff; }
+  .bc-picker__val.is-unavailable { color: #c4c4c4; border-color: #ececec; text-decoration: line-through; cursor: not-allowed; }
+  .bc-picker__vals.is-swatches { gap: 10px; }
+  .bc-picker__swatch { width: 68px; box-sizing: border-box; padding: 0 0 4px; border: 2px solid #e0e0e0; background: none; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+  .bc-picker__swatch img { width: 100%; height: 78px; object-fit: cover; display: block; background: #f5f5f5; }
+  .bc-picker__swatch.is-selected { border-color: #111; background: none; color: inherit; }
+  .bc-picker__swatch-label { width: 100%; font-size: 9px; text-transform: uppercase; letter-spacing: .01em; color: #666; line-height: 1.15; text-align: center; word-break: break-word; }
+  .bc-picker__swatch.is-unavailable { opacity: .4; text-decoration: none; }
+  .bc-picker__swatch.is-unavailable .bc-picker__swatch-label { text-decoration: line-through; }
+  .bc-picker__add { display: block; width: 100%; margin-top: 16px; border: 0; background: #111; color: #fff; text-transform: uppercase; font-weight: 700; letter-spacing: .03em; font-size: 14px; padding: 15px; cursor: pointer; }
+  .bc-picker__add[disabled] { background: #bdbdbd; cursor: not-allowed; }
+
+
+  /* ---- Size chart overlay ---- */
+
+  .bc-reviews { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: #4d4d4d; margin: 6px 0 0; }
+  .bc-stars { --pct: 90%; display: inline-block; font-size: 14px; line-height: 1; letter-spacing: 1px; }
+  .bc-stars::before { content: "\2605\2605\2605\2605\2605"; background: linear-gradient(90deg, #88795d var(--pct), #d9d3c6 var(--pct)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+</style>
+
+{%- comment -%} ============================ SCRIPT ============================ {%- endcomment -%}
+<script>
+  (function () {
+    if (window.__bcCartInit) return;
+    window.__bcCartInit = true;
+
+    /* Enforce THIS page's settings after any drawer re-render. The section-render endpoint always returns
+       the PUBLISHED theme, which can differ from what this page shows (theme preview, editor, or a cache
+       window right after a settings change). Without this, turning a block OFF (bundle bar, reviews, upsell,
+       payment icons, checkout, shipping protection) or changing the empty-cart images would "fall back" to
+       the published version on the next cart refresh. We read the real settings off the persistent
+       <cart-drawer> element (rendered by this page) and re-apply them. On a consistent theme it's a no-op. */
+    function bcEnforceSettings(root) {
+      if (!root) return;
+      var off = function (a) { return root.getAttribute(a) === 'false'; };
+      var drop = function (sel) { var el = root.querySelector(sel); if (el && el.parentNode) { el.parentNode.removeChild(el); } };
+      if (off('data-show-sp'))       drop('.bc-protection');
+      if (off('data-show-bundle'))   drop('.bc-rewards');
+      if (off('data-show-fbt'))      drop('.bc-fbt');
+      if (off('data-show-checkout')) drop('.bc-checkout');
+      if (off('data-show-pay'))      drop('.bc-payments');
+      if (off('data-show-reviews'))  drop('.bc-reviews');
+      var e1 = root.getAttribute('data-empty1'), e2 = root.getAttribute('data-empty2');
+      var tiles = root.querySelectorAll('.bc-empty__tile-img');
+      if (e1 && tiles[0] && tiles[0].getAttribute('src') !== e1) { tiles[0].setAttribute('src', e1); }
+      if (e2 && tiles[1] && tiles[1].getAttribute('src') !== e2) { tiles[1].setAttribute('src', e2); }
+    }
+
+    /* ---- Automatic upsell via Shopify's built-in Product Recommendations engine ----
+       Store-agnostic: needs no metafields, no app and no API connection. It activates only when the Liquid
+       tiers produced no "People also bought" block (typically a store that has no co-purchase data yet). It
+       asks Shopify for products related to what's in the cart, filters them to the cart's gender, and
+       renders them. It gets better on its own as the store gathers orders. On a store that already has real
+       data (like B&C) the Liquid block exists, so this stays dormant. */
+    function bcEsc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+    function bcGender(t){ t=(t||'').toLowerCase(); if(t.indexOf('women')>-1||t.indexOf('ladies')>-1) return 'women'; if(t.indexOf('men')>-1) return 'men'; return 'uni'; }
+    /* Coarse category so we can push COMPLEMENTARY items (a different category than what's in the cart) to
+       the front, instead of "more of the same". footwear vs accessory vs apparel. */
+    function bcCat(t){ t=(t||'').toLowerCase();
+      if(/clog|sandal|loafer|\bshoe|boot|trainer|sneaker|\bmule|brogue|\bheel|wedge|slipper|footwear|flip.?flop|espadrille/.test(t)) return 'footwear';
+      if(/\bbag|tote|backpack|purse|\bbelt|\bhat\b|\bcap\b|scarf|sunglass|watch|jewel|\bsock|wallet|glove|beanie|necklace|bracelet/.test(t)) return 'accessory';
+      return 'apparel';
+    }
+    function bcFmt(cents,cur){ try{ return new Intl.NumberFormat(undefined,{style:'currency',currency:cur||'GBP'}).format((cents||0)/100); }catch(e){ return '£'+((cents||0)/100).toFixed(2); } }
+    function bcRenderUpsell(dr, items, picks, currency){
+      if (dr.querySelector('.bc-fbt')) return;
+      var title = dr.getAttribute('data-fbt-title') || 'People also bought';
+      var btn = dr.getAttribute('data-fbt-btn') || 'Add +';
+      var html = '<p class="bc-fbt__title">'+bcEsc(title)+'</p><div class="bc-fbt__scroller">';
+      picks.forEach(function(p){
+        var url = (p.url || ('/products/'+p.handle)).split('?')[0];
+        var img = p.featured_image || '';
+        if (img.indexOf('//')===0) { img='https:'+img; }
+        if (img) { img += (img.indexOf('?')>-1?'&':'?')+'width=200'; }
+        var price = (p.compare_at_price && p.compare_at_price>p.price)
+          ? '<s class="bc-fbt__was">'+bcFmt(p.compare_at_price,currency)+'</s><span class="bc-fbt__now is-sale">'+bcFmt(p.price,currency)+'</span>'
+          : '<span class="bc-fbt__now">'+bcFmt(p.price,currency)+'</span>';
+        var add = (p.variants && p.variants.length===1)
+          ? '<button type="button" class="bc-fbt__add" data-fbt-add="'+p.variants[0].id+'">'+bcEsc(btn)+'</button>'
+          : '<button type="button" class="bc-fbt__add" data-bc-picker data-handle="'+bcEsc(p.handle)+'" data-url="'+bcEsc(url)+'">'+bcEsc(btn)+'</button>';
+        html += '<div class="bc-fbt__card"><a href="'+bcEsc(url)+'" class="bc-fbt__thumb" data-instant>'+(img?'<img src="'+bcEsc(img)+'" class="bc-fbt__thumb-img" loading="lazy" width="90" height="108">':'')+'</a>'+
+                '<div class="bc-fbt__body"><a href="'+bcEsc(url)+'" class="bc-fbt__name" data-instant>'+bcEsc(p.title)+'</a>'+
+                '<div class="bc-fbt__prices">'+price+'</div><div class="bc-fbt__form">'+add+'</div></div></div>';
+      });
+      html += '</div>';
+      var wrap = document.createElement('div'); wrap.className = 'bc-fbt'; wrap.innerHTML = html;
+      items.insertAdjacentElement('afterend', wrap);
+    }
+    var bcUpsellBusy = false;
+    function bcMaybeAutoUpsell(){
+      var dr = document.getElementById('cart-drawer'); if(!dr) return;
+      if (dr.getAttribute('data-show-fbt') === 'false') return;      /* upsell disabled */
+      if (dr.querySelector('.bc-fbt')) return;                        /* a block already exists (Liquid or ours) */
+      var items = dr.querySelector('.bc-items');
+      if (!items || !items.querySelector('.bc-li')) return;           /* empty cart, nothing to base it on */
+      if (bcUpsellBusy) return; bcUpsellBusy = true;
+      fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } }).then(function(r){ return r.json(); }).then(function(cart){
+        if (!cart.items || !cart.items.length) return;
+        var cartHandles = {}, dom = 'uni', catCount = {};
+        cart.items.forEach(function(it){
+          cartHandles[it.handle]=1;
+          var g=bcGender(it.product_title||it.title); if(dom==='uni'&&g!=='uni'){ dom=g; }
+          var c=bcCat((it.product_type||'')+' '+(it.product_title||it.title)); catCount[c]=(catCount[c]||0)+1;
+        });
+        var catDom='', catMax=0; Object.keys(catCount).forEach(function(k){ if(catCount[k]>catMax){ catMax=catCount[k]; catDom=k; } });
+        var ids = []; cart.items.slice(0,3).forEach(function(it){ if(ids.indexOf(it.product_id)<0){ ids.push(it.product_id); } });
+        return Promise.all(ids.map(function(id){
+          return fetch('/recommendations/products.json?product_id='+id+'&intent=related&limit=10').then(function(r){ return r.json(); }).catch(function(){ return { products: [] }; });
+        })).then(function(results){
+          var seen = {}, comp = [], same = [];
+          results.forEach(function(res){ (res.products||[]).forEach(function(p){
+            if (cartHandles[p.handle] || seen[p.handle]) return;
+            if (p.handle==='shipping-protection' || p.available===false) return;
+            var g = bcGender(p.title);
+            if (dom!=='uni' && g!=='uni' && g!==dom) return;           /* gender filter */
+            seen[p.handle]=1;
+            /* complementary (different category than the cart) goes first, "more of the same" last */
+            if (catDom && bcCat((p.type||'')+' '+p.title) === catDom) { same.push(p); } else { comp.push(p); }
+          }); });
+          var picks = comp.concat(same).slice(0,4);
+          if (picks.length && !dr.querySelector('.bc-fbt')) { bcRenderUpsell(dr, items, picks, cart.currency); }
+        });
+      }).then(function(){ bcUpsellBusy=false; }, function(){ bcUpsellBusy=false; });
+    }
+
+    /* Single-variant auto-upsell "Add +" adds straight to the cart. (Multi-variant buttons reuse the shared
+       data-bc-picker colour/size handler.) */
+    document.addEventListener('click', function(e){
+      var b = e.target.closest('[data-fbt-add]'); if(!b) return;
+      e.preventDefault();
+      var vid = b.getAttribute('data-fbt-add'); if(!vid) return;
+      b.style.opacity = '.6'; b.style.pointerEvents = 'none';
+      fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: vid, quantity: 1 }] }) })
+        .then(function(){ return bcRefreshDrawer(true); })
+        .catch(function(){ b.style.opacity=''; b.style.pointerEvents=''; });
+    });
+
+    /* Safety net: after ANY re-render of the drawer, re-apply this page's settings AND (re)build the
+       automatic upsell when needed — regardless of which script triggered the render. */
+    (function bcSettingsObserver() {
+      var dr = document.getElementById('cart-drawer'); if (!dr) return;
+      var busy = false;
+      var run = function () {
+        if (busy) return; busy = true;
+        try { bcEnforceSettings(dr); } catch (e) {}
+        busy = false;
+        try { bcMaybeAutoUpsell(); } catch (e) {}
+      };
+      try { var mo = new MutationObserver(function () { if (!busy) { run(); } }); mo.observe(dr, { childList: true, subtree: true }); } catch (e) {}
+      run();
+    })();
+
+    function bcRefreshDrawer(scrollToTop) {
+      var d0 = document.querySelector('cart-drawer');
+      var b0 = d0 && d0.shadowRoot ? d0.shadowRoot.querySelector('[part~="body"]') : null;
+      var prevScroll = b0 ? b0.scrollTop : 0;
+      return fetch(window.location.pathname + '?sections=cart-drawer', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var html = data && data['cart-drawer'];
+          if (!html) { return; }
+          var tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          var fresh = tmp.querySelector('#cart-drawer');
+          var cur = document.querySelector('#cart-drawer');
+          if (fresh && cur) {
+            cur.innerHTML = fresh.innerHTML;
+            bcEnforceSettings(cur);
+            var drEl = document.querySelector('cart-drawer');
+            var bodyPart = drEl && drEl.shadowRoot ? drEl.shadowRoot.querySelector('[part~="body"]') : null;
+            /* Only jump to the top when a real product was added (show the new item). For the shipping-
+               protection toggle, quantity changes and removals, keep the shopper where they were. */
+            if (bodyPart) { bodyPart.scrollTop = scrollToTop ? 0 : prevScroll; }
+          }
+        })
+        .catch(function () {});
+    }
+
+
+
+    document.addEventListener('click', function (e) {
+      // line-item quantity stepper
+      var qbtn = e.target.closest('.bc-li__qtybtn');
+      if (qbtn) {
+        e.preventDefault();
+        var wrap = qbtn.closest('.bc-li__qty');
+        if (!wrap || wrap.classList.contains('is-loading')) return;
+        var key = wrap.getAttribute('data-key');
+        var cur = parseInt(wrap.querySelector('.bc-li__qtyval').textContent, 10) || 0;
+        var next = cur + parseInt(qbtn.getAttribute('data-delta'), 10);
+        if (next < 0) { next = 0; }
+        wrap.classList.add('is-loading');
+        fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: key, quantity: next }) })
+          .then(function () { bcRefreshDrawer(); })
+          .catch(function () { wrap.classList.remove('is-loading'); });
+        return;
+      }
+      // line-item remove
+      var rbtn = e.target.closest('.bc-li__remove');
+      if (rbtn) {
+        e.preventDefault();
+        rbtn.disabled = true;
+        fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: rbtn.getAttribute('data-key'), quantity: 0 }) })
+          .then(function () { bcRefreshDrawer(); });
+        return;
+      }
+      // shipping protection toggle
+      var btn = e.target.closest('.bc-toggle');
+      if (!btn) return;
+      e.preventDefault();
+      var variant = btn.getAttribute('data-variant');
+      if (!variant) return;
+      var isOn = btn.classList.contains('is-on');
+      btn.classList.add('is-loading');
+
+      var req = isOn
+        ? fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: variant, quantity: 0 }) })
+        : fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: variant, quantity: 1 }] }) });
+
+      req.then(function () { bcRefreshDrawer(); })
+         .catch(function () { btn.classList.remove('is-loading'); });
+    });
+
+    /* ---------- Custom in-drawer variant picker ---------- */
+    var bcP = { product: null, selected: {} };
+    function bcMoney(c){ return '£' + (c/100).toFixed(2); }
+    function bcPickerEl(){ return document.getElementById('bc-picker'); }
+    function bcOptVals(prod, idx){ var seen={}, out=[]; prod.variants.forEach(function(v){ var val=v.options[idx]; if(!seen[val]){ seen[val]=1; out.push(val); } }); return out; }
+    function bcVariantFor(sel){ return bcP.product.variants.find(function(v){ return Object.keys(sel).every(function(i){ return v.options[i]===sel[i]; }); }); }
+    function bcAvail(prod, idx, val){ var sel=bcP.selected; return prod.variants.some(function(v){ if(v.options[idx]!==val) return false; if(!v.available) return false; return Object.keys(sel).every(function(i){ return (i==idx)||v.options[i]===sel[i]; }); }); }
+    function bcImgW(src,w){ if(!src) return ''; return src + (src.indexOf('?')>-1?'&':'?') + 'width=' + w; }
+
+    /* Best variant matching the current (possibly partial) selection — drives the head image + price,
+       so the photo switches the moment a colour is chosen (before a size is picked). */
+    function bcRepVariant(){
+      var prod=bcP.product, sel=bcP.selected, keys=Object.keys(sel);
+      if(!keys.length) return null;
+      return prod.variants.find(function(x){ return keys.every(function(i){ return x.options[i]===sel[i]; }); }) || null;
+    }
+    function bcHeadHtml(){
+      var prod=bcP.product, v=bcRepVariant();
+      var img = (v && v.featured_image ? v.featured_image.src : (prod.featured_image || (prod.images && prod.images[0])));
+      var price = v ? v.price : prod.price;
+      var compare = v ? v.compare_at_price : prod.compare_at_price;
+      var h = '<div class="bc-picker__head">';
+      if(img) h += '<img class="bc-picker__img" src="' + bcImgW(img,160) + '" alt="">';
+      h += '<div><p class="bc-picker__title">' + prod.title + '</p><div class="bc-picker__prices">';
+      if(compare && compare>price) h += '<span class="bc-picker__was">' + bcMoney(compare) + '</span><span class="bc-picker__now is-sale">' + bcMoney(price) + '</span>';
+      else h += '<span class="bc-picker__now">' + bcMoney(price) + '</span>';
+      h += '</div></div></div>';
+      return h;
+    }
+    function bcOptionsHtml(){
+      var prod=bcP.product, sel=bcP.selected, h='';
+      prod.options.forEach(function(name,i){
+        var optLabel = (name && name.name) ? name.name : name;
+        var isColour = /colou?r/i.test(optLabel);
+        h += '<div class="bc-picker__optname"><span>' + optLabel + '</span></div>';
+        h += '<div class="bc-picker__vals' + (isColour ? ' is-swatches' : '') + '">';
+        bcOptVals(prod,i).forEach(function(val){
+          var cls = 'bc-picker__val' + (isColour ? ' bc-picker__swatch' : '');
+          if (sel[i] === val) cls += ' is-selected';
+          if (!bcAvail(prod,i,val)) cls += ' is-unavailable';
+          var esc = String(val).replace(/"/g,'&quot;');
+          if (isColour) {
+            var vv = prod.variants.find(function(x){ return x.options[i] === val; });
+            var im = (vv && vv.featured_image) ? vv.featured_image.src : (prod.featured_image || '');
+            h += '<button type="button" class="' + cls + '" data-opt="' + i + '" data-val="' + esc + '" title="' + esc + '"><img src="' + bcImgW(im,140) + '" alt="' + esc + '"><span class="bc-picker__swatch-label">' + val + '</span></button>';
+          } else {
+            h += '<button type="button" class="' + cls + '" data-opt="' + i + '" data-val="' + esc + '">' + val + '</button>';
+          }
+        });
+        h += '</div>';
+      });
+      return h;
+    }
+    function bcAddBtnHtml(){
+      var prod=bcP.product, sel=bcP.selected, v=null;
+      if(Object.keys(sel).length===prod.options.length) v=bcVariantFor(sel);
+      var ready = v && v.available;
+      return '<button type="button" class="bc-picker__add" data-bc-add ' + (ready?'':'disabled') + '>' + (ready?'Add to cart':'Select options') + '</button>';
+    }
+    function bcRenderPicker(){
+      var back = bcP.fromCart ? '<button type="button" class="bc-picker__back" data-bc-close>&larr; Back to cart</button>' : '';
+      document.getElementById('bc-picker-content').innerHTML = back + bcHeadHtml() + bcOptionsHtml() + bcAddBtnHtml();
+    }
+    /* Teach the drawer that clicks inside our picker sheet OR inside a Klaviyo pop-up count as "inside"
+       itself, so the theme's "click-outside-closes-drawer" logic never fires for them. This is what stops
+       the slide-cart from collapsing when you tap the Klaviyo (or picker) close X. Scoped to those two
+       things only; every other click behaves natively. Touches no data, GMC or theme structure. */
+    (function bcGuardDrawer(){
+      var dr = document.getElementById('cart-drawer'); if(!dr) return;
+      var INSIDE = '#bc-picker, [class*="kl-private-reset-css"], .klaviyo-form, [data-testid="POPUP"]';
+      dr.contains = function(node){
+        try { if(node && node.nodeType===1 && node.closest && node.closest(INSIDE)) return true; } catch(e){}
+        return Node.prototype.contains.call(this, node);
+      };
+    })();
+    function bcLockDrawer(){}
+    function bcUnlockDrawer(){}
+
+    function bcOpenPicker(handle, fromCart){
+      fetch('/products/' + handle + '.js').then(function(r){ return r.json(); }).then(function(prod){
+        bcP.product = prod; bcP.selected = {}; bcP.fromCart = !!fromCart;
+        prod.options.forEach(function(o,i){ var vals=bcOptVals(prod,i); if(vals.length===1) bcP.selected[i]=vals[0]; });
+        bcRenderPicker();
+        bcLockDrawer();
+        var el=bcPickerEl();
+        if(el){ if(el.showModal && !el.open){ try { el.showModal(); } catch(e){ el.setAttribute('open',''); } } else { el.setAttribute('open',''); } }
+      });
+    }
+    function bcClosePicker(){ var el=bcPickerEl(); if(el){ if(el.close && el.open){ try { el.close(); } catch(e){ el.removeAttribute('open'); } } else { el.removeAttribute('open'); } } bcUnlockDrawer(); }
+
+    /* FBT upsell "ADD +" -> open the full-screen picker sheet (dims the page; the cart stays open behind it). */
+    document.addEventListener('click', function(e){
+      var opener = e.target.closest('[data-bc-picker]');
+      if(opener){ e.preventDefault(); bcOpenPicker(opener.getAttribute('data-handle'), true); }
+    });
+
+    /* The collection/product-page "+" quick-add is intentionally left to the theme's OWN native quick-buy
+       pop-up (we no longer intercept it). That native flow never triggers the cart scroll-freeze, so the
+       cart stays perfectly stable. Our custom picker is used only for the in-cart upsell (data-bc-picker). */
+
+    /* Interactions inside the picker sheet. No event-phase tricks needed — while the sheet is open the
+       drawer treats these clicks as "inside" (see bcLockDrawer), so the cart never slides away, and the
+       tapped control receives the event normally (reliable on mobile). */
+    (function bindPicker(){
+      var pk = document.getElementById('bc-picker');
+      if(!pk){ return; }
+      pk.addEventListener('close', function(){ bcUnlockDrawer(); });        /* Escape / dialog close */
+      pk.addEventListener('cancel', function(e){ e.preventDefault(); bcClosePicker(); });
+      pk.addEventListener('click', function(e){
+        if(e.target === pk){ bcClosePicker(); return; }                     /* click on the ::backdrop area */
+        if(e.target.closest('[data-bc-close]')){ e.preventDefault(); bcClosePicker(); return; }
+        var val = e.target.closest('.bc-picker__val');
+        if(val){ e.preventDefault(); if(val.classList.contains('is-unavailable')) return; bcP.selected[val.getAttribute('data-opt')] = val.getAttribute('data-val'); bcRenderPicker(); return; }
+        var addBtn = e.target.closest('[data-bc-add]');
+        if(addBtn && !addBtn.disabled){
+          e.preventDefault();
+          var variant = bcVariantFor(bcP.selected);
+          if(!variant) return;
+          addBtn.disabled = true; addBtn.textContent = 'Adding…';
+          fetch('/cart/add.js', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ items:[{ id: variant.id, quantity:1 }] }) })
+            .then(function(){
+              bcClosePicker();
+              var op = document.querySelector('[aria-controls="cart-drawer"]');
+              var dr = document.querySelector('cart-drawer');
+              if(op && dr && !dr.hasAttribute('open')){
+                // opened from a collection/product page (cart was closed) -> open the fresh cart
+                bcRefreshDrawer(true).then(function(){ op.click(); });
+              } else {
+                bcRefreshDrawer(true);
+              }
+            })
+            .catch(function(){ addBtn.disabled=false; addBtn.textContent='Add to cart'; });
+          return;
+        }
+      });
+    })();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.cart_drawer.name",
+  "class": "shopify-section--cart-drawer",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Custom slide cart. FBT upsell reads product metafield custom.fbt (list.product_reference), same-gender filtered, with a bestseller fallback." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:global.colors.scheme", "default": "scheme-1" },
+
+    { "type": "header", "content": "Bundle deal bar" },
+    { "type": "checkbox", "id": "show_bundle_bar", "label": "Show bundle deal bar", "default": true },
+    { "type": "paragraph", "content": "These percentages are only what the bar DISPLAYS. Make sure they match your actual automatic discounts under Shopify > Discounts." },
+    { "type": "range", "id": "bundle_pct_2", "label": "2 items – % off", "min": 0, "max": 90, "step": 1, "unit": "%", "default": 10 },
+    { "type": "range", "id": "bundle_pct_3", "label": "3 items – % off", "min": 0, "max": 90, "step": 1, "unit": "%", "default": 15 },
+    { "type": "range", "id": "bundle_pct_4", "label": "4 items – % off", "min": 0, "max": 90, "step": 1, "unit": "%", "default": 20 },
+    { "type": "range", "id": "bundle_pct_5", "label": "5 items – % off", "min": 0, "max": 90, "step": 1, "unit": "%", "default": 25 },
+
+    { "type": "header", "content": "Frequently bought together" },
+    { "type": "checkbox", "id": "show_fbt", "label": "Show upsell section", "default": true },
+    { "type": "text", "id": "fbt_title", "label": "Upsell heading", "default": "People also bought" },
+    { "type": "text", "id": "fbt_button_text", "label": "Add button text", "default": "Add +" },
+    { "type": "product_list", "id": "fbt_fallback_products", "label": "Fallback products", "info": "Shown as the 'People also bought' upsell when there is no co-purchase (custom.fbt) data yet — e.g. on a new store. Pick a handful of products here and they appear automatically. No metafields or API needed." },
+
+    { "type": "header", "content": "Empty cart" },
+    { "type": "text", "id": "empty_title", "label": "Title", "default": "Your cart is empty" },
+    { "type": "text", "id": "empty_subtitle", "label": "Subtitle", "default": "Discover our latest collections" },
+    { "type": "text", "id": "empty_button_text", "label": "Button text", "default": "Shop all" },
+    { "type": "url", "id": "empty_button_link", "label": "Button link" },
+    { "type": "collection", "id": "empty_collection_1", "label": "Tile 1 collection" },
+    { "type": "image_picker", "id": "empty_image_1", "label": "Tile 1 image (Women)", "info": "Leave empty to use the current default image." },
+    { "type": "text", "id": "empty_label_1", "label": "Tile 1 label", "default": "Women" },
+    { "type": "collection", "id": "empty_collection_2", "label": "Tile 2 collection" },
+    { "type": "image_picker", "id": "empty_image_2", "label": "Tile 2 image (Men)", "info": "Leave empty to use the current default image." },
+    { "type": "text", "id": "empty_label_2", "label": "Tile 2 label", "default": "Men" },
+
+    { "type": "header", "content": "Shipping protection" },
+    { "type": "checkbox", "id": "show_shipping_protection", "label": "Show shipping protection", "default": true },
+    { "type": "text", "id": "shipping_protection_variant", "label": "Shipping protection variant ID", "default": "58170155696476" },
+    { "type": "text", "id": "protection_title", "label": "Title", "default": "100% Shipping Protection" },
+    { "type": "text", "id": "protection_sub", "label": "Subtitle", "default": "Don't take any risks" },
+    { "type": "text", "id": "protection_price", "label": "Price label", "default": "£2.95" },
+
+    { "type": "header", "content": "Footer" },
+    { "type": "text", "id": "free_delivery_text", "label": "Delivery text", "default": "FREE DELIVERY" },
+    { "type": "checkbox", "id": "show_checkout_button", "label": "Show checkout button", "default": true },
+    { "type": "text", "id": "checkout_text", "label": "Checkout button text", "default": "Checkout Securely" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true },
+
+    { "type": "header", "content": "Reviews / trust line" },
+    { "type": "checkbox", "id": "show_reviews", "label": "Show reviews line", "default": true },
+    { "type": "range", "id": "reviews_rating", "label": "Star rating", "min": 0, "max": 5, "step": 0.5, "default": 4.5 },
+    { "type": "text", "id": "reviews_text", "label": "Reviews / trust line", "default": "4.7/5 (2749+ reviews)" }
+  ]
+}
+{% endschema %}

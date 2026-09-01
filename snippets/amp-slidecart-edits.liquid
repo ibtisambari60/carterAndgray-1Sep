@@ -1,0 +1,274 @@
+<style>
+  /* CART HEADER — uppercase + geen border meer */
+  #slidecarthq header.header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+  #slidecarthq header.header,
+  #slidecarthq header.header * {
+    text-transform: uppercase !important;
+  }
+  
+  /* Rewards section — geen achtergrond, geen borders */
+  #slidecarthq .rewards,
+  #slidecarthq [class*="rewards-wrapper"],
+  #slidecarthq [class*="rewards-container"],
+  #slidecarthq [class*="rewards-section"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+  
+  #slidecarthq .rewards {
+    padding-block: 5px;
+    gap: 8px;
+  }
+  
+  #slidecarthq .rewards-progress-bar {
+    margin-top: 0;
+    margin-bottom: 5px;
+    background-color: #ebebeb !important;
+  }
+  
+  #slidecarthq .rewards[data-testid="TieredRewards"] {
+    margin-top: 5px;
+  }
+  
+  #slidecarthq .rewards .rewards-progress {
+    background-color: #e53935;
+  }
+  
+  #slidecarthq .rewards.rewards-unlocked .rewards-progress,
+  #slidecarthq .rewards:has(.rewards-post-unlock-text) .rewards-progress {
+    background-color: #2e7d32;
+  }
+  
+  #slidecarthq .rewards-tiers-labels-item {
+    display: none !important;
+  }
+  
+  /* Verwijder alle grijze divider-lijntjes binnen de witte cart body */
+  #slidecarthq header.header + *,
+  #slidecarthq .item,
+  #slidecarthq .item-container,
+  #slidecarthq .upsells,
+  #slidecarthq .upsells-header,
+  #slidecarthq .upsell,
+  #slidecarthq .upsell-item,
+  #slidecarthq [class*="cart-divider"],
+  #slidecarthq [class*="item-divider"],
+  #slidecarthq [class*="section-divider"],
+  #slidecarthq [class*="cart-separator"] {
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* NEW & FIXED: Bring payment icons + reviews closer (override inline styles op de reviews) */
+  #slidecarthq footer.footer .custom-html div[style*="margin-top:8px"] {
+    margin-top: 2px !important;
+  }
+  #slidecarthq footer.footer .custom-html div[style*="padding:8px 0 6px"] {
+    padding-top: 2px !important;
+    padding-bottom: 4px !important;
+  }
+  
+  /* NEW: Mobile-only — minder padding-bottom op cart (desktop laat staan zoals nu) */
+  @media (max-width: 768px) {
+    #slidecarthq footer.footer.sticky-footer {
+      padding-bottom: 2px !important;
+    }
+  }
+  
+  #slidecarthq .footer-row:has(.rewards-shipping-text) {
+    padding-bottom: 8px;
+  }
+  #slidecarthq footer.footer.sticky-footer {
+    padding-top: 8px;
+  }
+  #slidecarthq footer.footer form#slidecart-checkout-form button {
+    margin-top: 0;
+  }
+
+  /* Discount / Saving Badge — RED pill style */
+  .slidecarthq .savings-text {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    background: #E53935;
+    padding: 3px 6px;
+    border-radius: 999px;
+    order: 2;
+    max-width: fit-content;
+  }
+
+  .slidecarthq .savings-text,
+  .slidecarthq .savings-text * {
+    font-size: 12px !important;
+    font-weight: 600;
+    color: #ffffff !important;          
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #slidecarthq .footer, #slidecarthq .footer-row {
+    padding-block: 10px;
+  }
+  #slidecarthq .footer-row .shipping-cost span {
+    font-size: 14px;
+  }
+  
+  /* LOCK ICON CHECKOUT BUTTON */
+  #slidecarthq .footer .button::before {
+    content: "";
+    top: 47%;
+    width: 16px;
+    height: 16px;
+    background-image: url("https://cdn.shopify.com/s/files/1/0555/8039/3803/files/lock_icon_a990a92e-20da-43a2-bcae-42357d619bf0.png?v=1762707118");
+    background-size: cover;
+    background-position: center;
+    margin-right: 5px;
+  }
+
+  #slidecarthq .footer .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  #slidecarthq .footer .button::before {
+    display: block !important;
+  }
+  
+  #slidecarthq .upsells .upsell-image img {
+    width: 80px;
+    height: 110px !important;
+    -o-object-fit: inherit;
+    object-fit: cover;
+  }
+  #slidecarthq .item img {
+    object-fit: scale-down;
+    width: 150px;
+    height: 150px;
+  }
+  #slidecarthq .item {
+    padding-left: 10px;
+  }
+  #slidecarthq .item .item-container {
+    gap: 0px !important;
+  }
+  #slidecarthq .empty-cart-wrapper {
+    margin: auto !important;
+  }
+  #slidecarthq .empty .empty-cart-content>div>svg {
+    display: none;
+  }
+  #slidecarthq .footer-row:has(.amp-sc__footer-row--discount) {
+    padding: 8px 0px;
+  }
+  #slidecarthq footer.footer span.footer-row-flex.flex.amp-sc__footer-row--discount,
+  #slidecarthq footer.footer .slidecart-discount-amount {
+    font-size: 12px;
+  }
+  #slidecarthq footer.footer .footer-row span .footer-code {
+    padding: 0px 7px;
+    font-size: 12px;
+  }
+
+  /* Keep shipping protection row hidden */
+  #slidecarthq .footer-row.shipping-protection {
+    display: none !important;
+  }
+
+  /* Hide Prestige native "Added to your cart" success banner (all viewports) */
+  buy-buttons .banner--success {
+    display: none !important;
+  }
+</style>
+
+
+<script>
+  /* Exclude shipping protection from item count + rewards threshold.
+     Row stays visually hidden via CSS; this stops the hidden line
+     from inflating the header count and tripping reward tiers early. */
+  var SC_SHIPPING_PROTECTION_MATCHERS = [
+    'shipping-protection',
+    'shipping protection',
+    'slidecart - shipping protection'
+  ];
+
+  function scIsShippingProtection(item) {
+    if (!item) return false;
+    var fields = [item.handle, item.product_type, item.product_title, item.title];
+    for (var i = 0; i < fields.length; i++) {
+      var val = (fields[i] || '').toString().toLowerCase();
+      if (!val) continue;
+      for (var j = 0; j < SC_SHIPPING_PROTECTION_MATCHERS.length; j++) {
+        if (val.indexOf(SC_SHIPPING_PROTECTION_MATCHERS[j]) !== -1) return true;
+      }
+    }
+    return false;
+  }
+
+  function scRealItemCount(cart) {
+    if (cart && Array.isArray(cart.items)) {
+      return cart.items.reduce(function (sum, item) {
+        if (scIsShippingProtection(item)) return sum;
+        return sum + (item.quantity || 0);
+      }, 0);
+    }
+    // DOM fallback — count line rows that aren't the protection row
+    var items = document.querySelectorAll('#slidecarthq .item');
+    var count = 0;
+    items.forEach(function (el) {
+      var text = (el.textContent || '').toLowerCase();
+      if (text.indexOf('shipping protection') === -1) count += 1;
+    });
+    return count;
+  }
+
+  function scUpdateRewardsColor(cart) {
+    const rewards = document.querySelector('.rewards[data-testid="TieredRewards"]');
+    if (!rewards) return;
+    var itemCount = scRealItemCount(cart);
+    if (itemCount >= 2) {
+      rewards.classList.add('rewards-unlocked');
+    } else {
+      rewards.classList.remove('rewards-unlocked');
+    }
+  }
+
+  function scUpdateCartCount(cart) {
+    var totalQty = scRealItemCount(cart);
+    const countSelectors = [
+      '#slidecarthq [class*="cart-count"]',
+      '#slidecarthq [class*="count-label"]',
+      '#slidecarthq [class*="header-count"]',
+      '#slidecarthq header [class*="count"]'
+    ];
+    for (const sel of countSelectors) {
+      const elements = document.querySelectorAll(sel);
+      elements.forEach(el => {
+        if (el.children.length === 0) {
+          el.textContent = totalQty;
+        }
+      });
+    }
+  }
+
+  window.SLIDECART_LOADED = (cart) => {
+    scUpdateRewardsColor(cart);
+    scUpdateCartCount(cart);
+  };
+
+  window.SLIDECART_UPDATED = (cart) => {
+    scUpdateRewardsColor(cart);
+    scUpdateCartCount(cart);
+  };
+</script>

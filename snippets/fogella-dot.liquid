@@ -1,0 +1,66 @@
+<style>
+
+    .orange-section {
+        position:relative;
+        display: flex;
+        align-items: center;
+        left:0px;
+        margin-top: {{ block.settings.margin_top }}px;
+        margin-bottom: {{ block.settings.margin_bottom }}px;
+    }
+
+     .orange-section > .dot-count-text{
+        color: {% if block.settings.dot_text_color == true and block.settings.count_text_color == "#000000" %}{{- block.settings.dot_color -}} !important{% elsif block.settings.count_text_color != "#000000" %} {{ block.settings.count_text_color }} !important {% endif %};
+     }
+     .orange-section > .dot-text{
+       position:relative;
+       margin-right:5px;
+       top:8px; left:20px;
+       color:{% if block.settings.dot_text_color == true %}{{- block.settings.dot_color -}}{% else %} black {% endif %};
+       font-size: {{- block.settings.dot_font_size -}}px;
+       font-weight: 500;
+      }
+
+    .orange-ball {
+        display: inline-block;
+        position: relative;
+        height: {{- block.settings.dot_size -}}px;
+        width: {{- block.settings.dot_size -}}px;
+    }
+
+    .orange-wave-icon:after,
+    .orange-wave-icon:before {
+        height: {{- block.settings.dot_size -}}px;
+        width: {{- block.settings.dot_size -}}px;
+        background: {{- block.settings.dot_color -}};
+        border-radius: 9px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: "";
+        margin: 8px;
+    }
+
+    .orange-wave-icon:before {
+        animation: pulse 2s linear infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: scale(2.5);
+            opacity: 0;
+        }
+    }
+
+</style>
+
+ <div class="orange-section">
+    <span class="orange-ball orange-wave-icon"></span>
+    <span class="dot-text dot-start-text">{{ block.settings.dot_start_text }}</span>
+    <span class="dot-text dot-count-text item_left">{{ block.settings.dot_count_text }}</span>
+    <span class="dot-text dot-end-text">{{ block.settings.dot_end_text }}</span>
+</div>

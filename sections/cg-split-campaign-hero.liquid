@@ -1,0 +1,1440 @@
+{% comment %}
+  CG Split Campaign Hero
+  Geschikt voor Shopify Prestige
+
+  Mobiel:
+  - Eén mobiele afbeelding
+  - Twee knoppen
+  - Vrij instelbare herohoogte
+  - Vrij instelbare knopbreedte, hoogte en positie
+
+  Desktop:
+  - Twee afbeeldingen naast elkaar
+  - Drie knoppen
+  - Vrij instelbare herohoogte
+  - Vrij instelbare knopbreedte, hoogte en positie
+{% endcomment %}
+
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+  {{ section.settings.description_font | font_face: font_display: 'swap' }}
+  {{ section.settings.button_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} {
+    --cg-hero-text: {{ section.settings.text_color }};
+    --cg-button-color: {{ section.settings.button_color }};
+    --cg-button-background: {{ section.settings.button_background_color }};
+    --cg-button-border: {{ section.settings.button_border_color }};
+    --cg-button-hover-color: {{ section.settings.button_hover_color }};
+    --cg-button-hover-background: {{ section.settings.button_background_hover_color }};
+    --cg-button-hover-border: {{ section.settings.button_border_hover_color }};
+    --cg-overlay-color: {{ section.settings.overlay_color }};
+    --cg-mobile-height: {{ section.settings.mobile_height }}px;
+    --cg-desktop-height: {{ section.settings.desktop_height }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero,
+  #shopify-section-{{ section.id }} .cg-split-hero * {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #e8e5df;
+    color: var(--cg-hero-text);
+  }
+
+  /* Afbeeldingen */
+
+  #shopify-section-{{ section.id }} .cg-split-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__mobile-media {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__desktop-media {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__desktop-panel {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__image,
+  #shopify-section-{{ section.id }} .cg-split-hero__placeholder,
+  #shopify-section-{{ section.id }} .cg-split-hero__placeholder svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__image {
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__mobile-image {
+    object-position: {{ section.settings.mobile_image_position }};
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__desktop-left-image {
+    object-position: {{ section.settings.desktop_left_image_position }};
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__desktop-right-image {
+    object-position: {{ section.settings.desktop_right_image_position }};
+  }
+
+  /* Overlay */
+
+  #shopify-section-{{ section.id }} .cg-split-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: var(--cg-overlay-color);
+    opacity: calc({{ section.settings.overlay_opacity }} / 100);
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__gradient {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    height: {{ section.settings.mobile_gradient_height }}%;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(
+        0,
+        0,
+        0,
+        {{ section.settings.mobile_gradient_strength | divided_by: 100.0 }}
+      ) 100%
+    );
+  }
+
+  /* Content mobiel */
+
+  #shopify-section-{{ section.id }} .cg-split-hero__inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    width: 100%;
+    min-height: var(--cg-mobile-height);
+    align-items: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__content {
+    width: 100%;
+    min-width: 0;
+    padding:
+      {{ section.settings.mobile_content_top_padding }}px
+      {{ section.settings.mobile_side_padding }}px
+      {{ section.settings.mobile_bottom_padding }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__copy {
+    width: 100%;
+    max-width: {{ section.settings.mobile_copy_width }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__heading {
+    margin: 0;
+    padding: 0;
+    color: var(--cg-hero-text);
+    font-family:
+      {{ section.settings.heading_font.family }},
+      {{ section.settings.heading_font.fallback_families }};
+    font-size: {{ section.settings.mobile_heading_size }}px;
+    font-style: {{ section.settings.heading_font.style }};
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: {{ section.settings.heading_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.heading_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__description {
+    width: 100%;
+    max-width: {{ section.settings.mobile_description_width }}px;
+    margin-top: {{ section.settings.mobile_heading_description_gap }}px;
+    color: var(--cg-hero-text);
+    font-family:
+      {{ section.settings.description_font.family }},
+      {{ section.settings.description_font.fallback_families }};
+    font-size: {{ section.settings.mobile_description_size }}px;
+    font-style: {{ section.settings.description_font.style }};
+    font-weight: {{ section.settings.description_weight }};
+    line-height: {{ section.settings.description_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.description_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__description p {
+    margin: 0;
+  }
+
+  /* Knoppen mobiel */
+
+  #shopify-section-{{ section.id }} .cg-split-hero__buttons-wrapper {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    margin-top: {{ section.settings.mobile_description_buttons_gap }}px;
+
+    justify-content:
+      {% case section.settings.mobile_buttons_alignment %}
+        {% when 'center' %}
+          center
+        {% when 'right' %}
+          flex-end
+        {% else %}
+          flex-start
+      {% endcase %};
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__buttons {
+    display: flex;
+    width: calc(
+      {{ section.settings.mobile_buttons_width }}%
+      + {{ section.settings.mobile_buttons_extra_width }}px
+    );
+    max-width: none;
+    margin: 0;
+    gap: {{ section.settings.mobile_button_gap }}px;
+    transform: translateX(
+      {{ section.settings.mobile_buttons_horizontal_offset }}px
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__button {
+    display: flex;
+    flex: 1 1 0;
+    width: auto;
+    min-width: max-content;
+    height: {{ section.settings.mobile_button_height }}px;
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+      {{ section.settings.mobile_button_vertical_padding }}px
+      {{ section.settings.mobile_button_horizontal_padding }}px;
+
+    border:
+      {{ section.settings.button_border_thickness }}px
+      solid
+      var(--cg-button-border);
+
+    border-radius: {{ section.settings.button_border_radius }}px;
+
+    {% if section.settings.button_style == 'outline' %}
+      background: transparent;
+    {% else %}
+      background: var(--cg-button-background);
+    {% endif %}
+
+    color: var(--cg-button-color);
+
+    font-family:
+      {{ section.settings.button_font.family }},
+      {{ section.settings.button_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_button_text_size }}px;
+    font-style: {{ section.settings.button_font.style }};
+    font-weight: {{ section.settings.button_weight }};
+    line-height: {{ section.settings.button_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.button_letter_spacing }} / 100 * 1em
+    );
+
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+
+    {% if section.settings.uppercase_buttons %}
+      text-transform: uppercase;
+    {% endif %}
+
+    {% if section.settings.enable_button_shadow %}
+      box-shadow:
+        0
+        {{ section.settings.button_shadow_y }}px
+        {{ section.settings.button_shadow_blur }}px
+        rgba(
+          {{ section.settings.button_shadow_color.red }},
+          {{ section.settings.button_shadow_color.green }},
+          {{ section.settings.button_shadow_color.blue }},
+          {{ section.settings.button_shadow_opacity | divided_by: 100.0 }}
+        );
+    {% else %}
+      box-shadow: none;
+    {% endif %}
+
+    transition:
+      color 180ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__button:hover {
+    color: var(--cg-button-hover-color);
+    background: var(--cg-button-hover-background);
+    border-color: var(--cg-button-hover-border);
+
+    {% if section.settings.button_hover_lift %}
+      transform: translateY(-1px);
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-split-hero__button--third {
+    display: none;
+  }
+
+  /* Desktop */
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .cg-split-hero__mobile-media {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__desktop-media {
+      display: flex;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__inner {
+      min-height: var(--cg-desktop-height);
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__gradient {
+      height: {{ section.settings.desktop_gradient_height }}%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(
+          0,
+          0,
+          0,
+          {{ section.settings.desktop_gradient_strength | divided_by: 100.0 }}
+        ) 100%
+      );
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__content {
+      padding:
+        {{ section.settings.desktop_content_top_padding }}px
+        {{ section.settings.desktop_side_padding }}px
+        {{ section.settings.desktop_bottom_padding }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__copy {
+      width: {{ section.settings.desktop_copy_width }}%;
+      max-width: {{ section.settings.desktop_copy_max_width }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__heading {
+      font-size: {{ section.settings.desktop_heading_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__description {
+      max-width: {{ section.settings.desktop_description_width }}px;
+      margin-top: {{ section.settings.desktop_heading_description_gap }}px;
+      font-size: {{ section.settings.desktop_description_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__buttons-wrapper {
+      margin-top: {{ section.settings.desktop_description_buttons_gap }}px;
+
+      justify-content:
+        {% case section.settings.desktop_buttons_alignment %}
+          {% when 'center' %}
+            center
+          {% when 'right' %}
+            flex-end
+          {% else %}
+            flex-start
+        {% endcase %};
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__buttons {
+      display: flex;
+      width: calc(
+        {{ section.settings.desktop_buttons_width }}%
+        + {{ section.settings.desktop_buttons_extra_width }}px
+      );
+      max-width: none;
+      margin: 0;
+      gap: {{ section.settings.desktop_button_gap }}px;
+      transform: translateX(
+        {{ section.settings.desktop_buttons_horizontal_offset }}px
+      );
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__button {
+      height: {{ section.settings.desktop_button_height }}px;
+      min-height: 0;
+
+      padding:
+        {{ section.settings.desktop_button_vertical_padding }}px
+        {{ section.settings.desktop_button_horizontal_padding }}px;
+
+      font-size: {{ section.settings.desktop_button_text_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-split-hero__button--third {
+      display: flex;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .cg-split-hero__button {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="cg-split-hero"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="cg-split-hero__media">
+    <div class="cg-split-hero__mobile-media">
+      {%- if section.settings.mobile_image != blank -%}
+        {{
+          section.settings.mobile_image
+          | image_url: width: 1800
+          | image_tag:
+            class: 'cg-split-hero__image cg-split-hero__mobile-image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '480, 640, 750, 900, 1100, 1300, 1600, 1800',
+            sizes: '100vw',
+            alt: section.settings.mobile_image.alt
+        }}
+      {%- elsif section.settings.desktop_right_image != blank -%}
+        {{
+          section.settings.desktop_right_image
+          | image_url: width: 1800
+          | image_tag:
+            class: 'cg-split-hero__image cg-split-hero__mobile-image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '480, 640, 750, 900, 1100, 1300, 1600, 1800',
+            sizes: '100vw',
+            alt: section.settings.desktop_right_image.alt
+        }}
+      {%- else -%}
+        <div class="cg-split-hero__placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="cg-split-hero__desktop-media">
+      <div class="cg-split-hero__desktop-panel">
+        {%- if section.settings.desktop_left_image != blank -%}
+          {{
+            section.settings.desktop_left_image
+            | image_url: width: 2400
+            | image_tag:
+              class: 'cg-split-hero__image cg-split-hero__desktop-left-image',
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '600, 800, 1000, 1200, 1600, 2000, 2400',
+              sizes: '50vw',
+              alt: section.settings.desktop_left_image.alt
+          }}
+        {%- else -%}
+          <div class="cg-split-hero__placeholder">
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="cg-split-hero__desktop-panel">
+        {%- if section.settings.desktop_right_image != blank -%}
+          {{
+            section.settings.desktop_right_image
+            | image_url: width: 2400
+            | image_tag:
+              class: 'cg-split-hero__image cg-split-hero__desktop-right-image',
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '600, 800, 1000, 1200, 1600, 2000, 2400',
+              sizes: '50vw',
+              alt: section.settings.desktop_right_image.alt
+          }}
+        {%- else -%}
+          <div class="cg-split-hero__placeholder">
+            {{ 'lifestyle-2' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="cg-split-hero__overlay"></div>
+    <div class="cg-split-hero__gradient"></div>
+  </div>
+
+  <div class="cg-split-hero__inner">
+    <div class="cg-split-hero__content">
+      <div class="cg-split-hero__copy">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="cg-split-hero__heading">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="cg-split-hero__description">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.button_1_label != blank
+        or section.settings.button_2_label != blank
+        or section.settings.button_3_label != blank
+      -%}
+        <div class="cg-split-hero__buttons-wrapper">
+          <div class="cg-split-hero__buttons">
+            {%- if section.settings.button_1_label != blank -%}
+              <a
+                class="cg-split-hero__button"
+                {% if section.settings.button_1_link != blank %}
+                  href="{{ section.settings.button_1_link }}"
+                {% else %}
+                  role="link"
+                  aria-disabled="true"
+                {% endif %}
+              >
+                {{ section.settings.button_1_label }}
+              </a>
+            {%- endif -%}
+
+            {%- if section.settings.button_2_label != blank -%}
+              <a
+                class="cg-split-hero__button"
+                {% if section.settings.button_2_link != blank %}
+                  href="{{ section.settings.button_2_link }}"
+                {% else %}
+                  role="link"
+                  aria-disabled="true"
+                {% endif %}
+              >
+                {{ section.settings.button_2_label }}
+              </a>
+            {%- endif -%}
+
+            {%- if section.settings.button_3_label != blank -%}
+              <a
+                class="cg-split-hero__button cg-split-hero__button--third"
+                {% if section.settings.button_3_link != blank %}
+                  href="{{ section.settings.button_3_link }}"
+                {% else %}
+                  role="link"
+                  aria-disabled="true"
+                {% endif %}
+              >
+                {{ section.settings.button_3_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CG Split campaign hero",
+  "tag": "section",
+  "class": "section-cg-split-campaign-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Toegankelijkheidslabel",
+      "default": "Nieuwe collectie"
+    },
+    {
+      "type": "header",
+      "content": "Afbeeldingen"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobiele afbeelding"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Positie mobiele afbeelding",
+      "options": [
+        { "value": "center top", "label": "Midden boven" },
+        { "value": "center center", "label": "Midden" },
+        { "value": "center bottom", "label": "Midden onder" },
+        { "value": "left center", "label": "Links" },
+        { "value": "right center", "label": "Rechts" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_left_image",
+      "label": "Desktopafbeelding links"
+    },
+    {
+      "type": "select",
+      "id": "desktop_left_image_position",
+      "label": "Positie desktopafbeelding links",
+      "options": [
+        { "value": "center top", "label": "Midden boven" },
+        { "value": "center center", "label": "Midden" },
+        { "value": "center bottom", "label": "Midden onder" },
+        { "value": "left center", "label": "Links" },
+        { "value": "right center", "label": "Rechts" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_right_image",
+      "label": "Desktopafbeelding rechts"
+    },
+    {
+      "type": "select",
+      "id": "desktop_right_image_position",
+      "label": "Positie desktopafbeelding rechts",
+      "options": [
+        { "value": "center top", "label": "Midden boven" },
+        { "value": "center center", "label": "Midden" },
+        { "value": "center bottom", "label": "Midden onder" },
+        { "value": "left center", "label": "Links" },
+        { "value": "right center", "label": "Rechts" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "header",
+      "content": "Hoogte"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Hoogte mobiel",
+      "min": 100,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 840
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Hoogte desktop",
+      "min": 200,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Tekstinhoud"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titel",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Beschrijving",
+      "default": "<p>The new collection has landed. Considered pieces for men and women, made for the season ahead.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Lettertype titel"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Lettertype titel",
+      "default": "times_new_roman_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Titelgrootte mobiel",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Titelgrootte desktop",
+      "min": 16,
+      "max": 90,
+      "step": 1,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Dikte titel",
+      "options": [
+        { "value": "300", "label": "Licht" },
+        { "value": "400", "label": "Normaal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Vet" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Regelhoogte titel",
+      "min": 80,
+      "max": 160,
+      "step": 2,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Letterafstand titel",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Lettertype beschrijving"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font",
+      "label": "Lettertype beschrijving",
+      "default": "times_new_roman_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Beschrijving mobiel",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desktop_description_size",
+      "label": "Beschrijving desktop",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "select",
+      "id": "description_weight",
+      "label": "Dikte beschrijving",
+      "options": [
+        { "value": "300", "label": "Licht" },
+        { "value": "400", "label": "Normaal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "label": "Regelhoogte beschrijving",
+      "min": 90,
+      "max": 180,
+      "step": 2,
+      "unit": "%",
+      "default": 118
+    },
+    {
+      "type": "range",
+      "id": "description_letter_spacing",
+      "label": "Letterafstand beschrijving",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Tekst en afstanden mobiel"
+    },
+    {
+      "type": "range",
+      "id": "mobile_copy_width",
+      "label": "Maximale breedte tekst",
+      "min": 160,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 650
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_width",
+      "label": "Maximale breedte beschrijving",
+      "min": 160,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 650
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_top_padding",
+      "label": "Witruimte boven content",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding",
+      "label": "Zijruimte content",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_bottom_padding",
+      "label": "Witruimte onder content",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_description_gap",
+      "label": "Ruimte titel naar beschrijving",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_buttons_gap",
+      "label": "Ruimte beschrijving naar knoppen",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "header",
+      "content": "Tekst en afstanden desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_copy_width",
+      "label": "Breedte tekstgedeelte",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "desktop_copy_max_width",
+      "label": "Maximale breedte tekst",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "desktop_description_width",
+      "label": "Maximale breedte beschrijving",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 650
+    },
+    {
+      "type": "range",
+      "id": "desktop_content_top_padding",
+      "label": "Witruimte boven content",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_side_padding",
+      "label": "Zijruimte content",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "desktop_bottom_padding",
+      "label": "Witruimte onder content",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_description_gap",
+      "label": "Ruimte titel naar beschrijving",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "desktop_description_buttons_gap",
+      "label": "Ruimte beschrijving naar knoppen",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "header",
+      "content": "Knoppen en links"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Tekst knop 1",
+      "default": "Women's New Arrivals"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Link knop 1"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Tekst knop 2",
+      "default": "Men's New Arrivals"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Link knop 2"
+    },
+    {
+      "type": "text",
+      "id": "button_3_label",
+      "label": "Tekst knop 3, alleen desktop",
+      "default": "Explore the Campaign"
+    },
+    {
+      "type": "url",
+      "id": "button_3_link",
+      "label": "Link knop 3"
+    },
+    {
+      "type": "header",
+      "content": "Knoptypografie"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Lettertype knoppen",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_text_size",
+      "label": "Knoptekst mobiel",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "desktop_button_text_size",
+      "label": "Knoptekst desktop",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "button_weight",
+      "label": "Dikte knoptekst",
+      "options": [
+        { "value": "300", "label": "Licht" },
+        { "value": "400", "label": "Normaal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Vet" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_line_height",
+      "label": "Regelhoogte knoptekst",
+      "min": 80,
+      "max": 160,
+      "step": 2,
+      "unit": "%",
+      "default": 114
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Letterafstand knoptekst",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_buttons",
+      "label": "Knoptekst in hoofdletters",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Knopgrootte mobiel"
+    },
+    {
+      "type": "range",
+      "id": "mobile_buttons_width",
+      "label": "Totale breedte knoppen",
+      "min": 40,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_buttons_extra_width",
+      "label": "Extra breedte knoppen",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_buttons_horizontal_offset",
+      "label": "Horizontale positie knoppen",
+      "min": -80,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": -10
+    },
+    {
+      "type": "select",
+      "id": "mobile_buttons_alignment",
+      "label": "Uitlijning knoppen",
+      "options": [
+        { "value": "left", "label": "Links" },
+        { "value": "center", "label": "Midden" },
+        { "value": "right", "label": "Rechts" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_height",
+      "label": "Exacte knophoogte",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_vertical_padding",
+      "label": "Verticale ruimte in knop",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_horizontal_padding",
+      "label": "Horizontale ruimte in knop",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_gap",
+      "label": "Ruimte tussen knoppen",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Knopgrootte desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_buttons_width",
+      "label": "Totale breedte knoppen",
+      "min": 30,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "desktop_buttons_extra_width",
+      "label": "Extra breedte knoppen",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desktop_buttons_horizontal_offset",
+      "label": "Horizontale positie knoppen",
+      "min": -150,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "desktop_buttons_alignment",
+      "label": "Uitlijning knoppen",
+      "options": [
+        { "value": "left", "label": "Links" },
+        { "value": "center", "label": "Midden" },
+        { "value": "right", "label": "Rechts" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "desktop_button_height",
+      "label": "Exacte knophoogte",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "desktop_button_vertical_padding",
+      "label": "Verticale ruimte in knop",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desktop_button_horizontal_padding",
+      "label": "Horizontale ruimte in knop",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desktop_button_gap",
+      "label": "Ruimte tussen knoppen",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Knopstijl"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Knopstijl",
+      "options": [
+        { "value": "solid", "label": "Gevuld" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "range",
+      "id": "button_border_thickness",
+      "label": "Dikte knoprand",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Afronding knoppen",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "button_hover_lift",
+      "label": "Knop iets omhoog bij hover",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button_shadow",
+      "label": "Knopschaduw inschakelen",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "button_shadow_y",
+      "label": "Verticale positie schaduw",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_shadow_blur",
+      "label": "Vervaging schaduw",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_shadow_opacity",
+      "label": "Sterkte schaduw",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Knopkleuren"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Knoptekst",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Knopachtergrond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Knoprand",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Knoptekst hover",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background_hover_color",
+      "label": "Knopachtergrond hover",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_border_hover_color",
+      "label": "Knoprand hover",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_shadow_color",
+      "label": "Kleur knopschaduw",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlaykleur",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Algemene overlaysterkte",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_gradient_height",
+      "label": "Hoogte verloop mobiel",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "mobile_gradient_strength",
+      "label": "Sterkte verloop mobiel",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "desktop_gradient_height",
+      "label": "Hoogte verloop desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_gradient_strength",
+      "label": "Sterkte verloop desktop",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 42
+    },
+    {
+      "type": "header",
+      "content": "Algemene kleuren"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Tekstkleur",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CG Split campaign hero"
+    }
+  ]
+}
+{% endschema %}

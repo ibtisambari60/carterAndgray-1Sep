@@ -1,0 +1,116 @@
+{%- if block != blank -%}
+  <style>
+    #cg-accordion-{{ block.id }} .accordion__disclosure > summary {
+      box-sizing: border-box !important;
+      height: {{ block.settings.cg_accordion_row_height | default: 48 }}px !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    #cg-accordion-{{ block.id }} .accordion__toggle {
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-size: {{ block.settings.cg_accordion_title_size | default: 14 }}px !important;
+      line-height: 1.2 !important;
+    }
+
+    #cg-accordion-{{ block.id }} .accordion__toggle > span,
+    #cg-accordion-{{ block.id }} .accordion__toggle .text-with-icon {
+      font-size: inherit !important;
+    }
+
+    #cg-accordion-{{ block.id }} .cg-accordion-plus {
+      display: block !important;
+      width: {{ block.settings.cg_accordion_plus_size | default: 16 }}px !important;
+      height: {{ block.settings.cg_accordion_plus_size | default: 16 }}px !important;
+      min-width: {{ block.settings.cg_accordion_plus_size | default: 16 }}px !important;
+      flex: 0 0 {{ block.settings.cg_accordion_plus_size | default: 16 }}px !important;
+      overflow: visible;
+    }
+
+    #cg-accordion-{{ block.id }} .cg-accordion-plus__vertical {
+      transform-origin: center;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    #cg-accordion-{{ block.id }} details[open] .cg-accordion-plus__vertical {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+
+    #cg-accordion-{{ block.id }} .accordion__content,
+    #cg-accordion-{{ block.id }} .accordion__content * {
+      font-size: {{ block.settings.cg_accordion_content_size | default: 14 }}px !important;
+    }
+  </style>
+{%- endif -%}
+
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+ACCORDION COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used to create an accordion (also called as collapsible). It internally uses the "details" HTML
+tag so that it can also be used without any JavaScript.
+
+********************************************
+Supported parameters
+********************************************
+
+* title: the title to use for the toggle button
+* content: the hidden content inside the accordion
+* icon: an optional icon name outputted before the title
+* custom_icon: an optional custom icon file outputted before the title
+* open: if set to true the accordion is open by default
+* prose_content: if set to true, the content is considered as prose and the associated class is added
+* show_title_as_text: if set to true the title is shown as text instead of using heading style
+* show_arrow: if set to true, the accordion will show an arrow instead of the standard + icon
+* size: can be "sm" or "lg" (if none is passed, the small size is used)
+* bleed: if set to true, the accordion will bleed on mobile
+* block: an optional block to output theme editor attributes
+{%- endcomment -%}
+
+<accordion-disclosure id="cg-accordion-{{ block.id }}" class="accordion {% if size %}accordion--{{ size }}{% endif %} {% if bleed %}bleed sm:unbleed{% endif %}" {{ block.shopify_attributes }}>
+  <details class="accordion__disclosure group" {% if open %}open aria-expanded="true"{% else %}aria-expanded="false"{% endif %}>
+    <summary>
+      {%- comment -%}iOS 14 does not support flex on the summary itself, so we have to use this extra div{%- endcomment -%}
+      <span class="accordion__toggle {% if show_title_as_text %}text-lg{% else %}h6{% endif %}">
+        {%- if custom_icon != blank or icon != 'none' -%}
+          <span class="text-with-icon gap-4">
+            {%- if custom_icon != blank -%}
+              {{- custom_icon | image_url: width: custom_icon.width | image_tag: sizes: '16px', widths: '16,32,48', class: 'constrained-image', style: '--image-max-width: 16px' -}}
+            {%- else -%}
+              {%- render 'icon' with icon, width: 16 -%}
+            {%- endif -%}
+
+            {{- title -}}
+          </span>
+        {%- else -%}
+          <span>{{ title }}</span>
+        {%- endif -%}
+
+        {%- if show_arrow -%}
+          {%- render 'icon' with 'chevron-down', class: 'group-expanded:rotate' -%}
+        {%- else -%}
+          <svg class="cg-accordion-plus" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M3 10H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path class="cg-accordion-plus__vertical" d="M10 3V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        {%- endif -%}
+      </span>
+    </summary>
+
+    <div class="accordion__content {% if prose_content %}prose{% endif %}">
+      {{- content -}}
+    </div>
+  </details>
+</accordion-disclosure>
+

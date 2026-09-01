@@ -1,0 +1,2106 @@
+{% comment %}
+  CG Tabbed Premium Slider
+  Geschikt voor Shopify Prestige
+
+  Eén section met drie tabs:
+  1. Trending Now — collecties
+  2. Our Picks for You — producten
+  3. New Arrivals — producten
+
+  Elk block wordt handmatig aan één tab gekoppeld.
+{% endcomment %}
+
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+  {{ section.settings.tab_font | font_face: font_display: 'swap' }}
+  {{ section.settings.card_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} {
+    --cg-tabs-bg: {{ section.settings.background_color }};
+    --cg-tabs-text: {{ section.settings.text_color }};
+    --cg-tabs-muted: {{ section.settings.muted_text_color }};
+    --cg-tabs-active: {{ section.settings.active_tab_color }};
+    --cg-tabs-inactive: {{ section.settings.inactive_tab_color }};
+    --cg-tabs-image-bg: {{ section.settings.image_background }};
+    --cg-tabs-arrow-bg: {{ section.settings.arrow_background }};
+    --cg-tabs-arrow-color: {{ section.settings.arrow_color }};
+
+    --cg-mobile-side: {{ section.settings.mobile_side_padding }}px;
+    --cg-desktop-side: {{ section.settings.desktop_side_padding }}px;
+
+    --cg-mobile-card-width: {{ section.settings.mobile_card_width }}%;
+    --cg-mobile-gap: {{ section.settings.mobile_card_gap }}px;
+    --cg-desktop-gap: {{ section.settings.desktop_card_gap }}px;
+    --cg-desktop-columns: {{ section.settings.desktop_cards_per_view }};
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider,
+  #shopify-section-{{ section.id }} .cg-tabbed-slider * {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--cg-tabs-bg);
+    color: var(--cg-tabs-text);
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__inner {
+    width: 100%;
+    padding:
+      {{ section.settings.mobile_padding_top }}px
+      0
+      {{ section.settings.mobile_padding_bottom }}px;
+  }
+
+  /* =========================
+     HEADING
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__heading-row {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding:
+      0
+      var(--cg-mobile-side)
+      {{ section.settings.mobile_heading_tabs_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__heading {
+    margin: 0;
+    padding: 0;
+    color: var(--cg-tabs-text);
+
+    font-family:
+      {{ section.settings.heading_font.family }},
+      {{ section.settings.heading_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_heading_size }}px;
+    font-style: {{ section.settings.heading_font.style }};
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: {{ section.settings.heading_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.heading_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  /* =========================
+     TABS + ARROWS
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__controls {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding:
+      0
+      var(--cg-mobile-side)
+      {{ section.settings.mobile_tabs_slider_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__tabs {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: {{ section.settings.mobile_tab_gap }}px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__tab {
+    position: relative;
+    flex: 0 0 auto;
+    margin: 0;
+    padding:
+      0
+      0
+      {{ section.settings.tab_underline_offset }}px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--cg-tabs-inactive);
+    cursor: pointer;
+
+    font-family:
+      {{ section.settings.tab_font.family }},
+      {{ section.settings.tab_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_tab_size }}px;
+    font-style: {{ section.settings.tab_font.style }};
+    font-weight: {{ section.settings.inactive_tab_weight }};
+    line-height: {{ section.settings.tab_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.tab_letter_spacing }} / 100 * 1em
+    );
+
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+    appearance: none;
+    -webkit-appearance: none;
+
+    {% if section.settings.uppercase_tabs %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__tab::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: {{ section.settings.tab_underline_thickness }}px;
+    background: currentColor;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__tab[aria-selected="true"] {
+    color: var(--cg-tabs-active);
+    font-weight: {{ section.settings.active_tab_weight }};
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__tab[aria-selected="true"]::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__arrows {
+    display: none;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: {{ section.settings.arrow_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__arrow {
+    display: inline-flex;
+    width: {{ section.settings.arrow_size }}px;
+    height: {{ section.settings.arrow_size }}px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: {{ section.settings.arrow_border_width }}px solid {{ section.settings.arrow_border_color }};
+    border-radius: {{ section.settings.arrow_radius }}px;
+    background: var(--cg-tabs-arrow-bg);
+    color: var(--cg-tabs-arrow-color);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+
+    transition:
+      opacity 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__arrow:hover {
+    transform: translateY(-1px);
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__arrow:disabled {
+    cursor: default;
+    opacity: 0.3;
+    transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__arrow svg {
+    display: block;
+    width: 42%;
+    height: 42%;
+  }
+
+  /* =========================
+     PANELS
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__panel {
+    display: none;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__panel.is-active {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__track {
+    display: flex;
+    width: 100%;
+    gap: var(--cg-mobile-gap);
+    margin: 0;
+    padding:
+      0
+      var(--cg-mobile-side)
+      {{ section.settings.mobile_track_bottom_padding }}px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--cg-mobile-side);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__card {
+    flex: 0 0 var(--cg-mobile-card-width);
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  /* =========================
+     CARD MEDIA
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: var(--cg-tabs-image-bg);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__card[data-item-type="collection"]
+    .cg-tabbed-slider__media {
+    {% case section.settings.collection_image_ratio %}
+      {% when 'square' %}
+        aspect-ratio: 1 / 1;
+      {% when 'portrait' %}
+        aspect-ratio: 4 / 5;
+      {% when 'tall' %}
+        aspect-ratio: 3 / 4;
+      {% when 'landscape' %}
+        aspect-ratio: 4 / 3;
+      {% else %}
+        aspect-ratio: 4 / 5;
+    {% endcase %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__card[data-item-type="product"]
+    .cg-tabbed-slider__media {
+    {% case section.settings.product_image_ratio %}
+      {% when 'square' %}
+        aspect-ratio: 1 / 1;
+      {% when 'portrait' %}
+        aspect-ratio: 4 / 5;
+      {% when 'tall' %}
+        aspect-ratio: 3 / 4;
+      {% when 'landscape' %}
+        aspect-ratio: 4 / 3;
+      {% else %}
+        aspect-ratio: 4 / 5;
+    {% endcase %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__image,
+#shopify-section-{{ section.id }} .cg-tabbed-slider__placeholder,
+#shopify-section-{{ section.id }} .cg-tabbed-slider__placeholder svg {
+  display: block;
+  width: 100%;
+}
+
+#shopify-section-{{ section.id }} .cg-tabbed-slider__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--cg-card-image-position, center center);
+  transform: scale(1.001);
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__placeholder svg {
+    object-fit: cover;
+  }
+
+  {% if section.settings.enable_image_zoom %}
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__media:hover
+      .cg-tabbed-slider__image {
+      transform: scale(1.025);
+    }
+  {% endif %}
+
+  /* =========================
+     CARD CONTENT
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__card-content {
+    padding-top: {{ section.settings.mobile_image_content_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__card-title {
+    display: block;
+    margin: 0;
+    padding: 0;
+    color: var(--cg-tabs-text);
+
+    font-family:
+      {{ section.settings.card_font.family }},
+      {{ section.settings.card_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_card_title_size }}px;
+    font-style: {{ section.settings.card_font.style }};
+    font-weight: {{ section.settings.card_title_weight }};
+    line-height: {{ section.settings.card_title_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.card_title_letter_spacing }} / 100 * 1em
+    );
+
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__card-title:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__collection-link {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    margin-top: {{ section.settings.collection_title_link_gap }}px;
+    padding-bottom: {{ section.settings.collection_link_underline_offset }}px;
+    color: var(--cg-tabs-text);
+
+    font-family:
+      {{ section.settings.card_font.family }},
+      {{ section.settings.card_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_collection_link_size }}px;
+    font-style: {{ section.settings.card_font.style }};
+    font-weight: {{ section.settings.collection_link_weight }};
+    line-height: 1.1;
+    letter-spacing: calc(
+      {{ section.settings.collection_link_letter_spacing }} / 100 * 1em
+    );
+
+    text-decoration: none;
+
+    {% if section.settings.uppercase_collection_link %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__collection-link::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: {{ section.settings.collection_link_underline_thickness }}px;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: {{ section.settings.price_gap }}px;
+    margin-top: {{ section.settings.product_title_price_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__price,
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__compare-price {
+    color: var(--cg-tabs-text);
+
+    font-family:
+      {{ section.settings.card_font.family }},
+      {{ section.settings.card_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_price_size }}px;
+    font-style: {{ section.settings.card_font.style }};
+    font-weight: {{ section.settings.price_weight }};
+    line-height: 1.2;
+    letter-spacing: calc(
+      {{ section.settings.price_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__compare-price {
+    color: var(--cg-tabs-muted);
+    text-decoration: line-through;
+  }
+
+  /* Empty state */
+
+  #shopify-section-{{ section.id }} .cg-tabbed-slider__empty {
+    width: 100%;
+    padding:
+      30px
+      var(--cg-mobile-side);
+    color: var(--cg-tabs-muted);
+    font-family:
+      {{ section.settings.card_font.family }},
+      {{ section.settings.card_font.fallback_families }};
+    font-size: 14px;
+  }
+
+  /* =========================
+     DESKTOP
+  ========================= */
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__inner {
+      padding:
+        {{ section.settings.desktop_padding_top }}px
+        0
+        {{ section.settings.desktop_padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__heading-row {
+      padding:
+        0
+        var(--cg-desktop-side)
+        {{ section.settings.desktop_heading_tabs_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__heading {
+      font-size: {{ section.settings.desktop_heading_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__controls {
+      padding:
+        0
+        var(--cg-desktop-side)
+        {{ section.settings.desktop_tabs_slider_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__tabs {
+      gap: {{ section.settings.desktop_tab_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__tab {
+      font-size: {{ section.settings.desktop_tab_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__arrows {
+      display: flex;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__track {
+      gap: var(--cg-desktop-gap);
+      padding:
+        0
+        var(--cg-desktop-side)
+        {{ section.settings.desktop_track_bottom_padding }}px;
+      scroll-padding-left: var(--cg-desktop-side);
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__card {
+      flex-basis: calc(
+        (
+          100%
+          - (
+            (var(--cg-desktop-columns) - 1)
+            * var(--cg-desktop-gap)
+          )
+          - (2 * var(--cg-desktop-side))
+        )
+        / var(--cg-desktop-columns)
+      );
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__card-content {
+      padding-top: {{ section.settings.desktop_image_content_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__card-title {
+      font-size: {{ section.settings.desktop_card_title_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__collection-link {
+      font-size: {{ section.settings.desktop_collection_link_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__price,
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__compare-price {
+      font-size: {{ section.settings.desktop_price_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__empty {
+      padding-right: var(--cg-desktop-side);
+      padding-left: var(--cg-desktop-side);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__track {
+      scroll-behavior: auto;
+    }
+
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__image,
+    #shopify-section-{{ section.id }} .cg-tabbed-slider__arrow {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign starting_tab = section.settings.starting_tab
+
+  assign tab_1_label = section.settings.tab_1_label
+  assign tab_2_label = section.settings.tab_2_label
+  assign tab_3_label = section.settings.tab_3_label
+-%}
+
+<section
+  id="CGTabbedSlider-{{ section.id }}"
+  class="cg-tabbed-slider"
+  data-section-id="{{ section.id }}"
+>
+  <div class="cg-tabbed-slider__inner">
+
+    {%- if section.settings.heading != blank -%}
+      <div class="cg-tabbed-slider__heading-row">
+        <h2 class="cg-tabbed-slider__heading">
+          {{ section.settings.heading }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    <div class="cg-tabbed-slider__controls">
+      <div
+        class="cg-tabbed-slider__tabs"
+        role="tablist"
+        aria-label="{{ section.settings.tabs_accessibility_label | escape }}"
+      >
+        {%- if tab_1_label != blank -%}
+          <button
+            type="button"
+            class="cg-tabbed-slider__tab"
+            id="CGTab-{{ section.id }}-1"
+            role="tab"
+            aria-controls="CGPanel-{{ section.id }}-1"
+            aria-selected="{% if starting_tab == 'tab_1' %}true{% else %}false{% endif %}"
+            tabindex="{% if starting_tab == 'tab_1' %}0{% else %}-1{% endif %}"
+            data-cg-tab="tab_1"
+          >
+            {{ tab_1_label }}
+          </button>
+        {%- endif -%}
+
+        {%- if tab_2_label != blank -%}
+          <button
+            type="button"
+            class="cg-tabbed-slider__tab"
+            id="CGTab-{{ section.id }}-2"
+            role="tab"
+            aria-controls="CGPanel-{{ section.id }}-2"
+            aria-selected="{% if starting_tab == 'tab_2' %}true{% else %}false{% endif %}"
+            tabindex="{% if starting_tab == 'tab_2' %}0{% else %}-1{% endif %}"
+            data-cg-tab="tab_2"
+          >
+            {{ tab_2_label }}
+          </button>
+        {%- endif -%}
+
+        {%- if tab_3_label != blank -%}
+          <button
+            type="button"
+            class="cg-tabbed-slider__tab"
+            id="CGTab-{{ section.id }}-3"
+            role="tab"
+            aria-controls="CGPanel-{{ section.id }}-3"
+            aria-selected="{% if starting_tab == 'tab_3' %}true{% else %}false{% endif %}"
+            tabindex="{% if starting_tab == 'tab_3' %}0{% else %}-1{% endif %}"
+            data-cg-tab="tab_3"
+          >
+            {{ tab_3_label }}
+          </button>
+        {%- endif -%}
+      </div>
+
+      <div
+        class="cg-tabbed-slider__arrows"
+        aria-label="Slidernavigatie"
+      >
+        <button
+          type="button"
+          class="cg-tabbed-slider__arrow"
+          aria-label="Vorige items"
+          data-cg-direction="previous"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M15 5L8 12L15 19"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="cg-tabbed-slider__arrow"
+          aria-label="Volgende items"
+          data-cg-direction="next"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M9 5L16 12L9 19"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    {%- for tab_number in (1..3) -%}
+      {%- capture tab_key -%}tab_{{ tab_number }}{%- endcapture -%}
+      {%- assign tab_item_count = 0 -%}
+
+      <div
+        id="CGPanel-{{ section.id }}-{{ tab_number }}"
+        class="cg-tabbed-slider__panel{% if starting_tab == tab_key %} is-active{% endif %}"
+        role="tabpanel"
+        aria-labelledby="CGTab-{{ section.id }}-{{ tab_number }}"
+        {% unless starting_tab == tab_key %}
+          hidden
+        {% endunless %}
+        data-cg-panel="{{ tab_key }}"
+      >
+        <div class="cg-tabbed-slider__track" data-cg-track>
+          {%- for block in section.blocks -%}
+            {%- if block.settings.tab_assignment == tab_key -%}
+              {%- liquid
+                assign card_title = blank
+                assign card_url = blank
+                assign card_image = block.settings.custom_image
+                assign card_image_alt = blank
+                assign card_price = blank
+                assign card_compare_price = blank
+                assign item_available = false
+
+                if block.settings.item_type == 'collection'
+                  assign selected_collection = block.settings.collection
+
+                  if selected_collection != blank
+                    assign item_available = true
+                    assign card_title = block.settings.custom_title | default: selected_collection.title
+                    assign card_url = block.settings.custom_link | default: selected_collection.url
+
+                    if card_image == blank
+                      assign card_image = selected_collection.featured_image
+                    endif
+                  endif
+                else
+                  assign selected_product = block.settings.product
+
+                  if selected_product != blank
+                    assign item_available = true
+                    assign card_title = block.settings.custom_title | default: selected_product.title
+                    assign card_url = block.settings.custom_link | default: selected_product.url
+
+                    if card_image == blank
+                      assign card_image = selected_product.featured_image
+                    endif
+
+                    assign card_price = selected_product.price
+                    assign card_compare_price = selected_product.compare_at_price
+                  endif
+                endif
+
+                if card_image != blank
+                  assign card_image_alt = card_image.alt | default: card_title
+                endif
+              -%}
+
+              {%- if item_available -%}
+                {%- assign tab_item_count = tab_item_count | plus: 1 -%}
+
+                <article
+                  class="cg-tabbed-slider__card"
+                  data-item-type="{{ block.settings.item_type }}"
+                  data-block-id="{{ block.id }}"
+                  {{ block.shopify_attributes }}
+                >
+                  <a
+                    href="{{ card_url }}"
+                    class="cg-tabbed-slider__media"
+                    aria-label="{{ card_title | escape }}"
+                    style="--cg-card-image-position: {{ block.settings.image_position }};"
+                  >
+                    {%- if card_image != blank -%}
+                      {{
+                        card_image
+                        | image_url: width: 1800
+                        | image_tag:
+                          class: 'cg-tabbed-slider__image',
+                          loading: 'lazy',
+                          widths: '240, 320, 400, 480, 600, 720, 900, 1100, 1400, 1800',
+                          sizes: '(max-width: 749px) 78vw, 25vw',
+                          alt: card_image_alt
+                      }}
+                    {%- else -%}
+                      <div class="cg-tabbed-slider__placeholder">
+                        {%- if block.settings.item_type == 'collection' -%}
+                          {{ 'collection-1' | placeholder_svg_tag }}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag }}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </a>
+
+                  <div class="cg-tabbed-slider__card-content">
+                    <a
+                      href="{{ card_url }}"
+                      class="cg-tabbed-slider__card-title"
+                    >
+                      {{ card_title }}
+                    </a>
+
+                    {%- if block.settings.item_type == 'collection' -%}
+                      {%- if section.settings.collection_link_label != blank -%}
+                        <a
+                          href="{{ card_url }}"
+                          class="cg-tabbed-slider__collection-link"
+                        >
+                          {{ section.settings.collection_link_label }}
+                        </a>
+                      {%- endif -%}
+                    {%- else -%}
+                      <div class="cg-tabbed-slider__price-row">
+                        {%- if section.settings.show_compare_at_price
+                          and card_compare_price > card_price
+                        -%}
+                          <span class="cg-tabbed-slider__compare-price">
+                            {{ card_compare_price | money }}
+                          </span>
+                        {%- endif -%}
+
+                        <span class="cg-tabbed-slider__price">
+                          {{ card_price | money }}
+                        </span>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </article>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if tab_item_count == 0 -%}
+          <div class="cg-tabbed-slider__empty">
+            Voeg blocks toe en koppel ze aan deze tab.
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionId = {{ section.id | json }};
+
+    function initialiseCGTabbedSlider(root) {
+      if (!root || root.dataset.cgInitialised === 'true') return;
+
+      root.dataset.cgInitialised = 'true';
+
+      const tabs = Array.from(
+        root.querySelectorAll('[data-cg-tab]')
+      );
+
+      const panels = Array.from(
+        root.querySelectorAll('[data-cg-panel]')
+      );
+
+      const previousButton = root.querySelector(
+        '[data-cg-direction="previous"]'
+      );
+
+      const nextButton = root.querySelector(
+        '[data-cg-direction="next"]'
+      );
+
+      function getActivePanel() {
+        return panels.find((panel) =>
+          panel.classList.contains('is-active')
+        );
+      }
+
+      function getActiveTrack() {
+        return getActivePanel()?.querySelector('[data-cg-track]');
+      }
+
+      function updateArrowState() {
+        const track = getActiveTrack();
+
+        if (!track || !previousButton || !nextButton) return;
+
+        const maximumScroll =
+          track.scrollWidth - track.clientWidth;
+
+        previousButton.disabled = track.scrollLeft <= 2;
+        nextButton.disabled =
+          track.scrollLeft >= maximumScroll - 2;
+      }
+
+      function activateTab(tabKey, focusTab = false) {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.cgTab === tabKey;
+
+          tab.setAttribute(
+            'aria-selected',
+            isActive ? 'true' : 'false'
+          );
+
+          tab.tabIndex = isActive ? 0 : -1;
+
+          if (isActive && focusTab) {
+            tab.focus({ preventScroll: true });
+          }
+        });
+
+        panels.forEach((panel) => {
+          const isActive = panel.dataset.cgPanel === tabKey;
+
+          panel.classList.toggle('is-active', isActive);
+          panel.hidden = !isActive;
+        });
+
+        requestAnimationFrame(() => {
+          const track = getActiveTrack();
+
+          if (track) {
+            track.scrollLeft = 0;
+          }
+
+          updateArrowState();
+        });
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+          activateTab(tab.dataset.cgTab);
+        });
+
+        tab.addEventListener('keydown', (event) => {
+          if (
+            event.key !== 'ArrowLeft' &&
+            event.key !== 'ArrowRight'
+          ) {
+            return;
+          }
+
+          event.preventDefault();
+
+          const direction =
+            event.key === 'ArrowRight' ? 1 : -1;
+
+          const newIndex =
+            (index + direction + tabs.length) % tabs.length;
+
+          activateTab(
+            tabs[newIndex].dataset.cgTab,
+            true
+          );
+        });
+      });
+
+      panels.forEach((panel) => {
+        const track = panel.querySelector('[data-cg-track]');
+
+        if (!track) return;
+
+        track.addEventListener(
+          'scroll',
+          updateArrowState,
+          { passive: true }
+        );
+      });
+
+      function scrollActiveTrack(direction) {
+        const track = getActiveTrack();
+
+        if (!track) return;
+
+        const firstCard = track.querySelector(
+          '.cg-tabbed-slider__card'
+        );
+
+        const computedStyle = window.getComputedStyle(track);
+        const gap = parseFloat(computedStyle.columnGap) || 0;
+
+        const distance = firstCard
+          ? firstCard.getBoundingClientRect().width + gap
+          : track.clientWidth * 0.8;
+
+        track.scrollBy({
+          left: direction * distance,
+          behavior: 'smooth'
+        });
+      }
+
+      previousButton?.addEventListener('click', () => {
+        scrollActiveTrack(-1);
+      });
+
+      nextButton?.addEventListener('click', () => {
+        scrollActiveTrack(1);
+      });
+
+      window.addEventListener(
+        'resize',
+        updateArrowState,
+        { passive: true }
+      );
+
+      updateArrowState();
+    }
+
+    const root = document.getElementById(
+      `CGTabbedSlider-${sectionId}`
+    );
+
+    initialiseCGTabbedSlider(root);
+
+    document.addEventListener(
+      'shopify:section:load',
+      (event) => {
+        if (event.detail.sectionId !== String(sectionId)) return;
+
+        initialiseCGTabbedSlider(
+          document.getElementById(
+            `CGTabbedSlider-${sectionId}`
+          )
+        );
+      }
+    );
+
+    document.addEventListener(
+      'shopify:block:select',
+      (event) => {
+        const currentRoot = document.getElementById(
+          `CGTabbedSlider-${sectionId}`
+        );
+
+        if (!currentRoot) return;
+
+        const selectedBlock = currentRoot.querySelector(
+          `[data-block-id="${event.detail.blockId}"]`
+        );
+
+        const panel = selectedBlock?.closest(
+          '[data-cg-panel]'
+        );
+
+        if (!panel) return;
+
+        const targetTab = currentRoot.querySelector(
+          `[data-cg-tab="${panel.dataset.cgPanel}"]`
+        );
+
+        targetTab?.click();
+
+        selectedBlock.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    );
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "CG Tabbed premium slider",
+  "tag": "section",
+  "class": "section-cg-tabbed-premium-slider",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Titel en tabs"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hoofdtitel",
+      "default": "Just for You"
+    },
+    {
+      "type": "text",
+      "id": "tabs_accessibility_label",
+      "label": "Toegankelijkheidslabel tabs",
+      "default": "Selecteer een categorie"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_label",
+      "label": "Naam tab 1",
+      "default": "Trending Now"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_label",
+      "label": "Naam tab 2",
+      "default": "Our Picks for You"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_label",
+      "label": "Naam tab 3",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "select",
+      "id": "starting_tab",
+      "label": "Standaard geopende tab",
+      "options": [
+        {
+          "value": "tab_1",
+          "label": "Tab 1"
+        },
+        {
+          "value": "tab_2",
+          "label": "Tab 2"
+        },
+        {
+          "value": "tab_3",
+          "label": "Tab 3"
+        }
+      ],
+      "default": "tab_1"
+    },
+    {
+      "type": "header",
+      "content": "Titeltypografie"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Lettertype hoofdtitel",
+      "default": "times_new_roman_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Titelgrootte mobiel",
+      "min": 24,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Titelgrootte desktop",
+      "min": 30,
+      "max": 90,
+      "step": 1,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Dikte hoofdtitel",
+      "options": [
+        {
+          "value": "300",
+          "label": "Licht"
+        },
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Regelhoogte hoofdtitel",
+      "min": 80,
+      "max": 150,
+      "step": 2,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Letterafstand hoofdtitel",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Tabtypografie"
+    },
+    {
+      "type": "font_picker",
+      "id": "tab_font",
+      "label": "Lettertype tabs",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_tab_size",
+      "label": "Tabgrootte mobiel",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desktop_tab_size",
+      "label": "Tabgrootte desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "active_tab_weight",
+      "label": "Dikte actieve tab",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Vet"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "inactive_tab_weight",
+      "label": "Dikte inactieve tabs",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "tab_line_height",
+      "label": "Regelhoogte tabs",
+      "min": 90,
+      "max": 160,
+      "step": 2,
+      "unit": "%",
+      "default": 114
+    },
+    {
+      "type": "range",
+      "id": "tab_letter_spacing",
+      "label": "Letterafstand tabs",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_tabs",
+      "label": "Tabs in hoofdletters",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "tab_underline_thickness",
+      "label": "Dikte onderstreping tab",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "tab_underline_offset",
+      "label": "Afstand tekst tot onderstreping",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "mobile_tab_gap",
+      "label": "Ruimte tussen tabs mobiel",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "desktop_tab_gap",
+      "label": "Ruimte tussen tabs desktop",
+      "min": 10,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "header",
+      "content": "Kaarten en afbeeldingen"
+    },
+    {
+      "type": "select",
+      "id": "collection_image_ratio",
+      "label": "Beeldverhouding collecties",
+      "options": [
+        {
+          "value": "square",
+          "label": "Vierkant 1:1"
+        },
+        {
+          "value": "portrait",
+          "label": "Portret 4:5"
+        },
+        {
+          "value": "tall",
+          "label": "Lang 3:4"
+        },
+        {
+          "value": "landscape",
+          "label": "Liggend 4:3"
+        }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "select",
+      "id": "product_image_ratio",
+      "label": "Beeldverhouding producten",
+      "options": [
+        {
+          "value": "square",
+          "label": "Vierkant 1:1"
+        },
+        {
+          "value": "portrait",
+          "label": "Portret 4:5"
+        },
+        {
+          "value": "tall",
+          "label": "Lang 3:4"
+        },
+        {
+          "value": "landscape",
+          "label": "Liggend 4:3"
+        }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Weergave afbeeldingen",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Vullen en bijsnijden"
+        },
+        {
+          "value": "contain",
+          "label": "Volledig zichtbaar"
+        }
+      ],
+      "default": "contain"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_zoom",
+      "label": "Subtiele zoom bij hover",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_width",
+      "label": "Kaartbreedte mobiel",
+      "min": 55,
+      "max": 95,
+      "step": 1,
+      "unit": "%",
+      "default": 78
+    },
+    {
+      "type": "range",
+      "id": "desktop_cards_per_view",
+      "label": "Kaarten zichtbaar desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_gap",
+      "label": "Ruimte tussen kaarten mobiel",
+      "min": 2,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "desktop_card_gap",
+      "label": "Ruimte tussen kaarten desktop",
+      "min": 2,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Kaarttypografie"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_font",
+      "label": "Lettertype kaartteksten",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_title_size",
+      "label": "Kaarttitel mobiel",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_card_title_size",
+      "label": "Kaarttitel desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "card_title_weight",
+      "label": "Dikte kaarttitels",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Vet"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "card_title_line_height",
+      "label": "Regelhoogte kaarttitels",
+      "min": 90,
+      "max": 160,
+      "step": 2,
+      "unit": "%",
+      "default": 122
+    },
+    {
+      "type": "range",
+      "id": "card_title_letter_spacing",
+      "label": "Letterafstand kaarttitels",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_content_gap",
+      "label": "Afbeelding naar tekst mobiel",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "desktop_image_content_gap",
+      "label": "Afbeelding naar tekst desktop",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Collectielinks"
+    },
+    {
+      "type": "text",
+      "id": "collection_link_label",
+      "label": "Linktekst bij collecties",
+      "default": "Shop now"
+    },
+    {
+      "type": "range",
+      "id": "mobile_collection_link_size",
+      "label": "Collectielink mobiel",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "desktop_collection_link_size",
+      "label": "Collectielink desktop",
+      "min": 9,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "collection_link_weight",
+      "label": "Dikte collectielink",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "collection_link_letter_spacing",
+      "label": "Letterafstand collectielink",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_collection_link",
+      "label": "Collectielink in hoofdletters",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "collection_title_link_gap",
+      "label": "Ruimte titel naar collectielink",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "collection_link_underline_thickness",
+      "label": "Dikte onderstreping",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "collection_link_underline_offset",
+      "label": "Afstand onderstreping",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Productprijzen"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare_at_price",
+      "label": "Oude prijs tonen indien aanwezig",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_price_size",
+      "label": "Prijsgrootte mobiel",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_price_size",
+      "label": "Prijsgrootte desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "price_weight",
+      "label": "Dikte prijs",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Vet"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "price_letter_spacing",
+      "label": "Letterafstand prijs",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "product_title_price_gap",
+      "label": "Ruimte producttitel naar prijs",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "price_gap",
+      "label": "Ruimte tussen oude en nieuwe prijs",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Afstanden mobiel"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Witruimte boven sectie",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Witruimte onder sectie",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding",
+      "label": "Zijruimte",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_tabs_gap",
+      "label": "Ruimte titel naar tabs",
+      "min": 8,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "mobile_tabs_slider_gap",
+      "label": "Ruimte tabs naar slider",
+      "min": 8,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "mobile_track_bottom_padding",
+      "label": "Ruimte onder kaarten",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Afstanden desktop"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "label": "Witruimte boven sectie",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "label": "Witruimte onder sectie",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "desktop_side_padding",
+      "label": "Zijruimte",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_tabs_gap",
+      "label": "Ruimte titel naar tabs",
+      "min": 8,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "desktop_tabs_slider_gap",
+      "label": "Ruimte tabs naar slider",
+      "min": 8,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "desktop_track_bottom_padding",
+      "label": "Ruimte onder kaarten",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Pijlen"
+    },
+    {
+      "type": "range",
+      "id": "arrow_size",
+      "label": "Grootte pijlen",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "arrow_gap",
+      "label": "Ruimte tussen pijlen",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "arrow_radius",
+      "label": "Afronding pijlen",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "arrow_border_width",
+      "label": "Randdikte pijlen",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "arrow_border_color",
+      "label": "Randkleur pijlen",
+      "default": "#E7E2DC"
+    },
+    {
+      "type": "header",
+      "content": "Kleuren"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Achtergrond",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Tekstkleur",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Subtiele tekstkleur",
+      "default": "#777777"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_color",
+      "label": "Actieve tab",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "inactive_tab_color",
+      "label": "Inactieve tabs",
+      "default": "#777777"
+    },
+    {
+      "type": "color",
+      "id": "image_background",
+      "label": "Achtergrond afbeeldingen",
+      "default": "#F4F2EF"
+    },
+    {
+      "type": "color",
+      "id": "arrow_background",
+      "label": "Achtergrond pijlen",
+      "default": "#F1EDE8"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Kleur pijlen",
+      "default": "#111111"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slider_item",
+      "name": "Slider-item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tab_assignment",
+          "label": "Toon onder tab",
+          "options": [
+            {
+              "value": "tab_1",
+              "label": "Tab 1 — Trending Now"
+            },
+            {
+              "value": "tab_2",
+              "label": "Tab 2 — Our Picks for You"
+            },
+            {
+              "value": "tab_3",
+              "label": "Tab 3 — New Arrivals"
+            }
+          ],
+          "default": "tab_1"
+        },
+        {
+          "type": "select",
+          "id": "item_type",
+          "label": "Type item",
+          "options": [
+            {
+              "value": "collection",
+              "label": "Collectie"
+            },
+            {
+              "value": "product",
+              "label": "Product"
+            }
+          ],
+          "default": "collection"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Selecteer collectie"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Selecteer product"
+        },
+       {
+  "type": "image_picker",
+  "id": "custom_image",
+  "label": "Eigen afbeelding — optioneel"
+},
+{
+  "type": "select",
+  "id": "image_position",
+  "label": "Positie afbeelding",
+  "options": [
+    {
+      "value": "center 10%",
+      "label": "Extra hoog"
+    },
+    {
+      "value": "center 20%",
+      "label": "Hoog"
+    },
+    {
+      "value": "center 30%",
+      "label": "Iets hoger"
+    },
+    {
+      "value": "center center",
+      "label": "Midden"
+    },
+    {
+      "value": "center 65%",
+      "label": "Iets lager"
+    },
+    {
+      "value": "center 80%",
+      "label": "Laag"
+    },
+    {
+      "value": "left 30%",
+      "label": "Links en hoger"
+    },
+    {
+      "value": "right 30%",
+      "label": "Rechts en hoger"
+    }
+  ],
+  "default": "center 20%"
+},
+{
+  "type": "text",
+  "id": "custom_title",
+  "label": "Eigen titel — optioneel"
+},
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Eigen link — optioneel"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CG Tabbed premium slider",
+      "blocks": [
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection"
+          }
+        },
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection"
+          }
+        },
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_1",
+            "item_type": "collection"
+          }
+        },
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product"
+          }
+        },
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_2",
+            "item_type": "product"
+          }
+        },
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product"
+          }
+        },
+        {
+          "type": "slider_item",
+          "settings": {
+            "tab_assignment": "tab_3",
+            "item_type": "product"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

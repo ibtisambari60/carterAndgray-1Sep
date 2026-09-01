@@ -1,0 +1,599 @@
+{%- comment -%}
+  ============================================================
+  Carter & Gray — About Us  (v2, Prestige-compatibel)
+  Eén sectie. Per blok: FOTO met tekst erover + WIT tekstblok
+  eronder (intro + 2 sub-koppen). Alles via SECTIE-instellingen
+  (geen native blocks). Elk blok aan/uit; wit blok apart uit te
+  zetten -> dan foto-op-foto. Prefix .cg-about, botst niet.
+  ============================================================
+{%- endcomment -%}
+
+{%- style -%}
+  {{ section.settings.over_kicker_font   | font_face: font_display: 'swap' }}
+  {{ section.settings.over_title_font    | font_face: font_display: 'swap' }}
+  {{ section.settings.over_text_font     | font_face: font_display: 'swap' }}
+  {{ section.settings.cap_intro_font     | font_face: font_display: 'swap' }}
+  {{ section.settings.cap_subtitle_font  | font_face: font_display: 'swap' }}
+  {{ section.settings.cap_text_font      | font_face: font_display: 'swap' }}
+{%- endstyle -%}
+
+{%- comment -%} Uitlijning over de foto {%- endcomment -%}
+{%- case section.settings.text_align -%}
+  {%- when 'left'  -%}{%- assign cg_aitems = 'flex-start' -%}
+  {%- when 'right' -%}{%- assign cg_aitems = 'flex-end'   -%}
+  {%- else         -%}{%- assign cg_aitems = 'center'     -%}
+{%- endcase -%}
+{%- case section.settings.vertical_position -%}
+  {%- when 'top'    -%}{%- assign cg_valign = 'flex-start' -%}
+  {%- when 'bottom' -%}{%- assign cg_valign = 'flex-end'   -%}
+  {%- else          -%}{%- assign cg_valign = 'center'     -%}
+{%- endcase -%}
+{%- comment -%} Uitlijning wit tekstblok {%- endcomment -%}
+{%- case section.settings.caption_align -%}
+  {%- when 'center' -%}{%- assign cg_cap_aitems = 'center'   -%}
+  {%- when 'right'  -%}{%- assign cg_cap_aitems = 'flex-end' -%}
+  {%- else          -%}{%- assign cg_cap_aitems = 'flex-start' -%}
+{%- endcase -%}
+{%- comment -%} Uitlijning contactblok {%- endcomment -%}
+{%- case section.settings.contact_align -%}
+  {%- when 'center' -%}{%- assign cg_contact_aitems = 'center'   -%}
+  {%- when 'right'  -%}{%- assign cg_contact_aitems = 'flex-end' -%}
+  {%- else          -%}{%- assign cg_contact_aitems = 'flex-start' -%}
+{%- endcase -%}
+
+{%- assign cg_overlay = section.settings.overlay_strength | divided_by: 100.0 -%}
+
+<style>
+  #cg-about-{{ section.id }} {
+    /* Lettertypes — tekst over de foto */
+    --cg-over-kicker-font: {{ section.settings.over_kicker_font.family }}, {{ section.settings.over_kicker_font.fallback_families }};
+    --cg-over-title-font:  {{ section.settings.over_title_font.family }}, {{ section.settings.over_title_font.fallback_families }};
+    --cg-over-text-font:   {{ section.settings.over_text_font.family }}, {{ section.settings.over_text_font.fallback_families }};
+    --cg-over-kicker-weight: {{ section.settings.over_kicker_font.weight }};
+    --cg-over-title-weight:  {{ section.settings.over_title_font.weight }};
+    --cg-over-text-weight:   {{ section.settings.over_text_font.weight }};
+
+    /* Lettertypes — witte blokken */
+    --cg-cap-intro-font:    {{ section.settings.cap_intro_font.family }}, {{ section.settings.cap_intro_font.fallback_families }};
+    --cg-cap-subtitle-font: {{ section.settings.cap_subtitle_font.family }}, {{ section.settings.cap_subtitle_font.fallback_families }};
+    --cg-cap-text-font:     {{ section.settings.cap_text_font.family }}, {{ section.settings.cap_text_font.fallback_families }};
+    --cg-cap-intro-weight:    {{ section.settings.cap_intro_font.weight }};
+    --cg-cap-subtitle-weight: {{ section.settings.cap_subtitle_font.weight }};
+    --cg-cap-text-weight:     {{ section.settings.cap_text_font.weight }};
+
+    /* Tekst over de foto — desktop */
+    --cg-kicker-size: {{ section.settings.kicker_size_d }}px;
+    --cg-title-size:  {{ section.settings.title_size_d }}px;
+    --cg-over-size:   {{ section.settings.over_size_d }}px;
+
+    /* Wit tekstblok — desktop */
+    --cg-intro-size:    {{ section.settings.intro_size_d }}px;
+    --cg-subtitle-size: {{ section.settings.subtitle_size_d }}px;
+    --cg-subtext-size:  {{ section.settings.subtext_size_d }}px;
+
+    /* Typografie-detail */
+    --cg-kicker-ls: {{ section.settings.kicker_letter_spacing }}px;
+    --cg-title-lh:  {{ section.settings.title_line_height }};
+    --cg-intro-lh:  {{ section.settings.intro_line_height }};
+
+    /* Layout — desktop */
+    --cg-img-h:   {{ section.settings.image_height_d }}px;
+    --cg-img-pad: {{ section.settings.image_padding_d }}px;
+    --cg-cap-pad: {{ section.settings.caption_padding_d }}px;
+    --cg-maxw:    {{ section.settings.max_text_width }}px;
+    --cg-gap:     {{ section.settings.block_gap }}px;
+
+    /* Uitlijning */
+    --cg-valign:     {{ cg_valign }};
+    --cg-aitems:     {{ cg_aitems }};
+    --cg-talign:     {{ section.settings.text_align }};
+    --cg-cap-aitems: {{ cg_cap_aitems }};
+    --cg-cap-talign: {{ section.settings.caption_align }};
+
+    /* Kleuren & waas */
+    --cg-color:      {{ section.settings.text_color }};
+    --cg-cap-bg:     {{ section.settings.caption_bg }};
+    --cg-cap-color:  {{ section.settings.caption_color }};
+    --cg-accent:     {{ section.settings.accent_color }};
+    --cg-overlay:    {{ cg_overlay }};
+
+    /* Ankernavigatie */
+    --cg-nav-bg:     {{ section.settings.nav_bg }};
+    --cg-nav-color:  {{ section.settings.nav_color }};
+    --cg-nav-size:   {{ section.settings.nav_size }}px;
+    --cg-nav-offset: {{ section.settings.nav_sticky_offset }}px;
+
+    /* Contactblok */
+    --cg-contact-bg:         {{ section.settings.contact_bg }};
+    --cg-contact-color:      {{ section.settings.contact_color }};
+    --cg-contact-aitems:     {{ cg_contact_aitems }};
+    --cg-contact-talign:     {{ section.settings.contact_align }};
+    --cg-contact-title-size: {{ section.settings.contact_title_size_d }}px;
+    --cg-contact-text-size:  {{ section.settings.contact_text_size_d }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #cg-about-{{ section.id }} {
+      --cg-kicker-size: {{ section.settings.kicker_size_m }}px;
+      --cg-title-size:  {{ section.settings.title_size_m }}px;
+      --cg-over-size:   {{ section.settings.over_size_m }}px;
+      --cg-intro-size:    {{ section.settings.intro_size_m }}px;
+      --cg-subtitle-size: {{ section.settings.subtitle_size_m }}px;
+      --cg-subtext-size:  {{ section.settings.subtext_size_m }}px;
+      --cg-img-h:   {{ section.settings.image_height_m }}px;
+      --cg-img-pad: {{ section.settings.image_padding_m }}px;
+      --cg-cap-pad: {{ section.settings.caption_padding_m }}px;
+      --cg-contact-title-size: {{ section.settings.contact_title_size_m }}px;
+      --cg-contact-text-size:  {{ section.settings.contact_text_size_m }}px;
+    }
+  }
+
+  /* ---------- Ankernavigatie ---------- */
+  .cg-about__nav {
+    position: relative; z-index: 3;
+    display: flex; width: 100%;
+    background: var(--cg-nav-bg);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .cg-about__nav--sticky {
+    position: sticky; top: var(--cg-nav-offset);
+  }
+  .cg-about__nav a {
+    flex: 1 1 0; padding: 14px 8px; text-align: center; text-decoration: none;
+    font-family: var(--cg-over-text-font); font-size: var(--cg-nav-size); letter-spacing: .04em;
+    line-height: 1.2; color: var(--cg-nav-color); border-right: 1px solid rgba(0,0,0,.08);
+    transition: background .2s ease, color .2s ease;
+  }
+  .cg-about__nav a:last-child { border-right: 0; }
+  .cg-about__nav a:hover { background: var(--cg-nav-color); color: var(--cg-nav-bg); }
+  /* Zorgt dat een aanklikbaar anker onder de header/balk landt, niet erachter */
+  .cg-about__block { scroll-margin-top: var(--cg-nav-offset); }
+
+  /* ---------- Blokken ---------- */
+  .cg-about__blocks { display: flex; flex-direction: column; gap: var(--cg-gap); }
+  .cg-about__block  { display: flex; flex-direction: column; }
+
+  /* Foto met tekst erover */
+  .cg-about__photo { position: relative; min-height: var(--cg-img-h); overflow: hidden; background: #1a1a1a; }
+  .cg-about__media { position: absolute; inset: 0; }
+  .cg-about__img   { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cg-about__overlay { position: absolute; inset: 0; background: #000; opacity: var(--cg-overlay); pointer-events: none; }
+  .cg-about__over {
+    position: relative; z-index: 2; min-height: var(--cg-img-h);
+    display: flex; flex-direction: column;
+    justify-content: var(--cg-valign); align-items: var(--cg-aitems);
+    text-align: var(--cg-talign); padding: var(--cg-img-pad);
+    color: var(--cg-color); box-sizing: border-box;
+  }
+  .cg-about__over-inner { width: 100%; max-width: var(--cg-maxw); }
+
+  .cg-about__kicker {
+    font-family: var(--cg-over-kicker-font); font-weight: var(--cg-over-kicker-weight);
+    font-size: var(--cg-kicker-size); letter-spacing: var(--cg-kicker-ls);
+    text-transform: uppercase; margin: 0 0 .9em 0; opacity: .95;
+  }
+  .cg-about__title {
+    font-family: var(--cg-over-title-font); font-weight: var(--cg-over-title-weight);
+    font-size: var(--cg-title-size); line-height: var(--cg-title-lh);
+    letter-spacing: 0;      /* expliciet: Prestige zet dit standaard aan */
+    text-transform: none;   /* expliciet: Prestige forceert anders hoofdletters */
+    margin: 0 0 .5em 0;
+  }
+  .cg-about__over-text {
+    font-family: var(--cg-over-text-font); font-weight: var(--cg-over-text-weight);
+    font-size: var(--cg-over-size); line-height: 1.6;
+  }
+  .cg-about__over-text > *:first-child { margin-top: 0; }
+  .cg-about__over-text > *:last-child  { margin-bottom: 0; }
+  .cg-about__over-text a { color: inherit; }
+
+  .cg-about__btn {
+    display: inline-block; margin-top: 1.4em; padding: 14px 34px;
+    font-family: var(--cg-over-text-font); font-size: 13px; letter-spacing: .12em;
+    text-transform: uppercase; text-decoration: none; color: var(--cg-color);
+    border: 1px solid currentColor; background: transparent;
+    transition: background .2s ease, color .2s ease; cursor: pointer;
+  }
+  .cg-about__btn:hover { background: var(--cg-color); color: #111; }
+
+  /* Wit tekstblok onder de foto */
+  .cg-about__caption {
+    background: var(--cg-cap-bg); color: var(--cg-cap-color);
+    padding: var(--cg-cap-pad);
+    display: flex; flex-direction: column; align-items: var(--cg-cap-aitems);
+    text-align: var(--cg-cap-talign);
+  }
+  .cg-about__caption-inner { width: 100%; max-width: var(--cg-maxw); }
+  .cg-about__intro {
+    font-family: var(--cg-cap-intro-font); font-weight: var(--cg-cap-intro-weight);
+    font-size: var(--cg-intro-size); line-height: var(--cg-intro-lh);
+    letter-spacing: 0; text-transform: none; margin: 0 0 1.6em 0;
+  }
+  .cg-about__intro > *:first-child { margin-top: 0; }
+  .cg-about__intro > *:last-child  { margin-bottom: 0; }
+
+  .cg-about__subs { display: flex; flex-direction: column; gap: 2em; }
+  .cg-about__subs--rule { border-left: 1px solid var(--cg-accent); padding-left: 1.6em; }
+  .cg-about__sub-title {
+    font-family: var(--cg-cap-subtitle-font); font-weight: var(--cg-cap-subtitle-weight);
+    font-size: var(--cg-subtitle-size); line-height: 1.1;
+    letter-spacing: 0; text-transform: none; margin: 0 0 .5em 0;
+  }
+  .cg-about__sub-text {
+    font-family: var(--cg-cap-text-font); font-weight: var(--cg-cap-text-weight);
+    font-size: var(--cg-subtext-size); line-height: 1.65;
+  }
+  .cg-about__sub-text > *:first-child { margin-top: 0; }
+  .cg-about__sub-text > *:last-child  { margin-bottom: 0; }
+  .cg-about__sub-text a { color: inherit; }
+
+  /* ---------- Contactblok (onderaan) ---------- */
+  .cg-about__contact {
+    background: var(--cg-contact-bg); color: var(--cg-contact-color);
+    padding: var(--cg-cap-pad);
+    display: flex; flex-direction: column; align-items: var(--cg-contact-aitems);
+    text-align: var(--cg-contact-talign);
+  }
+  .cg-about__contact-inner { width: 100%; max-width: var(--cg-maxw); }
+  .cg-about__contact-kicker {
+    font-family: var(--cg-over-kicker-font); font-weight: var(--cg-over-kicker-weight);
+    font-size: var(--cg-kicker-size); letter-spacing: var(--cg-kicker-ls);
+    text-transform: uppercase; margin: 0 0 .9em 0; opacity: .9;
+  }
+  .cg-about__contact-title {
+    font-family: var(--cg-cap-subtitle-font); font-weight: var(--cg-cap-subtitle-weight);
+    font-size: var(--cg-contact-title-size); line-height: 1.15;
+    letter-spacing: 0; text-transform: none; margin: 0 0 1.1em 0;
+  }
+  .cg-about__contact-body {
+    font-family: var(--cg-cap-text-font); font-weight: var(--cg-cap-text-weight);
+    font-size: var(--cg-contact-text-size); line-height: 1.8;
+  }
+  .cg-about__contact-body > *:first-child { margin-top: 0; }
+  .cg-about__contact-body > *:last-child  { margin-bottom: 0; }
+  .cg-about__contact-body a { color: inherit; }
+  .cg-about__contact-body strong { font-weight: 600; }
+</style>
+
+<div id="cg-about-{{ section.id }}" class="cg-about">
+
+  {%- if section.settings.show_nav -%}
+    <nav class="cg-about__nav{% if section.settings.nav_sticky %} cg-about__nav--sticky{% endif %}" aria-label="About-navigatie">
+      {%- for i in (1..5) -%}
+        {%- assign show_key = 'show_' | append: i -%}
+        {%- assign nav_key  = 'nav_'  | append: i -%}
+        {%- assign nav_lbl  = section.settings[nav_key] -%}
+        {%- if section.settings[show_key] and nav_lbl != blank -%}
+          <a href="#cg-block-{{ section.id }}-{{ i }}">{{ nav_lbl }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
+
+  <div class="cg-about__blocks">
+    {%- for i in (1..5) -%}
+      {%- assign show_key = 'show_' | append: i -%}
+      {%- unless section.settings[show_key] -%}{%- continue -%}{%- endunless -%}
+
+      {%- assign img_key   = 'img_'   | append: i -%}
+      {%- assign kick_key  = 'kicker_'| append: i -%}
+      {%- assign ttl_key   = 'title_' | append: i -%}
+      {%- assign over_key  = 'over_'  | append: i -%}
+      {%- assign btnt_key  = 'btn_text_' | append: i -%}
+      {%- assign btnl_key  = 'btn_link_' | append: i -%}
+      {%- assign cap_key   = 'cap_'   | append: i -%}
+      {%- assign intro_key = 'intro_' | append: i -%}
+      {%- assign p_img   = section.settings[img_key]   -%}
+      {%- assign p_kick  = section.settings[kick_key]  -%}
+      {%- assign p_ttl   = section.settings[ttl_key]   -%}
+      {%- assign p_over  = section.settings[over_key]  -%}
+      {%- assign p_btnt  = section.settings[btnt_key]  -%}
+      {%- assign p_btnl  = section.settings[btnl_key]  -%}
+      {%- assign p_intro = section.settings[intro_key] -%}
+
+      {%- comment -%} Zijn er ingevulde sub-koppen in dit blok? {%- endcomment -%}
+      {%- assign subs_count = 0 -%}
+      {%- for j in (1..5) -%}
+        {%- assign jt_key = 'sub' | append: j | append: '_title_' | append: i -%}
+        {%- if section.settings[jt_key] != blank -%}{%- assign subs_count = subs_count | plus: 1 -%}{%- endif -%}
+      {%- endfor -%}
+
+      <div id="cg-block-{{ section.id }}-{{ i }}" class="cg-about__block">
+
+        <div class="cg-about__photo">
+          <div class="cg-about__media">
+            {%- if p_img != blank -%}
+              {{ p_img | image_url: width: 2000 | image_tag:
+                   widths: '480,640,800,1000,1200,1600,2000',
+                   sizes: '100vw', class: 'cg-about__img', loading: 'lazy', alt: p_ttl }}
+            {%- endif -%}
+            <span class="cg-about__overlay"></span>
+          </div>
+          <div class="cg-about__over">
+            <div class="cg-about__over-inner">
+              {%- if p_kick != blank -%}<p class="cg-about__kicker">{{ p_kick }}</p>{%- endif -%}
+              {%- if p_ttl  != blank -%}<h2 class="cg-about__title">{{ p_ttl }}</h2>{%- endif -%}
+              {%- if p_over != blank -%}<div class="cg-about__over-text">{{ p_over }}</div>{%- endif -%}
+              {%- if p_btnt != blank -%}<a class="cg-about__btn" href="{{ p_btnl | default: '#' }}">{{ p_btnt }}</a>{%- endif -%}
+            </div>
+          </div>
+        </div>
+
+        {%- assign has_caption = false -%}
+        {%- if p_intro != blank or subs_count > 0 -%}{%- assign has_caption = true -%}{%- endif -%}
+        {%- if section.settings[cap_key] and has_caption -%}
+          <div class="cg-about__caption">
+            <div class="cg-about__caption-inner">
+              {%- if p_intro != blank -%}<div class="cg-about__intro">{{ p_intro }}</div>{%- endif -%}
+              {%- if subs_count > 0 -%}
+                <div class="cg-about__subs{% if section.settings.show_accent %} cg-about__subs--rule{% endif %}">
+                  {%- for j in (1..5) -%}
+                    {%- assign jt_key = 'sub' | append: j | append: '_title_' | append: i -%}
+                    {%- assign jx_key = 'sub' | append: j | append: '_text_'  | append: i -%}
+                    {%- assign j_title = section.settings[jt_key] -%}
+                    {%- assign j_text  = section.settings[jx_key] -%}
+                    {%- if j_title != blank -%}
+                      <div class="cg-about__sub">
+                        <h3 class="cg-about__sub-title">{{ j_title }}</h3>
+                        {%- if j_text != blank -%}<div class="cg-about__sub-text">{{ j_text }}</div>{%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.show_contact -%}
+    <div class="cg-about__contact">
+      <div class="cg-about__contact-inner">
+        {%- if section.settings.contact_kicker != blank -%}
+          <p class="cg-about__contact-kicker">{{ section.settings.contact_kicker }}</p>
+        {%- endif -%}
+        {%- if section.settings.contact_title != blank -%}
+          <h2 class="cg-about__contact-title">{{ section.settings.contact_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.contact_content != blank -%}
+          <div class="cg-about__contact-body">{{ section.settings.contact_content }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Carter & Gray — About",
+  "tag": "section",
+  "class": "cg-about-section",
+  "settings": [
+    { "type": "header", "content": "Lettertypes — tekst OVER de foto" },
+    { "type": "font_picker", "id": "over_kicker_font", "label": "Kicker", "default": "assistant_n4" },
+    { "type": "font_picker", "id": "over_title_font", "label": "Titel", "default": "times_new_roman_n4" },
+    { "type": "font_picker", "id": "over_text_font", "label": "Tekst", "default": "assistant_n4" },
+
+    { "type": "header", "content": "Lettertypes — witte blokken" },
+    { "type": "font_picker", "id": "cap_intro_font", "label": "Intro-zin", "default": "times_new_roman_n4" },
+    { "type": "font_picker", "id": "cap_subtitle_font", "label": "Sub-kop", "default": "times_new_roman_n4" },
+    { "type": "font_picker", "id": "cap_text_font", "label": "Sub-tekst", "default": "assistant_n4" },
+
+    { "type": "header", "content": "Tekst over de foto — desktop" },
+    { "type": "range", "id": "kicker_size_d", "label": "Kicker (px)", "min": 8, "max": 30, "step": 1, "default": 13 },
+    { "type": "range", "id": "title_size_d", "label": "Titel (px)", "min": 24, "max": 120, "step": 2, "default": 64 },
+    { "type": "range", "id": "over_size_d", "label": "Tekst over foto (px)", "min": 12, "max": 32, "step": 1, "default": 16 },
+
+    { "type": "header", "content": "Tekst over de foto — mobiel" },
+    { "type": "range", "id": "kicker_size_m", "label": "Kicker (px)", "min": 8, "max": 24, "step": 1, "default": 11 },
+    { "type": "range", "id": "title_size_m", "label": "Titel (px)", "min": 18, "max": 80, "step": 2, "default": 38 },
+    { "type": "range", "id": "over_size_m", "label": "Tekst over foto (px)", "min": 12, "max": 24, "step": 1, "default": 15 },
+
+    { "type": "header", "content": "Wit tekstblok — desktop" },
+    { "type": "range", "id": "intro_size_d", "label": "Intro-zin (px)", "min": 16, "max": 48, "step": 1, "default": 28 },
+    { "type": "range", "id": "subtitle_size_d", "label": "Sub-kop (px)", "min": 16, "max": 56, "step": 2, "default": 32 },
+    { "type": "range", "id": "subtext_size_d", "label": "Sub-tekst (px)", "min": 12, "max": 28, "step": 1, "default": 16 },
+
+    { "type": "header", "content": "Wit tekstblok — mobiel" },
+    { "type": "range", "id": "intro_size_m", "label": "Intro-zin (px)", "min": 14, "max": 36, "step": 1, "default": 22 },
+    { "type": "range", "id": "subtitle_size_m", "label": "Sub-kop (px)", "min": 16, "max": 44, "step": 2, "default": 26 },
+    { "type": "range", "id": "subtext_size_m", "label": "Sub-tekst (px)", "min": 12, "max": 22, "step": 1, "default": 15 },
+
+    { "type": "header", "content": "Typografie-detail" },
+    { "type": "range", "id": "kicker_letter_spacing", "label": "Letterafstand kicker (px)", "min": 0, "max": 12, "step": 0.5, "default": 3 },
+    { "type": "range", "id": "title_line_height", "label": "Regelafstand titel", "min": 0.9, "max": 2, "step": 0.1, "default": 1.1 },
+    { "type": "range", "id": "intro_line_height", "label": "Regelafstand intro-zin", "min": 1, "max": 2, "step": 0.1, "default": 1.3 },
+
+    { "type": "header", "content": "Beeld & witruimte — desktop" },
+    { "type": "range", "id": "image_height_d", "label": "Beeldhoogte (px)", "min": 200, "max": 1000, "step": 20, "default": 640 },
+    { "type": "range", "id": "image_padding_d", "label": "Binnenmarge tekst op foto (px)", "min": 0, "max": 160, "step": 4, "default": 56 },
+    { "type": "range", "id": "caption_padding_d", "label": "Binnenmarge wit blok (px)", "min": 0, "max": 200, "step": 4, "default": 72 },
+
+    { "type": "header", "content": "Beeld & witruimte — mobiel" },
+    { "type": "range", "id": "image_height_m", "label": "Beeldhoogte (px)", "min": 200, "max": 900, "step": 20, "default": 520 },
+    { "type": "range", "id": "image_padding_m", "label": "Binnenmarge tekst op foto (px)", "min": 0, "max": 100, "step": 4, "default": 24 },
+    { "type": "range", "id": "caption_padding_m", "label": "Binnenmarge wit blok (px)", "min": 0, "max": 120, "step": 4, "default": 40 },
+
+    { "type": "header", "content": "Algemene layout" },
+    { "type": "range", "id": "max_text_width", "label": "Maximale tekstbreedte (px)", "min": 300, "max": 1100, "step": 20, "default": 640 },
+    { "type": "range", "id": "block_gap", "label": "Ruimte tussen blokken (px)", "min": 0, "max": 160, "step": 2, "default": 0 },
+    {
+      "type": "select", "id": "text_align", "label": "Uitlijning tekst over foto", "default": "center",
+      "options": [
+        { "value": "left", "label": "Links" },
+        { "value": "center", "label": "Midden" },
+        { "value": "right", "label": "Rechts" }
+      ]
+    },
+    {
+      "type": "select", "id": "vertical_position", "label": "Verticale positie tekst op foto", "default": "center",
+      "options": [
+        { "value": "top", "label": "Boven" },
+        { "value": "center", "label": "Midden" },
+        { "value": "bottom", "label": "Onder" }
+      ]
+    },
+    {
+      "type": "select", "id": "caption_align", "label": "Uitlijning wit tekstblok", "default": "left",
+      "options": [
+        { "value": "left", "label": "Links" },
+        { "value": "center", "label": "Midden" },
+        { "value": "right", "label": "Rechts" }
+      ]
+    },
+
+    { "type": "header", "content": "Kleuren & waas" },
+    { "type": "color", "id": "text_color", "label": "Tekstkleur over foto", "default": "#ffffff" },
+    { "type": "range", "id": "overlay_strength", "label": "Sterkte donkere waas (%)", "min": 0, "max": 100, "step": 5, "default": 25 },
+    { "type": "color", "id": "caption_bg", "label": "Achtergrond wit blok", "default": "#ffffff" },
+    { "type": "color", "id": "caption_color", "label": "Tekstkleur wit blok", "default": "#1a1a1a" },
+    { "type": "checkbox", "id": "show_accent", "label": "Toon verticaal streepje bij sub-koppen", "default": true },
+    { "type": "color", "id": "accent_color", "label": "Kleur streepje", "default": "#1a1a1a" },
+
+    { "type": "header", "content": "Ankernavigatie (de balk met tabjes)" },
+    { "type": "checkbox", "id": "show_nav", "label": "Toon de navigatiebalk", "default": true },
+    { "type": "paragraph", "content": "Een label verschijnt alleen als het bijbehorende blok aanstaat én het label niet leeg is. Leeg = dat tabje verbergen." },
+    { "type": "text", "id": "nav_1", "label": "Label blok 1", "default": "Onze belofte" },
+    { "type": "text", "id": "nav_2", "label": "Label blok 2", "default": "Materiaal" },
+    { "type": "text", "id": "nav_3", "label": "Label blok 3", "default": "Mensen" },
+    { "type": "text", "id": "nav_4", "label": "Label blok 4", "default": "Kwaliteit" },
+    { "type": "text", "id": "nav_5", "label": "Label blok 5", "default": "Contact" },
+    { "type": "checkbox", "id": "nav_sticky", "label": "Balk meescrollen (blijft in beeld)", "default": false },
+    { "type": "range", "id": "nav_sticky_offset", "label": "Afstand vanaf boven bij meescrollen (px)", "info": "Verhoog dit als je thema-header de balk overlapt.", "min": 0, "max": 200, "step": 4, "default": 0 },
+    { "type": "range", "id": "nav_size", "label": "Lettergrootte balk (px)", "min": 10, "max": 22, "step": 1, "default": 13 },
+    { "type": "color", "id": "nav_bg", "label": "Achtergrondkleur balk", "default": "#ffffff" },
+    { "type": "color", "id": "nav_color", "label": "Tekstkleur balk", "default": "#111111" },
+
+    { "type": "header", "content": "Blok 1" },
+    { "type": "checkbox", "id": "show_1", "label": "Toon dit blok", "default": true },
+    { "type": "image_picker", "id": "img_1", "label": "Afbeelding" },
+    { "type": "text", "id": "kicker_1", "label": "Kicker (over foto)", "default": "Carter & Gray" },
+    { "type": "text", "id": "title_1", "label": "Titel (over foto)", "default": "Bewuste luxe" },
+    { "type": "richtext", "id": "over_1", "label": "Tekst over foto (leeg = alleen beeld)" },
+    { "type": "text", "id": "btn_text_1", "label": "Knoptekst (leeg = verbergen)" },
+    { "type": "url", "id": "btn_link_1", "label": "Knoplink" },
+    { "type": "checkbox", "id": "cap_1", "label": "Toon wit tekstblok eronder", "default": true },
+    { "type": "richtext", "id": "intro_1", "label": "Intro-zin (wit blok)", "default": "<p>We maken tijdloze producten om in te investeren — met respect voor de mensen en materialen erachter.</p>" },
+    { "type": "text", "id": "sub1_title_1", "label": "Sub-kop 1", "default": "Vakmanschap" },
+    { "type": "richtext", "id": "sub1_text_1", "label": "Sub-tekst 1", "default": "<p>Elk stuk wordt met zorg gemaakt door makers die kwaliteit boven snelheid stellen.</p>" },
+    { "type": "text", "id": "sub2_title_1", "label": "Sub-kop 2", "default": "Herkomst" },
+    { "type": "richtext", "id": "sub2_text_1", "label": "Sub-tekst 2", "default": "<p>We kiezen materialen die mooier worden met de tijd en verantwoord zijn gewonnen.</p>" },
+    { "type": "text", "id": "sub3_title_1", "label": "Sub-kop 3" },
+    { "type": "richtext", "id": "sub3_text_1", "label": "Sub-tekst 3" },
+    { "type": "text", "id": "sub4_title_1", "label": "Sub-kop 4" },
+    { "type": "richtext", "id": "sub4_text_1", "label": "Sub-tekst 4" },
+    { "type": "text", "id": "sub5_title_1", "label": "Sub-kop 5" },
+    { "type": "richtext", "id": "sub5_text_1", "label": "Sub-tekst 5" },
+
+    { "type": "header", "content": "Blok 2" },
+    { "type": "checkbox", "id": "show_2", "label": "Toon dit blok", "default": true },
+    { "type": "image_picker", "id": "img_2", "label": "Afbeelding" },
+    { "type": "text", "id": "kicker_2", "label": "Kicker (over foto)", "default": "Vakmanschap" },
+    { "type": "text", "id": "title_2", "label": "Titel (over foto)", "default": "Gemaakt om te blijven" },
+    { "type": "richtext", "id": "over_2", "label": "Tekst over foto (leeg = alleen beeld)" },
+    { "type": "text", "id": "btn_text_2", "label": "Knoptekst (leeg = verbergen)" },
+    { "type": "url", "id": "btn_link_2", "label": "Knoplink" },
+    { "type": "checkbox", "id": "cap_2", "label": "Toon wit tekstblok eronder", "default": true },
+    { "type": "richtext", "id": "intro_2", "label": "Intro-zin (wit blok)", "default": "<p>Kwaliteit begint bij de keuze van het materiaal en de manier waarop het wordt verwerkt.</p>" },
+    { "type": "text", "id": "sub1_title_2", "label": "Sub-kop 1", "default": "Materialen" },
+    { "type": "richtext", "id": "sub1_text_2", "label": "Sub-tekst 1", "default": "<p>We werken met natuurlijke, duurzame stoffen die lang meegaan.</p>" },
+    { "type": "text", "id": "sub2_title_2", "label": "Sub-kop 2", "default": "Duurzaamheid" },
+    { "type": "richtext", "id": "sub2_text_2", "label": "Sub-tekst 2", "default": "<p>Minder, maar beter — ontworpen om jaren mee te gaan.</p>" },
+    { "type": "text", "id": "sub3_title_2", "label": "Sub-kop 3" },
+    { "type": "richtext", "id": "sub3_text_2", "label": "Sub-tekst 3" },
+    { "type": "text", "id": "sub4_title_2", "label": "Sub-kop 4" },
+    { "type": "richtext", "id": "sub4_text_2", "label": "Sub-tekst 4" },
+    { "type": "text", "id": "sub5_title_2", "label": "Sub-kop 5" },
+    { "type": "richtext", "id": "sub5_text_2", "label": "Sub-tekst 5" },
+
+    { "type": "header", "content": "Blok 3" },
+    { "type": "checkbox", "id": "show_3", "label": "Toon dit blok", "default": true },
+    { "type": "image_picker", "id": "img_3", "label": "Afbeelding" },
+    { "type": "text", "id": "kicker_3", "label": "Kicker (over foto)", "default": "Mensen" },
+    { "type": "text", "id": "title_3", "label": "Titel (over foto)", "default": "Gemaakt met zorg" },
+    { "type": "richtext", "id": "over_3", "label": "Tekst over foto (leeg = alleen beeld)" },
+    { "type": "text", "id": "btn_text_3", "label": "Knoptekst (leeg = verbergen)" },
+    { "type": "url", "id": "btn_link_3", "label": "Knoplink" },
+    { "type": "checkbox", "id": "cap_3", "label": "Toon wit tekstblok eronder", "default": true },
+    { "type": "richtext", "id": "intro_3", "label": "Intro-zin (wit blok)", "default": "<p>We investeren in de mensen die onze producten maken en de gemeenschappen eromheen.</p>" },
+    { "type": "text", "id": "sub1_title_3", "label": "Sub-kop 1", "default": "Makers" },
+    { "type": "richtext", "id": "sub1_text_3", "label": "Sub-tekst 1", "default": "<p>Eerlijke samenwerking en goede voorwaarden door de hele keten.</p>" },
+    { "type": "text", "id": "sub2_title_3", "label": "Sub-kop 2", "default": "Gemeenschap" },
+    { "type": "richtext", "id": "sub2_text_3", "label": "Sub-tekst 2", "default": "<p>We geven terug aan de plekken waar we werken.</p>" },
+    { "type": "text", "id": "sub3_title_3", "label": "Sub-kop 3" },
+    { "type": "richtext", "id": "sub3_text_3", "label": "Sub-tekst 3" },
+    { "type": "text", "id": "sub4_title_3", "label": "Sub-kop 4" },
+    { "type": "richtext", "id": "sub4_text_3", "label": "Sub-tekst 4" },
+    { "type": "text", "id": "sub5_title_3", "label": "Sub-kop 5" },
+    { "type": "richtext", "id": "sub5_text_3", "label": "Sub-tekst 5" },
+
+    { "type": "header", "content": "Blok 4" },
+    { "type": "checkbox", "id": "show_4", "label": "Toon dit blok", "default": true },
+    { "type": "image_picker", "id": "img_4", "label": "Afbeelding" },
+    { "type": "text", "id": "kicker_4", "label": "Kicker (over foto)", "default": "Kwaliteit" },
+    { "type": "text", "id": "title_4", "label": "Titel (over foto)", "default": "Gemaakt om te duren" },
+    { "type": "richtext", "id": "over_4", "label": "Tekst over foto (leeg = alleen beeld)" },
+    { "type": "text", "id": "btn_text_4", "label": "Knoptekst (leeg = verbergen)" },
+    { "type": "url", "id": "btn_link_4", "label": "Knoplink" },
+    { "type": "checkbox", "id": "cap_4", "label": "Toon wit tekstblok eronder", "default": true },
+    { "type": "richtext", "id": "intro_4", "label": "Intro-zin (wit blok)", "default": "<p>Elk detail is getest op duurzaamheid, zodat je aankoop jarenlang meegaat.</p>" },
+    { "type": "text", "id": "sub1_title_4", "label": "Sub-kop 1", "default": "Getest" },
+    { "type": "richtext", "id": "sub1_text_4", "label": "Sub-tekst 1", "default": "<p>Streng gecontroleerd op afwerking en slijtvastheid.</p>" },
+    { "type": "text", "id": "sub2_title_4", "label": "Sub-kop 2", "default": "Onderhoud" },
+    { "type": "richtext", "id": "sub2_text_4", "label": "Sub-tekst 2", "default": "<p>Met zorg gaat elk stuk nog langer mee.</p>" },
+    { "type": "text", "id": "sub3_title_4", "label": "Sub-kop 3" },
+    { "type": "richtext", "id": "sub3_text_4", "label": "Sub-tekst 3" },
+    { "type": "text", "id": "sub4_title_4", "label": "Sub-kop 4" },
+    { "type": "richtext", "id": "sub4_text_4", "label": "Sub-tekst 4" },
+    { "type": "text", "id": "sub5_title_4", "label": "Sub-kop 5" },
+    { "type": "richtext", "id": "sub5_text_4", "label": "Sub-tekst 5" },
+
+    { "type": "header", "content": "Blok 5 (reserve — standaard uit)" },
+    { "type": "checkbox", "id": "show_5", "label": "Toon dit blok", "default": false },
+    { "type": "image_picker", "id": "img_5", "label": "Afbeelding" },
+    { "type": "text", "id": "kicker_5", "label": "Kicker (over foto)" },
+    { "type": "text", "id": "title_5", "label": "Titel (over foto)" },
+    { "type": "richtext", "id": "over_5", "label": "Tekst over foto (leeg = alleen beeld)" },
+    { "type": "text", "id": "btn_text_5", "label": "Knoptekst (leeg = verbergen)" },
+    { "type": "url", "id": "btn_link_5", "label": "Knoplink" },
+    { "type": "checkbox", "id": "cap_5", "label": "Toon wit tekstblok eronder", "default": true },
+    { "type": "richtext", "id": "intro_5", "label": "Intro-zin (wit blok)" },
+    { "type": "text", "id": "sub1_title_5", "label": "Sub-kop 1" },
+    { "type": "richtext", "id": "sub1_text_5", "label": "Sub-tekst 1" },
+    { "type": "text", "id": "sub2_title_5", "label": "Sub-kop 2" },
+    { "type": "richtext", "id": "sub2_text_5", "label": "Sub-tekst 2" },
+    { "type": "text", "id": "sub3_title_5", "label": "Sub-kop 3" },
+    { "type": "richtext", "id": "sub3_text_5", "label": "Sub-tekst 3" },
+    { "type": "text", "id": "sub4_title_5", "label": "Sub-kop 4" },
+    { "type": "richtext", "id": "sub4_text_5", "label": "Sub-tekst 4" },
+    { "type": "text", "id": "sub5_title_5", "label": "Sub-kop 5" },
+    { "type": "richtext", "id": "sub5_text_5", "label": "Sub-tekst 5" },
+
+    { "type": "header", "content": "Contactblok (onderaan)" },
+    { "type": "checkbox", "id": "show_contact", "label": "Toon contactblok", "default": true },
+    { "type": "text", "id": "contact_kicker", "label": "Kicker", "default": "Contact" },
+    { "type": "text", "id": "contact_title", "label": "Titel", "default": "Contact information" },
+    { "type": "richtext", "id": "contact_content", "label": "Inhoud", "default": "<p><strong>Store Name</strong>: Carter &amp; Gray<br><strong>Company Name</strong>: Peak Global Group<br><strong>Registered Office Address</strong>: Gijsbrechtgaarde 238, 7329CD, Apeldoorn, Gelderland, The Netherlands<br><strong>Warehouse Address</strong>: Lecang, No. 168-230, Nijiayan Road, Yongjiang Street, Jiangbei District, Ningbo City, Zhejiang Province, China</p><p><strong>Chamber of Commerce (KvK)</strong>: 99911302</p><p><strong>VAT Number</strong>: NL869184155B01</p><p><strong>Phone</strong>: +1 (646) 980 4459</p><p><strong>Email</strong>: <a href=\"mailto:info@carterandgray.com\">info@carterandgray.com</a></p><p><strong>Customer Care Hours</strong>:<br>Monday to Friday | 9:00AM – 6:00PM (ET)<br>Weekends | Closed</p><p>We aim to respond to all inquiries within 24 hours.</p>" },
+    { "type": "select", "id": "contact_align", "label": "Uitlijning", "default": "left",
+      "options": [
+        { "value": "left", "label": "Links" },
+        { "value": "center", "label": "Midden" },
+        { "value": "right", "label": "Rechts" }
+      ]
+    },
+    { "type": "range", "id": "contact_title_size_d", "label": "Titelgrootte desktop (px)", "min": 16, "max": 56, "step": 2, "default": 30 },
+    { "type": "range", "id": "contact_title_size_m", "label": "Titelgrootte mobiel (px)", "min": 14, "max": 44, "step": 2, "default": 24 },
+    { "type": "range", "id": "contact_text_size_d", "label": "Tekstgrootte desktop (px)", "min": 12, "max": 28, "step": 1, "default": 16 },
+    { "type": "range", "id": "contact_text_size_m", "label": "Tekstgrootte mobiel (px)", "min": 12, "max": 22, "step": 1, "default": 15 },
+    { "type": "color", "id": "contact_bg", "label": "Achtergrondkleur", "default": "#F8F5F1" },
+    { "type": "color", "id": "contact_color", "label": "Tekstkleur", "default": "#1C1C1C" }
+  ],
+  "presets": [
+    { "name": "Carter & Gray — About" }
+  ]
+}
+{% endschema %}

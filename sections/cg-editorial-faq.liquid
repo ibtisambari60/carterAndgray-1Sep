@@ -1,0 +1,1514 @@
+{% comment %}
+  CG Editorial FAQ
+  Premium editorial FAQ-section voor Shopify Prestige.
+
+  Advies:
+  Maak dit als nieuwe section aan en laat de bestaande FAQ staan
+  totdat deze versie volledig is ingericht.
+{% endcomment %}
+
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+  {{ section.settings.question_font | font_face: font_display: 'swap' }}
+  {{ section.settings.answer_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} {
+    --cg-faq-background: {{ section.settings.background_color }};
+    --cg-faq-heading-color: {{ section.settings.heading_color }};
+    --cg-faq-question-color: {{ section.settings.question_color }};
+    --cg-faq-answer-color: {{ section.settings.answer_color }};
+    --cg-faq-line-color: {{ section.settings.line_color }};
+    --cg-faq-icon-color: {{ section.settings.icon_color }};
+    --cg-faq-content-width: {{ section.settings.content_width }}px;
+    --cg-faq-mobile-side-padding: {{ section.settings.mobile_side_padding }}px;
+    --cg-faq-desktop-side-padding: {{ section.settings.desktop_side_padding }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq,
+  #shopify-section-{{ section.id }} .cg-editorial-faq * {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq {
+    width: 100%;
+    background: var(--cg-faq-background);
+    color: var(--cg-faq-question-color);
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__inner {
+    width: 100%;
+    max-width: calc(
+      var(--cg-faq-content-width)
+      + (2 * var(--cg-faq-mobile-side-padding))
+    );
+    margin: 0 auto;
+    padding:
+      {{ section.settings.mobile_padding_top }}px
+      var(--cg-faq-mobile-side-padding)
+      {{ section.settings.mobile_padding_bottom }}px;
+  }
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__header {
+    max-width: {{ section.settings.header_width }}px;
+    margin-bottom: {{ section.settings.mobile_header_items_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__eyebrow {
+    display: block;
+    margin: 0 0 {{ section.settings.eyebrow_heading_gap }}px;
+    color: {{ section.settings.eyebrow_color }};
+
+    font-family:
+      {{ section.settings.question_font.family }},
+      {{ section.settings.question_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_eyebrow_size }}px;
+    font-style: {{ section.settings.question_font.style }};
+    font-weight: {{ section.settings.eyebrow_weight }};
+    line-height: 1.2;
+    letter-spacing: calc(
+      {{ section.settings.eyebrow_letter_spacing }} / 100 * 1em
+    );
+
+    {% if section.settings.uppercase_eyebrow %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__heading {
+    margin: 0;
+    padding: 0;
+    color: var(--cg-faq-heading-color);
+
+    font-family:
+      {{ section.settings.heading_font.family }},
+      {{ section.settings.heading_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_heading_size }}px;
+    font-style: {{ section.settings.heading_font.style }};
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: {{ section.settings.heading_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.heading_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__intro {
+    max-width: {{ section.settings.intro_width }}px;
+    margin:
+      {{ section.settings.heading_intro_gap }}px
+      0
+      0;
+    color: var(--cg-faq-answer-color);
+
+    font-family:
+      {{ section.settings.answer_font.family }},
+      {{ section.settings.answer_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_intro_size }}px;
+    font-style: {{ section.settings.answer_font.style }};
+    font-weight: {{ section.settings.intro_weight }};
+    line-height: {{ section.settings.intro_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.intro_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__intro p {
+    margin: 0;
+  }
+
+  /* =========================
+     FAQ ITEMS
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__list {
+    width: 100%;
+    border-top:
+      {{ section.settings.line_thickness }}px
+      solid
+      var(--cg-faq-line-color);
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__item {
+    margin: 0;
+    border-bottom:
+      {{ section.settings.line_thickness }}px
+      solid
+      var(--cg-faq-line-color);
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: 100%;
+    align-items: center;
+    gap: {{ section.settings.question_icon_gap }}px;
+    padding:
+      {{ section.settings.mobile_question_padding }}px
+      0;
+    color: var(--cg-faq-question-color);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__summary::marker {
+    display: none;
+    content: "";
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__question {
+    margin: 0;
+    padding: 0;
+
+    font-family:
+      {{ section.settings.question_font.family }},
+      {{ section.settings.question_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_question_size }}px;
+    font-style: {{ section.settings.question_font.style }};
+    font-weight: {{ section.settings.question_weight }};
+    line-height: {{ section.settings.question_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.question_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  /* =========================
+     PLUS / MINUS
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__icon {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    color: var(--cg-faq-icon-color);
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__icon::before,
+  #shopify-section-{{ section.id }} .cg-editorial-faq__icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: {{ section.settings.icon_line_length }}%;
+    height: {{ section.settings.icon_line_thickness }}px;
+    background: currentColor;
+    transform:
+      translate(-50%, -50%);
+    transform-origin: center;
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__icon::after {
+    transform:
+      translate(-50%, -50%)
+      rotate(90deg);
+  }
+
+  #shopify-section-{{ section.id }} details[open]
+    .cg-editorial-faq__icon::after {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+
+  /* =========================
+     ANSWER
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__answer {
+    max-width: {{ section.settings.answer_width }}px;
+    padding:
+      0
+      {{ section.settings.answer_right_padding }}px
+      {{ section.settings.mobile_answer_bottom_padding }}px
+      0;
+    color: var(--cg-faq-answer-color);
+
+    font-family:
+      {{ section.settings.answer_font.family }},
+      {{ section.settings.answer_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_answer_size }}px;
+    font-style: {{ section.settings.answer_font.style }};
+    font-weight: {{ section.settings.answer_weight }};
+    line-height: {{ section.settings.answer_line_height }}%;
+    letter-spacing: calc(
+      {{ section.settings.answer_letter_spacing }} / 100 * 1em
+    );
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__answer > *:first-child {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__answer > *:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__answer p {
+    margin:
+      0
+      0
+      {{ section.settings.answer_paragraph_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__answer a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__summary:hover
+    .cg-editorial-faq__question {
+    {% if section.settings.question_hover_underline %}
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 5px;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__summary:focus-visible {
+    outline: 1px solid var(--cg-faq-question-color);
+    outline-offset: 6px;
+  }
+
+  /* =========================
+     OPTIONAL FOOTER
+  ========================= */
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: {{ section.settings.footer_text_button_gap }}px;
+    margin-top: {{ section.settings.mobile_list_footer_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__footer-text {
+    margin: 0;
+    color: var(--cg-faq-answer-color);
+
+    font-family:
+      {{ section.settings.answer_font.family }},
+      {{ section.settings.answer_font.fallback_families }};
+
+    font-size: {{ section.settings.mobile_footer_size }}px;
+    font-style: {{ section.settings.answer_font.style }};
+    font-weight: {{ section.settings.footer_weight }};
+    line-height: {{ section.settings.footer_line_height }}%;
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__button {
+    display: inline-flex;
+    min-height: {{ section.settings.button_height }}px;
+    align-items: center;
+    justify-content: center;
+    padding:
+      0
+      {{ section.settings.button_horizontal_padding }}px;
+    border:
+      {{ section.settings.button_border_width }}px
+      solid
+      {{ section.settings.button_border_color }};
+    border-radius: {{ section.settings.button_radius }}px;
+    background: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+
+    font-family:
+      {{ section.settings.question_font.family }},
+      {{ section.settings.question_font.fallback_families }};
+
+    font-size: {{ section.settings.button_text_size }}px;
+    font-style: {{ section.settings.question_font.style }};
+    font-weight: {{ section.settings.button_weight }};
+    line-height: 1;
+    letter-spacing: calc(
+      {{ section.settings.button_letter_spacing }} / 100 * 1em
+    );
+
+    text-decoration: none;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+
+    {% if section.settings.uppercase_button %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .cg-editorial-faq__button:hover {
+    background: {{ section.settings.button_hover_background }};
+    color: {{ section.settings.button_hover_text_color }};
+    border-color: {{ section.settings.button_hover_border_color }};
+  }
+
+  /* =========================
+     DESKTOP
+  ========================= */
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .cg-editorial-faq__inner {
+      max-width: calc(
+        var(--cg-faq-content-width)
+        + (2 * var(--cg-faq-desktop-side-padding))
+      );
+      padding:
+        {{ section.settings.desktop_padding_top }}px
+        var(--cg-faq-desktop-side-padding)
+        {{ section.settings.desktop_padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__header {
+      margin-bottom: {{ section.settings.desktop_header_items_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__eyebrow {
+      font-size: {{ section.settings.desktop_eyebrow_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__heading {
+      font-size: {{ section.settings.desktop_heading_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__intro {
+      font-size: {{ section.settings.desktop_intro_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__summary {
+      padding:
+        {{ section.settings.desktop_question_padding }}px
+        0;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__question {
+      font-size: {{ section.settings.desktop_question_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__answer {
+      padding-bottom:
+        {{ section.settings.desktop_answer_bottom_padding }}px;
+      font-size: {{ section.settings.desktop_answer_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__footer {
+      margin-top: {{ section.settings.desktop_list_footer_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .cg-editorial-faq__footer-text {
+      font-size: {{ section.settings.desktop_footer_size }}px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .cg-editorial-faq__icon::before,
+    #shopify-section-{{ section.id }} .cg-editorial-faq__icon::after,
+    #shopify-section-{{ section.id }} .cg-editorial-faq__button {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="cg-editorial-faq"
+  aria-labelledby="CGEditorialFaqHeading-{{ section.id }}"
+>
+  <div class="cg-editorial-faq__inner">
+
+    {%- if section.settings.eyebrow != blank
+      or section.settings.heading != blank
+      or section.settings.intro != blank
+    -%}
+      <header class="cg-editorial-faq__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="cg-editorial-faq__eyebrow">
+            {{ section.settings.eyebrow }}
+          </span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2
+            id="CGEditorialFaqHeading-{{ section.id }}"
+            class="cg-editorial-faq__heading"
+          >
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.intro != blank -%}
+          <div class="cg-editorial-faq__intro rte">
+            {{ section.settings.intro }}
+          </div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <div class="cg-editorial-faq__list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.question != blank -%}
+          <details
+            class="cg-editorial-faq__item"
+            {% if block.settings.open_by_default %}
+              open
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <summary class="cg-editorial-faq__summary">
+              <span class="cg-editorial-faq__question">
+                {{ block.settings.question }}
+              </span>
+
+              <span
+                class="cg-editorial-faq__icon"
+                aria-hidden="true"
+              ></span>
+            </summary>
+
+            {%- if block.settings.answer != blank -%}
+              <div class="cg-editorial-faq__answer rte">
+                {{ block.settings.answer }}
+              </div>
+            {%- endif -%}
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.footer_text != blank
+      or section.settings.button_label != blank
+    -%}
+      <div class="cg-editorial-faq__footer">
+        {%- if section.settings.footer_text != blank -%}
+          <p class="cg-editorial-faq__footer-text">
+            {{ section.settings.footer_text }}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank
+          and section.settings.button_link != blank
+        -%}
+          <a
+            href="{{ section.settings.button_link }}"
+            class="cg-editorial-faq__button"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CG Editorial FAQ",
+  "tag": "section",
+  "class": "section-cg-editorial-faq",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Inhoud"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Boventitel",
+      "default": "Customer care"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titel",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introductie",
+      "default": "<p>Everything you need to know about delivery, returns and ordering.</p>"
+    },
+    {
+      "type": "range",
+      "id": "header_width",
+      "label": "Maximale breedte titelblok",
+      "min": 300,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "intro_width",
+      "label": "Maximale breedte introductie",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 620
+    },
+
+    {
+      "type": "header",
+      "content": "Titeltypografie"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Lettertype titel",
+      "default": "times_new_roman_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Titelgrootte mobiel",
+      "min": 28,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Titelgrootte desktop",
+      "min": 36,
+      "max": 84,
+      "step": 1,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Dikte titel",
+      "options": [
+        {
+          "value": "300",
+          "label": "Licht"
+        },
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Regelhoogte titel",
+      "min": 85,
+      "max": 140,
+      "step": 1,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Letterafstand titel",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Boventitel en introductie"
+    },
+    {
+      "type": "font_picker",
+      "id": "answer_font",
+      "label": "Lettertype introductie en antwoorden",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_eyebrow_size",
+      "label": "Boventitel mobiel",
+      "min": 9,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "desktop_eyebrow_size",
+      "label": "Boventitel desktop",
+      "min": 9,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_weight",
+      "label": "Dikte boventitel",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Vet"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Letterafstand boventitel",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_eyebrow",
+      "label": "Boventitel in hoofdletters",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_heading_gap",
+      "label": "Ruimte boventitel naar titel",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_intro_size",
+      "label": "Introductiegrootte mobiel",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "desktop_intro_size",
+      "label": "Introductiegrootte desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "intro_weight",
+      "label": "Dikte introductie",
+      "options": [
+        {
+          "value": "300",
+          "label": "Licht"
+        },
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "intro_line_height",
+      "label": "Regelhoogte introductie",
+      "min": 120,
+      "max": 190,
+      "step": 2,
+      "unit": "%",
+      "default": 156
+    },
+    {
+      "type": "range",
+      "id": "intro_letter_spacing",
+      "label": "Letterafstand introductie",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_intro_gap",
+      "label": "Ruimte titel naar introductie",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+
+    {
+      "type": "header",
+      "content": "Vraagtypografie"
+    },
+    {
+      "type": "font_picker",
+      "id": "question_font",
+      "label": "Lettertype vragen",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_question_size",
+      "label": "Vraaggrootte mobiel",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "desktop_question_size",
+      "label": "Vraaggrootte desktop",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "question_weight",
+      "label": "Dikte vragen",
+      "options": [
+        {
+          "value": "300",
+          "label": "Licht"
+        },
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "question_line_height",
+      "label": "Regelhoogte vragen",
+      "min": 110,
+      "max": 180,
+      "step": 2,
+      "unit": "%",
+      "default": 136
+    },
+    {
+      "type": "range",
+      "id": "question_letter_spacing",
+      "label": "Letterafstand vragen",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "question_hover_underline",
+      "label": "Onderstreep vraag bij hover",
+      "default": false
+    },
+
+    {
+      "type": "header",
+      "content": "Antwoordtypografie"
+    },
+    {
+      "type": "range",
+      "id": "mobile_answer_size",
+      "label": "Antwoordgrootte mobiel",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "desktop_answer_size",
+      "label": "Antwoordgrootte desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "answer_weight",
+      "label": "Dikte antwoorden",
+      "options": [
+        {
+          "value": "300",
+          "label": "Licht"
+        },
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "answer_line_height",
+      "label": "Regelhoogte antwoorden",
+      "min": 120,
+      "max": 200,
+      "step": 2,
+      "unit": "%",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "answer_letter_spacing",
+      "label": "Letterafstand antwoorden",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "answer_width",
+      "label": "Maximale breedte antwoord",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "answer_right_padding",
+      "label": "Ruimte rechts van antwoord",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "answer_paragraph_gap",
+      "label": "Ruimte tussen alinea’s",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "header",
+      "content": "FAQ-afstanden"
+    },
+    {
+      "type": "range",
+      "id": "mobile_header_items_gap",
+      "label": "Titelblok naar vragen mobiel",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "desktop_header_items_gap",
+      "label": "Titelblok naar vragen desktop",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "mobile_question_padding",
+      "label": "Verticale ruimte per vraag mobiel",
+      "min": 14,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desktop_question_padding",
+      "label": "Verticale ruimte per vraag desktop",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 27
+    },
+    {
+      "type": "range",
+      "id": "mobile_answer_bottom_padding",
+      "label": "Ruimte onder antwoord mobiel",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "desktop_answer_bottom_padding",
+      "label": "Ruimte onder antwoord desktop",
+      "min": 12,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "question_icon_gap",
+      "label": "Ruimte vraag naar icoon",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "Plus-icoon"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Formaat icoon",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "icon_line_length",
+      "label": "Lengte lijnen icoon",
+      "min": 40,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "default": 82
+    },
+    {
+      "type": "range",
+      "id": "icon_line_thickness",
+      "label": "Dikte lijnen icoon",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "line_thickness",
+      "label": "Dikte scheidingslijnen",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+
+    {
+      "type": "header",
+      "content": "Contactblok onderaan"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Tekst",
+      "default": "Still have a question? Our customer care team is happy to help."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Knoptekst",
+      "default": "Contact us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Knoplink"
+    },
+    {
+      "type": "range",
+      "id": "mobile_list_footer_gap",
+      "label": "Ruimte boven contactblok mobiel",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "desktop_list_footer_gap",
+      "label": "Ruimte boven contactblok desktop",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "footer_text_button_gap",
+      "label": "Ruimte tekst naar knop",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_footer_size",
+      "label": "Tekstgrootte mobiel",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "desktop_footer_size",
+      "label": "Tekstgrootte desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "footer_weight",
+      "label": "Dikte tekst",
+      "options": [
+        {
+          "value": "300",
+          "label": "Licht"
+        },
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "footer_line_height",
+      "label": "Regelhoogte tekst",
+      "min": 120,
+      "max": 190,
+      "step": 2,
+      "unit": "%",
+      "default": 150
+    },
+
+    {
+      "type": "header",
+      "content": "Knop"
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Knophoogte",
+      "min": 36,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_horizontal_padding",
+      "label": "Horizontale padding knop",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Tekstgrootte knop",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "button_weight",
+      "label": "Dikte knoptekst",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normaal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Vet"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Letterafstand knop",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase_button",
+      "label": "Knoptekst in hoofdletters",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Randdikte knop",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Afronding knop",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Sectie-afmetingen"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Maximale contentbreedte",
+      "min": 600,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "default": 980
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Witruimte boven mobiel",
+      "min": 20,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Witruimte onder mobiel",
+      "min": 20,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_padding",
+      "label": "Zijruimte mobiel",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "label": "Witruimte boven desktop",
+      "min": 20,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "label": "Witruimte onder desktop",
+      "min": 20,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "desktop_side_padding",
+      "label": "Zijruimte desktop",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "Kleuren"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Achtergrond",
+      "default": "#F7F5F1"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Titelkleur",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Kleur boventitel",
+      "default": "#66625D"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Kleur vragen",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Kleur antwoorden",
+      "default": "#585550"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Kleur scheidingslijnen",
+      "default": "#D8D3CC"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Kleur plus-icoon",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Knopachtergrond",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Knoptekst",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Knoprand",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Knopachtergrond hover",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Knoptekst hover",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Knoprand hover",
+      "default": "#171717"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Vraag",
+          "default": "What are the delivery costs?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Antwoord",
+          "default": "<p>Delivery information can be found on our shipping page. Available methods and estimated delivery times are shown during checkout.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Standaard geopend",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CG Editorial FAQ",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "What are the delivery costs?",
+            "answer": "<p>We offer complimentary standard delivery. Available delivery methods and estimated times are shown during checkout.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Can I track my order?",
+            "answer": "<p>Yes. Once your order has been dispatched, you will receive an email containing your tracking details.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How do I return an item?",
+            "answer": "<p>You can request a return within the applicable return period. Visit our returns page for the full instructions.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How can I contact Customer Service?",
+            "answer": "<p>Our customer care team can be contacted through the contact page. We aim to respond as quickly as possible during business hours.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the correct size?",
+            "answer": "<p>Please consult the size guide shown on the relevant product page before ordering.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
