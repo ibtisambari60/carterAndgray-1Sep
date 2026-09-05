@@ -1,1 +1,321 @@
-{"current":{"show_trustpilot_top":true,"rating":"5","trustpilot_top_text":"<div style=\"display:flex;justify-content:center;align-items:center;gap:6px;padding:6px 0 4px;color:#1a1a1a;line-height:1;\">  <div style=\"display:inline-flex;align-items:center;gap:1px;font-size:18px!important;line-height:1!important;letter-spacing:-0.7px;transform:translateY(-1px);\">    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★<\/span>    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★<\/span>    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★<\/span>    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★<\/span>    <span style=\"position:relative;display:inline-flex;align-items:center;width:1em;height:1em;font-size:18px!important;line-height:1!important;\">      <span style=\"color:#88795d;position:absolute;left:0;top:0;width:50%;overflow:hidden;font-size:18px!important;line-height:1!important;\">★<\/span>      <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;\">☆<\/span>    <\/span>  <\/div>  <span style=\"font-weight:400;font-size:14px!important;line-height:1!important;display:inline-flex;align-items:center;\">    4.7\/5 (2749+ reviews)  <\/span>\n<\/div>","show_productdetails":true,"blinktext_IconColor":"#307A07","blinktext_TextColor":"#307A07","blinktext_Text":"Available","section_vertical_spacing":"md","button_border_radius":4,"default_color_scheme":"scheme-acc84aea-aef0-4a13-9bf1-d0ad2d331451","modal_color_scheme":"scheme-2","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c","success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","heading_font":"instrument_sans_n6","heading_text_transform":"uppercase","heading_font_size_factor":1.2,"heading_letter_spacing":5,"text_font":"nunito_n4","text_font_size_desktop":14,"text_font_letter_spacing":0,"button_text_font":"heading","button_letter_spacing":5,"stagger_blog_posts_apparition":true,"round_color_swatches":false,"color_swatch_config":"Black:#111111\nJet Black:#050505\nSoft Black:#1C1C1C\nWashed Black:#2B2B2B\nCharcoal Black:#242424\n\nWhite:#FFFFFF\nBright White:#FFFFFF\nPure White:#FFFFFF\nSoft White:#FAFAF7\nOff White:#F7F5EF\nWinter White:#F5F2E8\nIvory:#FFFFF0\nCream:#FFFDD0\nVanilla:#F3E5AB\nPearl:#F8F6F0\nPorcelain:#F5F0E6\nAlabaster:#F2F0E6\nEggshell:#F0EAD6\nNatural:#E8E1D3\nEcru:#CDB891\nOatmeal:#D8CDBA\nOat:#D7CCB8\nLinen:#E8DFD1\nBone:#E3DAC9\nSand Dollar:#E5D9C5\n\nGray:#808080\nLight Gray:#D3D3D3\nMedium Gray:#969696\nDark Gray:#555555\nHeather Gray:#B6B6B4\nHeathered Gray:#B6B6B4\nAsh Gray:#B2BEB5\nCool Gray:#8C92AC\nWarm Gray:#A49E96\nStone Gray:#8C8984\nSlate Gray:#708090\nSteel Gray:#71797E\nSmoke Gray:#848884\nSilver Gray:#C0C0C0\nDove Gray:#B3ADA7\nFog Gray:#D5D5D3\nGraphite:#41424C\nCharcoal:#36454F\nAnthracite:#383E42\nGunmetal:#2A3439\nPewter:#8E8E8E\n\nBeige:#D8C6A5\nLight Beige:#E7D8BE\nDark Beige:#B9A27C\nWarm Beige:#D8BE9A\nNatural Beige:#DCCEB6\nSand:#C2B280\nLight Sand:#DED2B5\nDesert Sand:#EDC9AF\nKhaki:#C3B091\nLight Khaki:#D8C9A3\nDark Khaki:#9B8F55\nChampagne:#E8D6B3\nNude:#D8B49C\nBuff:#F0DCB5\nBiscuit:#D6C19C\nWheat:#F5DEB3\nPutty:#B7A99A\nMushroom:#A89F91\nGreige:#B8AD9E\nStone:#928E85\nTaupe:#8B7E74\nLight Taupe:#B5A79A\nDark Taupe:#62564B\nMink:#8A7463\n\nTan:#D2B48C\nLight Tan:#E1C699\nDark Tan:#A67B5B\nGolden Tan:#C89B62\nCamel:#C19A6B\nLight Camel:#D3B38C\nDark Camel:#A67C52\nCaramel:#C68E5B\nHoney:#D6A85F\nToffee:#A76D42\nCognac:#9A5B3E\n\nBrown:#795548\nLight Brown:#A98274\nMedium Brown:#7B5B4A\nDark Brown:#4E342E\nChocolate:#6B3E26\nChocolate Brown:#5C3317\nDark Chocolate:#3B2417\nCoffee:#6F4E37\nEspresso:#3C2415\nMocha:#967969\nCocoa:#7B3F2A\nChestnut:#954535\nWalnut:#5D432C\nMahogany:#6F2D24\nSaddle Brown:#8B4513\nTobacco:#8A5A44\nCinnamon:#A0522D\nUmber:#635147\nSepia:#704214\nAcorn:#7E5E3B\n\nRed:#C62828\nBright Red:#E53935\nTrue Red:#D32F2F\nClassic Red:#C41E3A\nCherry Red:#D2042D\nScarlet:#FF2400\nCrimson:#DC143C\nRuby:#9B111E\nCardinal Red:#C41E3A\nFire Red:#D71920\nTomato Red:#E34234\nBrick Red:#B22222\nBurnt Red:#9E3D32\nRust Red:#A4472F\nOxblood:#4A0000\nBurgundy:#800020\nDark Burgundy:#5A0018\nWine:#722F37\nMerlot:#73343A\nCabernet:#5B1F29\nMaroon:#800000\nGarnet:#733635\nClaret:#7F1734\nBerry:#8A244E\nCranberry:#9E1B32\n\nPink:#FFC0CB\nLight Pink:#FFB6C1\nSoft Pink:#F4C2C2\nPale Pink:#FADADD\nBaby Pink:#F4C2C2\nBlush:#DE9DA5\nBlush Pink:#E6A6AE\nDusty Pink:#D8A7B1\nRose Pink:#E78FA6\nRose:#D88C9A\nDusty Rose:#CFA0A8\nAntique Rose:#C08081\nMauve Pink:#C89CA9\nNude Pink:#D7A6A1\nPeach Pink:#F7B7A3\nSalmon Pink:#FA8072\nCoral Pink:#F88379\nBubblegum Pink:#FFC1CC\nCandy Pink:#EFA6C1\nHot Pink:#FF69B4\nBright Pink:#FF4F9A\nFuchsia:#FF00A8\nMagenta:#FF00FF\nRaspberry:#E30B5C\nWatermelon:#FC6C85\n\nOrange:#F57C00\nBright Orange:#FF7900\nDark Orange:#CC5500\nBurnt Orange:#CC5500\nRust:#B7410E\nCopper Orange:#C66A3D\nPumpkin:#FF7518\nTangerine:#F28500\nAmber:#FFBF00\nMarigold:#EAA221\nApricot:#FBCEB1\nPeach:#FFE5B4\nLight Peach:#FFDAB9\nCoral:#FF7F50\nTerracotta:#C96A4A\nClay:#B66A50\nPaprika:#9E3D2F\n\nYellow:#FFD600\nBright Yellow:#FFEA00\nLight Yellow:#FFF59D\nPale Yellow:#FFFACD\nSoft Yellow:#F6E7A1\nLemon:#FFF44F\nButter Yellow:#F6E3A1\nButtercream:#F3E5AB\nMustard:#D4A017\nGolden Yellow:#F5B700\nSunflower:#FFC512\nOchre:#CC7722\nMaize:#F4C430\n\nGreen:#388E3C\nBright Green:#43A047\nLight Green:#90EE90\nDark Green:#1B5E20\nForest Green:#355E3B\nHunter Green:#355E3B\nPine Green:#01796F\nEvergreen:#05472A\nBottle Green:#006A4E\nEmerald:#2E8B57\nKelly Green:#4CBB17\nGrass Green:#4F8A10\nLeaf Green:#5B8C3A\nOlive:#808000\nOlive Green:#6B7B3E\nDark Olive:#556B2F\nLight Olive:#A6A96B\nArmy Green:#4B5320\nMilitary Green:#5E6547\nMoss Green:#8A9A5B\nSage:#9CAF88\nSage Green:#9CAF88\nLight Sage:#C3CFB4\nDark Sage:#71806B\nMint:#98D8AA\nMint Green:#98FB98\nSeafoam:#93E9BE\nCeladon:#ACE1AF\nLime:#BFFF00\nLime Green:#32CD32\nChartreuse:#7FFF00\nAvocado:#568203\nFern Green:#4F7942\nEucalyptus:#5F8575\n\nBlue:#1976D2\nBright Blue:#0074D9\nTrue Blue:#0073CF\nLight Blue:#ADD8E6\nPale Blue:#D6EAF8\nBaby Blue:#89CFF0\nPowder Blue:#B0E0E6\nSky Blue:#87CEEB\nIce Blue:#D6F0F3\nDusty Blue:#7E9EB5\nSlate Blue:#6A7F9B\nSteel Blue:#4682B4\nDenim:#496A8B\nDenim Blue:#4F6D8A\nMedium Blue:#3366CC\nRoyal Blue:#4169E1\nCobalt:#0047AB\nElectric Blue:#007FFF\nAzure:#007FFF\nCerulean:#007BA7\nCornflower Blue:#6495ED\nOcean Blue:#2B6F8A\nMarine Blue:#1F4E79\nNavy:#1B2A41\nNavy Blue:#1B2A41\nDark Navy:#0B1F3A\nDeep Navy:#102A43\nMidnight Blue:#191970\nInk Blue:#1F305E\nIndigo:#3F51B5\nPrussian Blue:#003153\nTeal Blue:#367588\nTurquoise:#40E0D0\nAqua:#00FFFF\nAquamarine:#7FFFD4\n\nTeal:#008080\nDark Teal:#006666\nLight Teal:#66B2B2\nDeep Teal:#005F5F\nBlue Green:#0D98BA\nPeacock:#006D75\n\nPurple:#800080\nLight Purple:#B19CD9\nDark Purple:#4B2E5F\nDeep Purple:#4A235A\nViolet:#8F00FF\nLavender:#E6E6FA\nLight Lavender:#EEE6FA\nDusty Lavender:#A99ABF\nLilac:#C8A2C8\nLight Lilac:#D8BFD8\nPlum:#8E4585\nDark Plum:#673147\nEggplant:#614051\nAubergine:#614051\nGrape:#6F2DA8\nAmethyst:#9966CC\nOrchid:#DA70D6\nMauve:#B784A7\nWisteria:#C9A0DC\n\nGold:#D4AF37\nLight Gold:#E6C96C\nDark Gold:#AA771C\nAntique Gold:#B08D57\nChampagne Gold:#D9C28A\nRose Gold:#B76E79\nSilver:#C0C0C0\nMetallic Silver:#AFAFAF\nBronze:#CD7F32\nCopper:#B87333\nBrass:#B5A642\nGunmetal Gray:#4B4F54\n\nMulti:#B85C9E\nMulticolor:#B85C9E\nRainbow:#B85C9E\nColorblock:#8A8A8A\nMixed Color:#8A8A8A\nAssorted:#8A8A8A\nPrinted:#8A8A8A\nPatterned:#8A8A8A\nFloral:#C78FA5\nStriped:#8A8A8A\nPlaid:#776B5D\nCheckered:#777777\nAnimal Print:#A87B4F\nLeopard:#B58B57\nZebra:#F5F5F5\nSnake Print:#817D69\nCamouflage:#596044\n\nBlack:#111111\nMidnight Black:#0A0A0A\nObsidian Black:#050505\nBlack (Leather Look):#1A1718\nBlack (Suede Look):#211E1C\nBlack - Round Neck:#111111\nBlack - V-Neck:#111111\nBlack Stripes:#33322F\n\nAnthracite:#2E3134\nCharcoal Gray:#3B3E40\nGraphite Gray:#4A4D50\nDark Gray:#555555\nPatterned Dark Gray:#4C4F52\nGray:#808080\nGray - Round Neck:#808080\nGray - V-Neck:#808080\nSlate Gray:#708090\nWashed Gray:#9C9A96\nLight Gray:#D3D3D3\nSilver:#BFC1C2\n\nWhite:#FFFFFF\nIvory White:#FAF8F2\nIvory:#FFFFF0\nCream White:#FBF6E9\nCream:#FFFDD0\n\nEcru Beige:#E3D8C3\nSandstone Beige:#CFBBA0\nBeige:#D8C6A5\nBeige - Round Neck:#D8C6A5\nBeige - V-Neck:#D8C6A5\nSand:#C2B280\nTan:#C89F6D\nCamel:#C19A6B\nKhaki:#C3B091\nLight Taupe:#B3A79B\nTaupe:#8B7E74\nTaupe (Suede Look):#877868\nVintage:#9C8B76\n\nLight Brown:#A9744F\nOak Brown:#7E5C3C\nCognac Brown:#9A5027\nBrown:#795548\nCocoa Brown:#5C4033\nDark Brown:#4E342E\nCoffee:#4B3621\nRust:#B04A21\n\nLight Yellow:#F6E7A6\nYellow:#F2C230\nGold:#C9A227\nOrange:#E1701A\nPeach:#F5B79B\n\nCrimson Red:#B01030\nRed:#C62828\nRed - Round Neck:#C62828\nPatterned Red:#A5373F\nDark Red:#8B1A1A\nBurgundy Red:#7C1B2B\nBurgundy:#7B0F26\nWine Red:#71222F\nRed Wine:#6B2733\nDark Red Wine:#54202A\n\nLight Pink:#F6CEDA\nPink:#EE9FBB\nFuchsia:#C2185B\n\nLilac:#C8A2C8\nLight Purple:#B08FD0\nPurple:#6A3FA0\nDark Purple:#4A2461\n\nLight Blue:#ADD8E6\nLight Blue - V-Neck:#ADD8E6\nMint Blue:#A6D6D0\nDusty Blue:#7B97AE\nWashed Blue:#7288A3\nBlue Gray:#6C7E92\nBlue-Gray:#6C7E92\nBlue\/Gray:#7C8B9B\nDusk:#4F566E\nBlue:#1976D2\nRoyal Blue:#2B4FA2\nGlitter Blue:#3A6EA5\nPatterned Blue:#3D5C86\nDark Blue:#173A6B\nNavy Blue:#1F3057\nNavy:#1B2A41\nNavy - Round Neck:#1B2A41\n\nTurquoise:#2FB5B5\nTeal:#1F7A7A\n\nApple Green:#8DB600\nLight Green:#8FBF7F\nGreen:#3E7D44\nLight Army Green:#7A855C\nOlive:#708238\nOlive Green:#5C6B32\nArmy Green:#4B5320\nDark Green:#1F4A2C\nBlack Army Green:#2C3222\n\nBlack\/White:#777777\nBlack \/ Brown:#4A3730\nBlack Pink:#8C4A63\nGray \/ Green:#6E7A63\nGray \/ Pink:#B49CA3\nLight Pink \/ Light Gray:#DCC7CC\nLight Blue \/ Purple:#9AA7D6\nPink \/ Navy:#8E7187\nPink \/ Red:#D4566E\nWhite \/ Light Blue:#DCEAF2\nWhite\/Blue:#A9C7DE\n\nLeopard:#B58B57\nLeopard Turquoise:#4F9C9C\nTiger Stripe:#C68A3A\nCamouflage:#6B6B4A\nMulticolor:#8E8E8E\nMulticolored:#8E8E8E\n\nClear:transparent\nTransparent:transparent","product_image_aspect_ratio":"natural","show_vendor":false,"product_card_text_font":"heading","product_color_display":"swatch","show_product_rating":false,"cart_type":"drawer","cart_show_free_shipping_bar":true,"cart_free_shipping_threshold":"100","social_instagram":"https:\/\/www.instagram.com\/carterandgray.official?igsh=bjJrYm93a2Foajd3&utm_source=qr","favicon":"shopify:\/\/shop_images\/CARTER_GRAY_FAVICON_TRANSPARANT.png","content_for_index":[],"blocks":{"15351435345818755577":{"type":"shopify:\/\/apps\/pandectes-gdpr\/blocks\/banner\/58c0baa2-6cc1-480c-9ea6-38d6d559556a","disabled":false,"settings":{"fast_load":false}}},"color_schemes":{"scheme-1":{"settings":{"background":"#ffffff","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-2":{"settings":{"background":"#ffffff","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-3":{"settings":{"background":"#e1d4c3","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#e1d4c3","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#e1d4c3","primary_button_text_color":"#1c1c1c","circle_button_background":"#e1d4c3","circle_button_icon":"#1c1c1c"}},"scheme-acc84aea-aef0-4a13-9bf1-d0ad2d331451":{"settings":{"background":"#ffffff","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-9becb208-d410-4633-a00f-950257280e7d":{"settings":{"background":"#1c1c1c","background_gradient":"","text_color":"#ffffff","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-5da3d1db-e471-431e-b57a-0adea90fa9d9":{"settings":{"background":"#e4e2dc","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}}},"installed_preset_name":"Prestige","presets":{"Prestige":{"section_vertical_spacing":"md","heading_font":"instrument_sans_n4","heading_letter_spacing":18,"text_font":"nunito_n4","text_font_size_desktop":14,"button_letter_spacing":18,"color_schemes":{"scheme-1":{"settings":{"background":"#efefef","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-2":{"settings":{"background":"#ffffff","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-3":{"settings":{"background":"#1c1c1c","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}},"success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c"},"Couture":{"section_vertical_spacing":"md","heading_font":"jost_n4","heading_letter_spacing":18,"text_font":"poppins_n4","text_font_size_desktop":14,"button_letter_spacing":18,"color_schemes":{"scheme-1":{"settings":{"background":"#ffffff","text_color":"#5c5c5c","primary_button_background":"#5c5c5c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-2":{"settings":{"background":"#f3f3f3","text_color":"#5c5c5c","primary_button_background":"#5c5c5c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#5c5c5c"}},"scheme-3":{"settings":{"background":"#1c1c1c","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}},"success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c"},"Vogue":{"section_vertical_spacing":"xs","heading_font":"jost_n4","heading_letter_spacing":18,"text_font":"jost_n4","text_font_size_desktop":14,"button_letter_spacing":18,"color_schemes":{"scheme-1":{"settings":{"background":"#ffffff","text_color":"#303030","primary_button_background":"#f5db8b","primary_button_text_color":"#303030","circle_button_background":"#1c1c1c","circle_button_icon":"#f5db8b"}},"scheme-2":{"settings":{"background":"#ffffff","text_color":"#303030","primary_button_background":"#f5db8b","primary_button_text_color":"#303030","circle_button_background":"#1c1c1c","circle_button_icon":"#f5db8b"}},"scheme-3":{"settings":{"background":"#1c1c1c","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}},"success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c"}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "show_trustpilot_top": true,
+    "rating": "5",
+    "trustpilot_top_text": "<div style=\"display:flex;justify-content:center;align-items:center;gap:6px;padding:6px 0 4px;color:#1a1a1a;line-height:1;\">  <div style=\"display:inline-flex;align-items:center;gap:1px;font-size:18px!important;line-height:1!important;letter-spacing:-0.7px;transform:translateY(-1px);\">    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★</span>    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★</span>    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★</span>    <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;display:inline-flex;align-items:center;\">★</span>    <span style=\"position:relative;display:inline-flex;align-items:center;width:1em;height:1em;font-size:18px!important;line-height:1!important;\">      <span style=\"color:#88795d;position:absolute;left:0;top:0;width:50%;overflow:hidden;font-size:18px!important;line-height:1!important;\">★</span>      <span style=\"color:#88795d;font-size:18px!important;line-height:1!important;\">☆</span>    </span>  </div>  <span style=\"font-weight:400;font-size:14px!important;line-height:1!important;display:inline-flex;align-items:center;\">    4.7/5 (2749+ reviews)  </span>\n</div>",
+    "show_productdetails": true,
+    "blinktext_IconColor": "#307A07",
+    "blinktext_TextColor": "#307A07",
+    "blinktext_Text": "Available",
+    "section_vertical_spacing": "md",
+    "button_border_radius": 4,
+    "default_color_scheme": "scheme-acc84aea-aef0-4a13-9bf1-d0ad2d331451",
+    "modal_color_scheme": "scheme-2",
+    "product_rating_color": "#1c1c1c",
+    "product_on_sale_accent": "#e32c2b",
+    "product_sold_out_badge_background": "#efefef",
+    "product_custom_badge_background": "#1c1c1c",
+    "success_color": "#307a07",
+    "warning_color": "#ed8a00",
+    "error_color": "#cb2b2b",
+    "heading_font": "instrument_sans_n6",
+    "heading_text_transform": "uppercase",
+    "heading_font_size_factor": 1.2,
+    "heading_letter_spacing": 5,
+    "text_font": "nunito_n4",
+    "text_font_size_desktop": 14,
+    "text_font_letter_spacing": 0,
+    "button_text_font": "heading",
+    "button_letter_spacing": 5,
+    "stagger_blog_posts_apparition": true,
+    "round_color_swatches": false,
+    "color_swatch_config": "Black:#111111\nJet Black:#050505\nSoft Black:#1C1C1C\nWashed Black:#2B2B2B\nCharcoal Black:#242424\n\nWhite:#FFFFFF\nBright White:#FFFFFF\nPure White:#FFFFFF\nSoft White:#FAFAF7\nOff White:#F7F5EF\nWinter White:#F5F2E8\nIvory:#FFFFF0\nCream:#FFFDD0\nVanilla:#F3E5AB\nPearl:#F8F6F0\nPorcelain:#F5F0E6\nAlabaster:#F2F0E6\nEggshell:#F0EAD6\nNatural:#E8E1D3\nEcru:#CDB891\nOatmeal:#D8CDBA\nOat:#D7CCB8\nLinen:#E8DFD1\nBone:#E3DAC9\nSand Dollar:#E5D9C5\n\nGray:#808080\nLight Gray:#D3D3D3\nMedium Gray:#969696\nDark Gray:#555555\nHeather Gray:#B6B6B4\nHeathered Gray:#B6B6B4\nAsh Gray:#B2BEB5\nCool Gray:#8C92AC\nWarm Gray:#A49E96\nStone Gray:#8C8984\nSlate Gray:#708090\nSteel Gray:#71797E\nSmoke Gray:#848884\nSilver Gray:#C0C0C0\nDove Gray:#B3ADA7\nFog Gray:#D5D5D3\nGraphite:#41424C\nCharcoal:#36454F\nAnthracite:#383E42\nGunmetal:#2A3439\nPewter:#8E8E8E\n\nBeige:#D8C6A5\nLight Beige:#E7D8BE\nDark Beige:#B9A27C\nWarm Beige:#D8BE9A\nNatural Beige:#DCCEB6\nSand:#C2B280\nLight Sand:#DED2B5\nDesert Sand:#EDC9AF\nKhaki:#C3B091\nLight Khaki:#D8C9A3\nDark Khaki:#9B8F55\nChampagne:#E8D6B3\nNude:#D8B49C\nBuff:#F0DCB5\nBiscuit:#D6C19C\nWheat:#F5DEB3\nPutty:#B7A99A\nMushroom:#A89F91\nGreige:#B8AD9E\nStone:#928E85\nTaupe:#8B7E74\nLight Taupe:#B5A79A\nDark Taupe:#62564B\nMink:#8A7463\n\nTan:#D2B48C\nLight Tan:#E1C699\nDark Tan:#A67B5B\nGolden Tan:#C89B62\nCamel:#C19A6B\nLight Camel:#D3B38C\nDark Camel:#A67C52\nCaramel:#C68E5B\nHoney:#D6A85F\nToffee:#A76D42\nCognac:#9A5B3E\n\nBrown:#795548\nLight Brown:#A98274\nMedium Brown:#7B5B4A\nDark Brown:#4E342E\nChocolate:#6B3E26\nChocolate Brown:#5C3317\nDark Chocolate:#3B2417\nCoffee:#6F4E37\nEspresso:#3C2415\nMocha:#967969\nCocoa:#7B3F2A\nChestnut:#954535\nWalnut:#5D432C\nMahogany:#6F2D24\nSaddle Brown:#8B4513\nTobacco:#8A5A44\nCinnamon:#A0522D\nUmber:#635147\nSepia:#704214\nAcorn:#7E5E3B\n\nRed:#C62828\nBright Red:#E53935\nTrue Red:#D32F2F\nClassic Red:#C41E3A\nCherry Red:#D2042D\nScarlet:#FF2400\nCrimson:#DC143C\nRuby:#9B111E\nCardinal Red:#C41E3A\nFire Red:#D71920\nTomato Red:#E34234\nBrick Red:#B22222\nBurnt Red:#9E3D32\nRust Red:#A4472F\nOxblood:#4A0000\nBurgundy:#800020\nDark Burgundy:#5A0018\nWine:#722F37\nMerlot:#73343A\nCabernet:#5B1F29\nMaroon:#800000\nGarnet:#733635\nClaret:#7F1734\nBerry:#8A244E\nCranberry:#9E1B32\n\nPink:#FFC0CB\nLight Pink:#FFB6C1\nSoft Pink:#F4C2C2\nPale Pink:#FADADD\nBaby Pink:#F4C2C2\nBlush:#DE9DA5\nBlush Pink:#E6A6AE\nDusty Pink:#D8A7B1\nRose Pink:#E78FA6\nRose:#D88C9A\nDusty Rose:#CFA0A8\nAntique Rose:#C08081\nMauve Pink:#C89CA9\nNude Pink:#D7A6A1\nPeach Pink:#F7B7A3\nSalmon Pink:#FA8072\nCoral Pink:#F88379\nBubblegum Pink:#FFC1CC\nCandy Pink:#EFA6C1\nHot Pink:#FF69B4\nBright Pink:#FF4F9A\nFuchsia:#FF00A8\nMagenta:#FF00FF\nRaspberry:#E30B5C\nWatermelon:#FC6C85\n\nOrange:#F57C00\nBright Orange:#FF7900\nDark Orange:#CC5500\nBurnt Orange:#CC5500\nRust:#B7410E\nCopper Orange:#C66A3D\nPumpkin:#FF7518\nTangerine:#F28500\nAmber:#FFBF00\nMarigold:#EAA221\nApricot:#FBCEB1\nPeach:#FFE5B4\nLight Peach:#FFDAB9\nCoral:#FF7F50\nTerracotta:#C96A4A\nClay:#B66A50\nPaprika:#9E3D2F\n\nYellow:#FFD600\nBright Yellow:#FFEA00\nLight Yellow:#FFF59D\nPale Yellow:#FFFACD\nSoft Yellow:#F6E7A1\nLemon:#FFF44F\nButter Yellow:#F6E3A1\nButtercream:#F3E5AB\nMustard:#D4A017\nGolden Yellow:#F5B700\nSunflower:#FFC512\nOchre:#CC7722\nMaize:#F4C430\n\nGreen:#388E3C\nBright Green:#43A047\nLight Green:#90EE90\nDark Green:#1B5E20\nForest Green:#355E3B\nHunter Green:#355E3B\nPine Green:#01796F\nEvergreen:#05472A\nBottle Green:#006A4E\nEmerald:#2E8B57\nKelly Green:#4CBB17\nGrass Green:#4F8A10\nLeaf Green:#5B8C3A\nOlive:#808000\nOlive Green:#6B7B3E\nDark Olive:#556B2F\nLight Olive:#A6A96B\nArmy Green:#4B5320\nMilitary Green:#5E6547\nMoss Green:#8A9A5B\nSage:#9CAF88\nSage Green:#9CAF88\nLight Sage:#C3CFB4\nDark Sage:#71806B\nMint:#98D8AA\nMint Green:#98FB98\nSeafoam:#93E9BE\nCeladon:#ACE1AF\nLime:#BFFF00\nLime Green:#32CD32\nChartreuse:#7FFF00\nAvocado:#568203\nFern Green:#4F7942\nEucalyptus:#5F8575\n\nBlue:#1976D2\nBright Blue:#0074D9\nTrue Blue:#0073CF\nLight Blue:#ADD8E6\nPale Blue:#D6EAF8\nBaby Blue:#89CFF0\nPowder Blue:#B0E0E6\nSky Blue:#87CEEB\nIce Blue:#D6F0F3\nDusty Blue:#7E9EB5\nSlate Blue:#6A7F9B\nSteel Blue:#4682B4\nDenim:#496A8B\nDenim Blue:#4F6D8A\nMedium Blue:#3366CC\nRoyal Blue:#4169E1\nCobalt:#0047AB\nElectric Blue:#007FFF\nAzure:#007FFF\nCerulean:#007BA7\nCornflower Blue:#6495ED\nOcean Blue:#2B6F8A\nMarine Blue:#1F4E79\nNavy:#1B2A41\nNavy Blue:#1B2A41\nDark Navy:#0B1F3A\nDeep Navy:#102A43\nMidnight Blue:#191970\nInk Blue:#1F305E\nIndigo:#3F51B5\nPrussian Blue:#003153\nTeal Blue:#367588\nTurquoise:#40E0D0\nAqua:#00FFFF\nAquamarine:#7FFFD4\n\nTeal:#008080\nDark Teal:#006666\nLight Teal:#66B2B2\nDeep Teal:#005F5F\nBlue Green:#0D98BA\nPeacock:#006D75\n\nPurple:#800080\nLight Purple:#B19CD9\nDark Purple:#4B2E5F\nDeep Purple:#4A235A\nViolet:#8F00FF\nLavender:#E6E6FA\nLight Lavender:#EEE6FA\nDusty Lavender:#A99ABF\nLilac:#C8A2C8\nLight Lilac:#D8BFD8\nPlum:#8E4585\nDark Plum:#673147\nEggplant:#614051\nAubergine:#614051\nGrape:#6F2DA8\nAmethyst:#9966CC\nOrchid:#DA70D6\nMauve:#B784A7\nWisteria:#C9A0DC\n\nGold:#D4AF37\nLight Gold:#E6C96C\nDark Gold:#AA771C\nAntique Gold:#B08D57\nChampagne Gold:#D9C28A\nRose Gold:#B76E79\nSilver:#C0C0C0\nMetallic Silver:#AFAFAF\nBronze:#CD7F32\nCopper:#B87333\nBrass:#B5A642\nGunmetal Gray:#4B4F54\n\nMulti:#B85C9E\nMulticolor:#B85C9E\nRainbow:#B85C9E\nColorblock:#8A8A8A\nMixed Color:#8A8A8A\nAssorted:#8A8A8A\nPrinted:#8A8A8A\nPatterned:#8A8A8A\nFloral:#C78FA5\nStriped:#8A8A8A\nPlaid:#776B5D\nCheckered:#777777\nAnimal Print:#A87B4F\nLeopard:#B58B57\nZebra:#F5F5F5\nSnake Print:#817D69\nCamouflage:#596044\n\nBlack:#111111\nMidnight Black:#0A0A0A\nObsidian Black:#050505\nBlack (Leather Look):#1A1718\nBlack (Suede Look):#211E1C\nBlack - Round Neck:#111111\nBlack - V-Neck:#111111\nBlack Stripes:#33322F\n\nAnthracite:#2E3134\nCharcoal Gray:#3B3E40\nGraphite Gray:#4A4D50\nDark Gray:#555555\nPatterned Dark Gray:#4C4F52\nGray:#808080\nGray - Round Neck:#808080\nGray - V-Neck:#808080\nSlate Gray:#708090\nWashed Gray:#9C9A96\nLight Gray:#D3D3D3\nSilver:#BFC1C2\n\nWhite:#FFFFFF\nIvory White:#FAF8F2\nIvory:#FFFFF0\nCream White:#FBF6E9\nCream:#FFFDD0\n\nEcru Beige:#E3D8C3\nSandstone Beige:#CFBBA0\nBeige:#D8C6A5\nBeige - Round Neck:#D8C6A5\nBeige - V-Neck:#D8C6A5\nSand:#C2B280\nTan:#C89F6D\nCamel:#C19A6B\nKhaki:#C3B091\nLight Taupe:#B3A79B\nTaupe:#8B7E74\nTaupe (Suede Look):#877868\nVintage:#9C8B76\n\nLight Brown:#A9744F\nOak Brown:#7E5C3C\nCognac Brown:#9A5027\nBrown:#795548\nCocoa Brown:#5C4033\nDark Brown:#4E342E\nCoffee:#4B3621\nRust:#B04A21\n\nLight Yellow:#F6E7A6\nYellow:#F2C230\nGold:#C9A227\nOrange:#E1701A\nPeach:#F5B79B\n\nCrimson Red:#B01030\nRed:#C62828\nRed - Round Neck:#C62828\nPatterned Red:#A5373F\nDark Red:#8B1A1A\nBurgundy Red:#7C1B2B\nBurgundy:#7B0F26\nWine Red:#71222F\nRed Wine:#6B2733\nDark Red Wine:#54202A\n\nLight Pink:#F6CEDA\nPink:#EE9FBB\nFuchsia:#C2185B\n\nLilac:#C8A2C8\nLight Purple:#B08FD0\nPurple:#6A3FA0\nDark Purple:#4A2461\n\nLight Blue:#ADD8E6\nLight Blue - V-Neck:#ADD8E6\nMint Blue:#A6D6D0\nDusty Blue:#7B97AE\nWashed Blue:#7288A3\nBlue Gray:#6C7E92\nBlue-Gray:#6C7E92\nBlue/Gray:#7C8B9B\nDusk:#4F566E\nBlue:#1976D2\nRoyal Blue:#2B4FA2\nGlitter Blue:#3A6EA5\nPatterned Blue:#3D5C86\nDark Blue:#173A6B\nNavy Blue:#1F3057\nNavy:#1B2A41\nNavy - Round Neck:#1B2A41\n\nTurquoise:#2FB5B5\nTeal:#1F7A7A\n\nApple Green:#8DB600\nLight Green:#8FBF7F\nGreen:#3E7D44\nLight Army Green:#7A855C\nOlive:#708238\nOlive Green:#5C6B32\nArmy Green:#4B5320\nDark Green:#1F4A2C\nBlack Army Green:#2C3222\n\nBlack/White:#777777\nBlack / Brown:#4A3730\nBlack Pink:#8C4A63\nGray / Green:#6E7A63\nGray / Pink:#B49CA3\nLight Pink / Light Gray:#DCC7CC\nLight Blue / Purple:#9AA7D6\nPink / Navy:#8E7187\nPink / Red:#D4566E\nWhite / Light Blue:#DCEAF2\nWhite/Blue:#A9C7DE\n\nLeopard:#B58B57\nLeopard Turquoise:#4F9C9C\nTiger Stripe:#C68A3A\nCamouflage:#6B6B4A\nMulticolor:#8E8E8E\nMulticolored:#8E8E8E\n\nClear:transparent\nTransparent:transparent",
+    "product_image_aspect_ratio": "natural",
+    "show_vendor": false,
+    "product_card_text_font": "heading",
+    "product_color_display": "swatch",
+    "show_product_rating": false,
+    "cart_type": "drawer",
+    "cart_show_free_shipping_bar": true,
+    "cart_free_shipping_threshold": "100",
+    "social_instagram": "https://www.instagram.com/carterandgray.official?igsh=bjJrYm93a2Foajd3&utm_source=qr",
+    "favicon": "shopify://shop_images/CARTER_GRAY_FAVICON_TRANSPARANT.png",
+    "content_for_index": [],
+    "blocks": {
+      "15351435345818755577": {
+        "type": "shopify://apps/pandectes-gdpr/blocks/banner/58c0baa2-6cc1-480c-9ea6-38d6d559556a",
+        "disabled": false,
+        "settings": {
+          "fast_load": false
+        }
+      },
+      "3991723993231535834": {
+        "type": "shopify://apps/trackbee-connect/blocks/trackbee/4ee1d514-671e-48bf-bd4e-9373f4af089a",
+        "disabled": false,
+        "settings": {}
+      }
+    },
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#e1d4c3",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#e1d4c3",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "rgba(0,0,0,0)",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#e1d4c3",
+          "primary_button_text_color": "#1c1c1c",
+          "circle_button_background": "#e1d4c3",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-acc84aea-aef0-4a13-9bf1-d0ad2d331451": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-9becb208-d410-4633-a00f-950257280e7d": {
+        "settings": {
+          "background": "#1c1c1c",
+          "background_gradient": "",
+          "text_color": "#ffffff",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-5da3d1db-e471-431e-b57a-0adea90fa9d9": {
+        "settings": {
+          "background": "#e4e2dc",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      }
+    }
+  },
+  "installed_preset_name": "Prestige",
+  "presets": {
+    "Prestige": {
+      "section_vertical_spacing": "md",
+      "heading_font": "instrument_sans_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "nunito_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#efefef",
+            "text_color": "#1c1c1c",
+            "primary_button_background": "#1c1c1c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#1c1c1c",
+            "primary_button_background": "#1c1c1c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    },
+    "Couture": {
+      "section_vertical_spacing": "md",
+      "heading_font": "jost_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "poppins_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#5c5c5c",
+            "primary_button_background": "#5c5c5c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#f3f3f3",
+            "text_color": "#5c5c5c",
+            "primary_button_background": "#5c5c5c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#5c5c5c"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    },
+    "Vogue": {
+      "section_vertical_spacing": "xs",
+      "heading_font": "jost_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "jost_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#303030",
+            "primary_button_background": "#f5db8b",
+            "primary_button_text_color": "#303030",
+            "circle_button_background": "#1c1c1c",
+            "circle_button_icon": "#f5db8b"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#303030",
+            "primary_button_background": "#f5db8b",
+            "primary_button_text_color": "#303030",
+            "circle_button_background": "#1c1c1c",
+            "circle_button_icon": "#f5db8b"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    }
+  }
+}
